@@ -11,22 +11,25 @@ const MenuBar = ({
     style,
 }: MenuBarProps) => {
     const pathname = usePathname();
-    const isHomeActive = pathname === '/pages/home';
-    const isServicesActive = pathname === '/pages/services';
-    const isAboutActive = pathname === '/pages/about_us';
-    const isFAQActive = pathname === '/pages/faq';
 
+    const isHomeActive = pathname === '/pages/home';
     const homeButtonPressed = () => {
-        router.push('/pages/home');
+        if (!isHomeActive) router.push('/pages/home');
     }
+
+    const isServicesActive = pathname === '/pages/services';
     const servicesButtonPressed = () => {
-        router.push('/pages/services');
+        if (!isServicesActive) router.push('/pages/services');
     }
+
+    const isAboutActive = pathname === '/pages/about_us';
     const aboutButtonPressed = () => {
-        router.push('/pages/about_us');
+        if (!isAboutActive) router.push('/pages/about_us');
     }
+
+    const isFAQActive = pathname === '/pages/faq';
     const faqButtonPressed = () => {
-        router.push('/pages/faq');
+        if (!isFAQActive) router.push('/pages/faq');
     }
 
     return (
@@ -58,7 +61,7 @@ const MenuBar = ({
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        backgroundColor: 'gray',
+        backgroundColor: '#4D4D4D',
         borderRadius: 32,
         paddingHorizontal: 10
     }
