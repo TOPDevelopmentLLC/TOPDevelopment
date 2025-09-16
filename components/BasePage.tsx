@@ -1,26 +1,42 @@
-import { StyleProp, StyleSheet, View, ViewProps } from "react-native";
+import MenuBar from "components/MenuBar";
+import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet, View } from "react-native";
 
-export interface BasePageProps {
-    basePageStyle?: StyleProp<ViewProps>;
-}
-
-const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
-    basePageStyle,
+const BasePage: React.FC<React.PropsWithChildren> = ({
     children
 }) => {
 
     return (
-        <View style={[basePageStyle, styles.container]}>
-            {children}
-        </View>
+        <LinearGradient 
+            style={styles.background}
+            colors={['#ea2320', '#000000', '#000000', '#ea2320']}
+            locations={[0, 0.01, 0.99, 1]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}>
+                <View style={styles.container}>
+                    <MenuBar style={styles.menuBar} />
+                    {children}
+                </View>
+        </LinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000000'
-  },
+    container: {
+        alignItems: 'center'
+    },
+    background: {
+        flex: 1,
+    },
+    menuBar: {
+        marginTop: 20
+    },
+    optionalLeftItem: {
+        position: 'absolute',
+    },
+    optionalRightItem: {
+        position: 'absolute'
+    }
 });
 
 export default BasePage;
