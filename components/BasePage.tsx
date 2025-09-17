@@ -1,10 +1,29 @@
+import BaseButton from "components/BaseButton";
 import MenuBar from "components/MenuBar";
+import { Triangle } from "components/Triangle";
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet, View } from "react-native";
+import { router } from "expo-router";
+import React from "react";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 
-const BasePage: React.FC<React.PropsWithChildren> = ({
-    children
+export interface BasePageProps {
+    displayTriangle?: boolean;
+    optionalLeftItem?: boolean;
+    optionalRightItem?: boolean;
+}
+
+const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
+    children,
+    displayTriangle = false,
+    optionalLeftItem = false,
+    optionalRightItem = false,
 }) => {
+    const pageWidth = Dimensions.get('window').width;
+    const pageHeight = Dimensions.get('window').height;
+
+    const contactUsButtonPressed = () => {
+        router.push('/pages/contact_us');
+    }
 
     return (
         <LinearGradient 
@@ -14,9 +33,40 @@ const BasePage: React.FC<React.PropsWithChildren> = ({
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}>
                 <View style={styles.container}>
+                    {
+                        displayTriangle && (
+                            <Triangle
+                                style={styles.backgroundTriangle} 
+                                direction="down" 
+                                height={pageHeight}
+                                base={pageWidth * 0.9}
+                            />
+                        )
+                    }
                     <MenuBar style={styles.menuBar} />
                     {children}
                 </View>
+                {
+                    optionalLeftItem && (
+                        <View style={styles.optionalLeftItem}>
+                            <Image 
+                                source={require("../assets/images/top_development_logo.png")} 
+                                style={{ width: pageWidth * 0.025, height: pageWidth * 0.025 }}
+                                resizeMode="contain"
+                            />
+                            <Text style={styles.optionalLeftItemText}>TOP Development</Text>
+                        </View>
+                    )
+                }
+                {
+                    optionalRightItem && (
+                        <BaseButton 
+                            style={[styles.optionalRightItem, { right: pageWidth * 0.1 }]} 
+                            text={"Contact Us"} 
+                            onPress={contactUsButtonPressed} 
+                        />
+                    )
+                }
         </LinearGradient>
     );
 }
@@ -28,14 +78,27 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
     },
+    backgroundTriangle: {
+        position: 'absolute',
+    },
     menuBar: {
         marginTop: 20
     },
     optionalLeftItem: {
         position: 'absolute',
+        top: 10,
+        left: 15,
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 10
+    },
+    optionalLeftItemText: {
+        color: '#FFFFFF',
+        fontSize: 24
     },
     optionalRightItem: {
-        position: 'absolute'
+        position: 'absolute',
+        top: 20,
     }
 });
 
