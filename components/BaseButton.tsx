@@ -20,7 +20,7 @@ const BaseButton = ({
             accessible={true}
             accessibilityRole={"button"}
             accessibilityLabel={text}>
-            <Text>{text}</Text>
+            <Text style={styles.text}>{text}</Text>
         </Pressable>
     )
 }
@@ -28,12 +28,13 @@ const BaseButton = ({
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ea2320',
-        paddingHorizontal: 16,
-        paddingVertical: 10,
+        paddingHorizontal: 32,
+        paddingVertical: 16,
         borderRadius: 32,
     },
     text: {
-        fontSize: 18
+        fontSize: 18,
+        color: '#FFFFFF'
     }
 });
 
