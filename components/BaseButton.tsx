@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         paddingVertical: 16,
         borderRadius: 32,
+        alignItems: 'center'
     },
     text: {
         fontSize: 18,
