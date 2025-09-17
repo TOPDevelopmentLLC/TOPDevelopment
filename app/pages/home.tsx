@@ -1,17 +1,55 @@
 import BasePage from "components/BasePage";
-import { StyleSheet } from "react-native";
+import { IconType } from "components/IconContainer";
+import LabeledIcon from "components/LabeledIcon";
+import { Dimensions, Image, StyleSheet, Text } from "react-native";
 
 
 const HomePage = () => {
-
+    const pageWidth = Dimensions.get('window').width;
+    
     return (
-        <BasePage>
+        <BasePage 
+            displayTriangle={true} 
+            optionalLeftItem={true} 
+            optionalRightItem={true}
+        >
+            <Text style={styles.title1}>Redefining Software</Text>
+            <Text style={styles.title2}>Development</Text>
+            <LabeledIcon 
+                style={styles.subTitle}
+                label={"Pushing Production-level Code"} 
+                iconProps={{
+                    name: 'computer',
+                    size: 24,
+                    color: '#FFFFFF',
+                    type: IconType.MaterialIcons
+                }} 
+            />
+            <Image 
+                source={require("../../assets/images/top_development_logo.png")} 
+                style={[styles.logo, { width: pageWidth * 0.25, height: pageWidth * 0.25 }]}
+                resizeMode="contain"
+            />
         </BasePage>
     )
 }
 
 const styles = StyleSheet.create({
-
+    title1: {
+        fontSize: 48,
+        color: '#FFFFFF',
+        marginTop: 10
+    },
+    title2: {
+        fontSize: 48,
+        color: '#ea2320'
+    },
+    subTitle: {
+        marginTop: 20
+    },
+    logo: {
+        marginTop: 20
+    }
 });
 
 export default HomePage;
