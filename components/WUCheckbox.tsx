@@ -31,7 +31,7 @@ const WUCheckbox = ({
         {checked && (
             <IconContainer 
                 iconProps={{
-                    color: color === WUCheckboxColor.Black ? '#000000' : '#FFFFFF',
+                    color: color === WUCheckboxColor.White ? '#000000' : '#FFFFFF',
                     name:'check',
                     size:24,
                     type:IconType.MaterialCommunityIcons
