@@ -32,6 +32,7 @@ const WUPaperTextInput = ({
             style={[style, styles.input, {
                 height: Math.max(multiline ? 100 : 40, inputHeight),
             }]}
+            contentStyle={styles.inputText}
             value={defaultValue}
             onChangeText={(text) => onTextChange(text)}
             disabled={disabled}
@@ -46,7 +47,9 @@ const WUPaperTextInput = ({
 
 const styles = StyleSheet.create({
     input: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#FFFFFF'
+    },
+    inputText: {
         fontFamily: 'Audiowide'
     }
 })
