@@ -1,6 +1,6 @@
 import FAQListItem, { FAQListItemType } from "components/FAQListItem";
 import { FAQ } from "lib/models/FAQ";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { ScrollView, StyleProp, StyleSheet, ViewStyle } from "react-native";
 
 
 export interface FAQListProps {
@@ -33,7 +33,7 @@ const FAQList = ({
     }
 
     return (
-        <View style={[style, type === FAQListType.border ? styles.border : null]}>
+        <ScrollView style={[style, type === FAQListType.border ? styles.border : null]}>
             {
                 FAQs.map((faq,i) => (
                     <FAQListItem 
@@ -44,7 +44,7 @@ const FAQList = ({
                     />
                 ))
             }
-        </View>
+        </ScrollView>
     )
 }
 
