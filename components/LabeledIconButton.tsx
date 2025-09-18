@@ -20,16 +20,19 @@ const LabeledIconButton = ({
             style={[style, styles.container]}
             onPress={onIconClicked}>
             <IconContainer iconProps={iconProps}/>
-            <Text>{label}</Text>
+            <Text style={styles.buttonText}>{label}</Text>
         </TouchableOpacity>
     )
 }
 
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 4
-  },
+    container: {
+        padding: 4
+    },
+    buttonText: {
+        fontFamily: 'Audiowide'
+    }
 });
 
 export default LabeledIconButton;

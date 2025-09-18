@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleProp, TextStyle } from "react-native";
+import { StyleProp, StyleSheet, TextStyle } from "react-native";
 import { TextInput } from "react-native-paper";
 
 
@@ -29,8 +29,7 @@ const WUPaperTextInput = ({
             textColor="#000000"
             activeOutlineColor="#000000" 
             outlineColor="#000000"
-            style={[style, {
-                backgroundColor: '#FFFFFF',
+            style={[style, styles.input, {
                 height: Math.max(multiline ? 100 : 40, inputHeight),
             }]}
             value={defaultValue}
@@ -44,5 +43,12 @@ const WUPaperTextInput = ({
         />
     )
 }
+
+const styles = StyleSheet.create({
+    input: {
+        backgroundColor: '#FFFFFF',
+        fontFamily: 'Audiowide'
+    }
+})
 
 export default WUPaperTextInput;

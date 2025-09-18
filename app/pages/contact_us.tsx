@@ -63,11 +63,13 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 48,
         fontWeight: 'bold',
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        fontFamily: 'Audiowide'
     },
     subTitle: {
         fontSize: 18,
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        fontFamily: 'Audiowide'
     },
     formContainer: {
         gap: 20,

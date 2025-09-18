@@ -22,7 +22,7 @@ const MenuButton = ({
             accessible={true}
             accessibilityRole={"button"}
             accessibilityLabel={text}>
-            <Text style={{ color: active ? '#FFFFFF' : '#B4B4B4' }}>{text}</Text>
+            <Text style={[styles.text, { color: active ? '#FFFFFF' : '#B4B4B4' }]}>{text}</Text>
         </Pressable>
     )
 }
@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
         borderRadius: 32,
     },
     text: {
-        fontSize: 18
+        fontSize: 18,
+        fontFamily: 'Audiowide'
     }
 });
 

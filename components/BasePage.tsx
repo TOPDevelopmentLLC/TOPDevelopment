@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
     },
     optionalLeftItemText: {
         color: '#FFFFFF',
-        fontSize: 24
+        fontSize: 24,
+        fontFamily: 'Audiowide'
     },
     optionalRightItem: {
         position: 'absolute',

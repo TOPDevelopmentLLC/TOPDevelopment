@@ -38,14 +38,17 @@ const styles = StyleSheet.create({
     title1: {
         fontSize: 48,
         color: '#FFFFFF',
-        marginTop: 10
+        marginTop: 10,
+        fontFamily: 'Audiowide'
     },
     title2: {
         fontSize: 48,
-        color: '#ea2320'
+        color: '#ea2320',
+        fontFamily: 'Audiowide'
     },
     subTitle: {
-        marginTop: 20
+        marginTop: 20,
+        fontFamily: 'Audiowide'
     },
     logo: {
         marginTop: 20

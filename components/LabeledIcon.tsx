@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#FFFFFF',
+        fontFamily: 'Audiowide'
     }
 });
 

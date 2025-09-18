@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    fontFamily: 'Audiowide'
   },
 });
 

@@ -24,11 +24,13 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontWeight: 'bold',
         fontSize: 48,
+        fontFamily: 'Audiowide'
     },
     allText: {
         fontSize: 18,
         color: '#FFFFFF',
         flexWrap: 'wrap',
+        fontFamily: 'Audiowide'
     },
 });
 
