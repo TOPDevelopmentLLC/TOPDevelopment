@@ -1,7 +1,10 @@
 import BaseButton from "components/BaseButton";
 import BasePage from "components/BasePage";
+import { IconType } from "components/IconContainer";
 import WUCheckbox, { WUCheckboxColor } from "components/WUCheckbox";
+import WUModal from "components/WUModal";
 import WUPaperTextInput from "components/WUPaperTextInput";
+import * as MailComposer from 'expo-mail-composer';
 import { useState } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 
@@ -13,9 +16,39 @@ const ContactUs = () => {
     const [email,setEmail] = useState('');
     const [message,setMessage] = useState('');
     const [contactAgreement,setContactAgreement] = useState(false);
+    const [modalTitle,setModalTitle] = useState('');
+    const [isModalVisible,setIsModalVisible] = useState(false);
 
     const submitButtonClicked = () => {
-    
+        if (name.length === 0) {
+            setModalTitle('Insert Valid Name');
+            setIsModalVisible(true);
+            return;
+        }
+        if (email.length === 0) {
+            setModalTitle('Insert Valid Email');
+            setIsModalVisible(true);
+            return;
+        }
+        if (message.length === 0) {
+            setModalTitle('Insert a Message to Send');
+            setIsModalVisible(true);
+            return;
+        }
+        const sendEmail = async () => {
+            const isAvailable = await MailComposer.isAvailableAsync();
+            if (isAvailable) {
+                await MailComposer.composeAsync({
+                    recipients: ['thatoneprogrammer@gmail.com'],
+                    subject: 'Subject of the email',
+                    body: message,
+                });
+            } else {
+                setModalTitle('Cannot Connect to Email.');
+                setIsModalVisible(true);
+            }
+        };
+        sendEmail();
     }
 
     return (
@@ -55,6 +88,19 @@ const ContactUs = () => {
                     onPress={submitButtonClicked} 
                 />
             </View>
+            <WUModal 
+                headerProps={{
+                    title: modalTitle,
+                    icon: {
+                        name:'exclamation-circle',
+                        size: 48,
+                        color: '#000000',
+                        type: IconType.AntDesign
+                    }
+                }} 
+                isVisible={isModalVisible} 
+                onDismiss={() => setIsModalVisible(false)}
+            />
         </BasePage>
     )
 }
