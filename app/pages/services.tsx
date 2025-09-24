@@ -1,7 +1,7 @@
 import BaseButton from "components/BaseButton";
 import BasePage from "components/BasePage";
 import Collapsible from "components/Collapsible";
-import { router } from "expo-router";
+import * as MailComposer from 'expo-mail-composer';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 
@@ -18,8 +18,13 @@ const Services = () => {
     const pageHeight = Dimensions.get('window').height;
     const defaultMargin = pageHeight * 0.025;
 
-    const contactUsButtonPressed = () => {
-        router.push('/pages/contact_us');
+    const contactUsButtonPressed = async () => {
+        //todo: fix this when email microservice is created
+        //router.push('/pages/contact_us');
+
+        await MailComposer.composeAsync({
+            recipients: ['thatoneprogrammer@gmail.com'],
+        });
     }
 
     return (

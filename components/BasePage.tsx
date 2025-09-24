@@ -2,7 +2,7 @@ import BaseButton from "components/BaseButton";
 import MenuBar from "components/MenuBar";
 import { Triangle } from "components/Triangle";
 import { LinearGradient } from "expo-linear-gradient";
-import { router } from "expo-router";
+import * as MailComposer from 'expo-mail-composer';
 import React from "react";
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 
@@ -21,8 +21,13 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
     const pageWidth = Dimensions.get('window').width;
     const pageHeight = Dimensions.get('window').height;
 
-    const contactUsButtonPressed = () => {
-        router.push('/pages/contact_us');
+    const contactUsButtonPressed = async () => {
+        //todo: fix this when email microservice is created
+        //router.push('/pages/contact_us');
+
+        await MailComposer.composeAsync({
+            recipients: ['thatoneprogrammer@gmail.com'],
+        });
     }
 
     return (
