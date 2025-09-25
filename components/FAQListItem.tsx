@@ -1,5 +1,6 @@
 import { FAQ } from "lib/models/FAQ";
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import Collapsible from "./Collapsible";
 
 
 export interface FAQListItemProps {
@@ -21,8 +22,7 @@ const FAQListItem = ({
 
     return (
         <View style={[style, type === FAQListItemType.card ? styles.card : null]}>
-            <Text style={styles.cardText}>{FAQ.question}</Text>
-            <Text style={styles.cardText}>{FAQ.answer}</Text>
+            <Collapsible title={FAQ.question} subtext={FAQ.answer} />
         </View>
     )
 }
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderWidth: 2,
         padding: 8,
-        backgroundColor: '#D3D3D3',
+        backgroundColor: '#ea2320',
         borderColor: '#000000'
     },
     cardText: {
