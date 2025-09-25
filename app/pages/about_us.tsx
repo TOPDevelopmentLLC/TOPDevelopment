@@ -14,7 +14,7 @@ const AboutUs = () => {
         <BasePage>
             <ScrollView
                 contentContainerStyle={styles.container}
-                style={{ height: pageHeight * 0.95, paddingBottom: pageHeight * 0.05 }}
+                style={{ height: pageHeight * 0.95, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
             >
                 <Text style={[styles.title, { marginTop: pageHeight * 0.1 }]}>About Us</Text>
                 <View style={[styles.rowContainer, { width: componentWidth, marginTop: pageHeight * 0.05, backgroundColor: '#ea2320' }]}>
