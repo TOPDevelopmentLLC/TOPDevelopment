@@ -31,11 +31,11 @@ const Services = () => {
         <BasePage>
             <ScrollView 
                 contentContainerStyle={styles.container}
-                style={{ height: pageHeight * 0.9 }}
+                style={{ height: pageHeight * 0.925, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
             >
             <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Our Services</Text>
             <Text style={[styles.baseText, { width: componentWidth, marginTop: defaultMargin }]}>{subTitleText}</Text>
-            <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin }]}>
+            <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: '#ea2320' }]}>
                 <View>
                     <Text style={styles.subTitle}>Software Development</Text>
                     <Collapsible
@@ -56,31 +56,31 @@ const Services = () => {
                 </View>
                 <Image 
                     source={require("../../assets/images/code.jpg")} 
-                    style={{ width: pageWidth * 0.25, height: pageWidth * 0.2 }}
-                    resizeMode="contain"
+                    style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
+                    resizeMode="cover"
                 />
             </View>
 
             <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin }]}>
                 <Image 
                     source={require("../../assets/images/seo.jpg")} 
-                    style={{ width: pageWidth * 0.25, height: pageWidth * 0.2 }}
-                    resizeMode="contain"
+                    style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
+                    resizeMode="cover"
                 />
                 <View>
                     <Text style={styles.subTitle}>SEO Services</Text>
                     <Text style={[styles.baseText, { marginTop: defaultMargin, width: pageWidth * 0.3 }]}>{seoServiesDescription}</Text>
                 </View>
             </View>
-            <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin }]}>
+            <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: '#ea2320' }]}>
                 <View>
                     <Text style={styles.subTitle}>Modernization</Text>
                     <Text style={[styles.baseText, { marginTop: defaultMargin, width: pageWidth * 0.3 }]}>{modernizationDescription}</Text>
                 </View>
                 <Image 
                     source={require("../../assets/images/modernization.jpg")} 
-                    style={{ width: pageWidth * 0.25, height: pageWidth * 0.2 }}
-                    resizeMode="contain"
+                    style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
+                    resizeMode="cover"
                 />
             </View>
             <Text style={[styles.subTitle, { marginTop: defaultMargin }]}>Interested to learn more?</Text>
@@ -117,7 +117,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 20
+        gap: 20,
+        paddingVertical: 10,
+        borderRadius: 16
+    },
+    images: {
+        borderRadius: 16
     }
 });
 
