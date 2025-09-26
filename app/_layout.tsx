@@ -9,6 +9,7 @@ import 'react-native-reanimated';
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     Audiowide: require("../assets/fonts/Audiowide-Regular.ttf"),
+    NotoSans: require("../assets/fonts/NotoSans.ttf"),
   });
 
   useEffect(() => {

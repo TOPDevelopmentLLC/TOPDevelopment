@@ -27,7 +27,7 @@ const BaseButton = ({
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ea2320',
+        backgroundColor: '#8c1513',
         paddingHorizontal: 32,
         paddingVertical: 16,
         borderRadius: 32,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         color: '#FFFFFF',
-        fontFamily: 'Audiowide'
+        fontFamily: 'NotoSans'
     }
 });
 

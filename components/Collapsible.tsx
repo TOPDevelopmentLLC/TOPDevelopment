@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     color: '#FFFFFF',
-    fontFamily: 'Audiowide'
+    fontFamily: 'NotoSans'
   },
   measure: {
     position: "absolute",
@@ -122,6 +122,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
     color: '#FFFFFF',
-    fontFamily: 'Audiowide'
+    fontFamily: 'NotoSans'
   },
 });

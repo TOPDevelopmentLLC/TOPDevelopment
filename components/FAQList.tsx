@@ -33,7 +33,11 @@ const FAQList = ({
     }
 
     return (
-        <ScrollView style={[style, type === FAQListType.border ? styles.border : null]}>
+        <ScrollView 
+            style={[style, type === FAQListType.border ? styles.border : null]}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+        >
             {
                 FAQs.map((faq,i) => (
                     <FAQListItem 
