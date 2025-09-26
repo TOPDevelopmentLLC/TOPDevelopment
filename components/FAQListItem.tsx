@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderWidth: 2,
         padding: 8,
-        backgroundColor: '#ea2320',
+        backgroundColor: '#8c1513',
         borderColor: '#000000'
     },
     cardText: {
-        fontFamily: 'Audiowide'
+        fontFamily: 'NotoSans'
     }
 });
 

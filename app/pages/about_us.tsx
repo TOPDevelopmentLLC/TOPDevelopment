@@ -15,9 +15,11 @@ const AboutUs = () => {
             <ScrollView
                 contentContainerStyle={styles.container}
                 style={{ height: pageHeight * 0.95, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
             >
                 <Text style={[styles.title, { marginTop: pageHeight * 0.1 }]}>About Us</Text>
-                <View style={[styles.rowContainer, { width: componentWidth, marginTop: pageHeight * 0.05, backgroundColor: '#ea2320' }]}>
+                <View style={[styles.rowContainer, { width: componentWidth, marginTop: pageHeight * 0.05, backgroundColor: '#8c1513' }]}>
                     <Text style={[styles.subTitle, {  }]}>Our Story</Text>
                     <Text style={[styles.allText, { marginTop: 20, width: pageWidth * 0.4 }]}>{aboutUsMessage1}</Text>
                     <Text style={[styles.allText, { marginTop: 20, width: pageWidth * 0.4 }]}>{aboutUsMessage2}</Text>
@@ -44,13 +46,13 @@ const styles = StyleSheet.create({
     subTitle: {
         fontSize: 24,
         color: '#FFFFFF',
-        fontFamily: 'Audiowide'
+        fontFamily: 'NotoSans'
     },
     allText: {
         fontSize: 18,
         color: '#FFFFFF',
         flexWrap: 'wrap',
-        fontFamily: 'Audiowide'
+        fontFamily: 'NotoSans'
     },
     rowContainer: {
         alignItems: 'center',

@@ -10,7 +10,7 @@ const Services = () => {
     const webDevelopmentSubtext = `We design and build fast, accessible, and scalable websites that convert. From marketing sites to complex web apps, we use modern frameworks (React/Next.js, TypeScript) and a clean design system to deliver pixel-perfect UI.`;
     const mobileDevelopmentSubtext = `We design and ship high-performance iOS and Android apps that feel native and drive results. Using React Native/Expo for speed and shared code—or Swift/Kotlin when a project demands it. Releases are automated, monitored, and built to scale.`;
     const backendDevelopmentSubtext = `We design and operate secure, scalable APIs and data systems. Using Spring Boot (Java/Kotlin), we deliver clean architectures, resilient event-driven workflows, and robust data layers—built for performance, observability, and cost efficiency.`;
-    const seoServiesDescription = `We help businesses increase their online visibility and attract more customers through proven SEO strategies. Specializing in optimizing websites to rank higher on search engines, ensuring your brand is found by the right audience at the right time.\n\nFrom keyword research and on-page optimization to technical SEO, link building and content strategy, we provide comprehensive solutions designed to boost traffic, improve search rankings and maximize ROI. We stay ahead of ever-changing search algorithms so your business stays competitive in today's digital landscape.\n\nWhether you're a small business looking to grow locally or an enterprise targeting a global audience, TOP Development delivers customized SEO strategies that drive measurable results and long-term success.`
+    const seoServiesDescription = `We help businesses increase their online visibility and attract more customers through proven SEO strategies. Specializing in optimizing websites to rank higher on search engines, ensuring your brand is found by the right audience at the right time.\n\nFrom keyword research and on-page optimization to technical SEO, link building and content strategy, we provide comprehensive solutions designed to boost traffic, improve search rankings and maximize ROI.\n\nWe stay ahead of ever-changing search algorithms so your business stays competitive in today's digital landscape. Whether you're a small business looking to grow locally or an enterprise targeting a global audience, TOP Development delivers customized SEO strategies that drive measurable results and long-term success.`
     const modernizationDescription = `We help organizations modernize their IT infrastructure to stay agile, secure and competitie in today's fast-changing digital world. Our team specializes in upgrading legacy systems, migrating workloads to the cloud, and implementing scalable, resilient architectures that support innovation and growth.\n\nFrom cloud adoption and containerization to automation, DevOps and security enhancements, we provide end-to-end infrastructure modernization solutions tailored to your business needs. By leveraging cutting-edge technologies and best practices, we ensure your infrastructure is not only efficient but also future-ready.\n\nWhether you're looking to reduce operational costs, improve performance or accelerate digital transformation, TOP Development is your trusted partner in building the foundation for tomorrow's success.`;
     
     const pageWidth = Dimensions.get('window').width;
@@ -32,64 +32,67 @@ const Services = () => {
             <ScrollView 
                 contentContainerStyle={styles.container}
                 style={{ height: pageHeight * 0.925, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
             >
-            <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Our Services</Text>
-            <Text style={[styles.baseText, { width: componentWidth, marginTop: defaultMargin }]}>{subTitleText}</Text>
-            <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: '#ea2320' }]}>
-                <View>
-                    <Text style={styles.subTitle}>Software Development</Text>
-                    <Collapsible
-                        style={{ width: pageWidth * 0.2 }}
-                        title="Web Development"
-                        subtext={webDevelopmentSubtext}
-                    />
-                    <Collapsible
-                        style={{ width: pageWidth * 0.2 }}
-                        title="Mobile Development"
-                        subtext={mobileDevelopmentSubtext}
-                    />
-                    <Collapsible
-                        style={{ width: pageWidth * 0.2 }}
-                        title="Backend Development"
-                        subtext={backendDevelopmentSubtext}
+                <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Our Services</Text>
+                <Text style={[styles.baseText, { width: componentWidth, marginTop: defaultMargin }]}>{subTitleText}</Text>
+                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: '#8c1513' }]}>
+                    <View style={ styles.textContainer}>
+                        <Text style={styles.subTitle}>Software Development</Text>
+                        <Collapsible
+                            style={styles.collapsibles}
+                            title="Web Development"
+                            subtext={webDevelopmentSubtext}
+                        />
+                        <Collapsible
+                            style={styles.collapsibles}
+                            title="Mobile Development"
+                            subtext={mobileDevelopmentSubtext}
+                        />
+                        <Collapsible
+                            style={styles.collapsibles}
+                            title="Backend Development"
+                            subtext={backendDevelopmentSubtext}
+                        />
+                    </View>
+                    <Image 
+                        source={require("../../assets/images/code.jpg")} 
+                        style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
+                        resizeMode="cover"
                     />
                 </View>
-                <Image 
-                    source={require("../../assets/images/code.jpg")} 
-                    style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
-                    resizeMode="cover"
-                />
-            </View>
 
-            <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin }]}>
-                <Image 
-                    source={require("../../assets/images/seo.jpg")} 
-                    style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
-                    resizeMode="cover"
-                />
-                <View>
-                    <Text style={styles.subTitle}>SEO Services</Text>
-                    <Text style={[styles.baseText, { marginTop: defaultMargin, width: pageWidth * 0.3 }]}>{seoServiesDescription}</Text>
+                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin }]}>
+                    <Image 
+                        source={require("../../assets/images/seo.jpg")} 
+                        style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
+                        resizeMode="cover"
+                    />
+                    <View style={styles.textContainer}>
+                        <Text style={styles.subTitle}>SEO Services</Text>
+                        <Text style={[styles.baseText, { marginTop: defaultMargin }]}>{seoServiesDescription}</Text>
+                    </View>
                 </View>
-            </View>
-            <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: '#ea2320' }]}>
-                <View>
-                    <Text style={styles.subTitle}>Modernization</Text>
-                    <Text style={[styles.baseText, { marginTop: defaultMargin, width: pageWidth * 0.3 }]}>{modernizationDescription}</Text>
+
+                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: '#8c1513' }]}>
+                    <View style={ styles.textContainer}>
+                        <Text style={styles.subTitle}>Modernization</Text>
+                        <Text style={[styles.baseText, { marginTop: defaultMargin }]}>{modernizationDescription}</Text>
+                    </View>
+                    <Image 
+                        source={require("../../assets/images/modernization.jpg")} 
+                        style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
+                        resizeMode="cover"
+                    />
                 </View>
-                <Image 
-                    source={require("../../assets/images/modernization.jpg")} 
-                    style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
-                    resizeMode="cover"
+                <Text style={[styles.subTitle, { marginTop: defaultMargin }]}>Interested to learn more?</Text>
+                <BaseButton 
+                    style={{ marginTop: defaultMargin }}
+                    text={"Contact Us"} 
+                    onPress={contactUsButtonPressed} 
                 />
-            </View>
-            <Text style={[styles.subTitle, { marginTop: defaultMargin }]}>Interested to learn more?</Text>
-            <BaseButton 
-                style={{ marginTop: defaultMargin }}
-                text={"Contact Us"} 
-                onPress={contactUsButtonPressed} 
-            />
-        </ScrollView>
+            </ScrollView>
         </BasePage>
     )
 }
@@ -104,25 +107,32 @@ const styles = StyleSheet.create({
         color: '#FFFFFF'
     },
     subTitle: {
-        fontFamily: 'Audiowide',
+        fontFamily: 'NotoSans',
         fontSize: 24,
         color: '#FFFFFF',
         alignSelf: 'center'
     },
     baseText: {
-        fontFamily: 'Audiowide',
+        fontFamily: 'NotoSans',
         color: '#FFFFFF'
     },
     rowContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 20,
-        paddingVertical: 10,
+        gap: 50,
+        padding: 20,
         borderRadius: 16
+    },
+    textContainer: {
+        width: '45%',
+        alignItems: 'center'
     },
     images: {
         borderRadius: 16
+    },
+    collapsibles: {
+        width: '85%'
     }
 });
 
