@@ -1,4 +1,5 @@
 import IconContainer, { IconProps } from "components/IconContainer";
+import { FontFamily, Spacing } from "constants/theme";
 import { StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
 
 export interface LabeledIconButtonProps {
@@ -16,7 +17,7 @@ const LabeledIconButton = ({
 }: LabeledIconButtonProps) => {
 
     return (
-        <TouchableOpacity 
+        <TouchableOpacity
             style={[style, styles.container]}
             onPress={onIconClicked}>
             <IconContainer iconProps={iconProps}/>
@@ -28,10 +29,10 @@ const LabeledIconButton = ({
 
 const styles = StyleSheet.create({
     container: {
-        padding: 4
+        padding: Spacing.xs,
     },
     buttonText: {
-        fontFamily: 'Audiowide'
+        fontFamily: FontFamily.primary,
     }
 });
 

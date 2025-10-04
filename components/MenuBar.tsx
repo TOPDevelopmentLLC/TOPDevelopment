@@ -1,4 +1,5 @@
 import MenuButton from "components/MenuButton";
+import { BorderRadius, Colors, Spacing } from "constants/theme";
 import { router, usePathname } from 'expo-router';
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
@@ -34,24 +35,24 @@ const MenuBar = ({
 
     return (
         <View style={[style, styles.container]}>
-            <MenuButton 
-                text={"Home"} 
-                onPress={homeButtonPressed} 
+            <MenuButton
+                text={"Home"}
+                onPress={homeButtonPressed}
                 active={isHomeActive}
             />
-            <MenuButton 
-                text={"Services"} 
-                onPress={servicesButtonPressed} 
+            <MenuButton
+                text={"Services"}
+                onPress={servicesButtonPressed}
                 active={isServicesActive}
             />
-            <MenuButton 
-                text={"About"} 
-                onPress={aboutButtonPressed} 
+            <MenuButton
+                text={"About"}
+                onPress={aboutButtonPressed}
                 active={isAboutActive}
             />
-            <MenuButton 
-                text={"FAQs"} 
-                onPress={faqButtonPressed} 
+            <MenuButton
+                text={"FAQs"}
+                onPress={faqButtonPressed}
                 active={isFAQActive}
             />
         </View>
@@ -61,9 +62,9 @@ const MenuBar = ({
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        backgroundColor: '#4D4D4D',
-        borderRadius: 32,
-        paddingHorizontal: 10
+        backgroundColor: Colors.background.gray,
+        borderRadius: BorderRadius.lg,
+        paddingHorizontal: Spacing.sm,
     }
 });
 

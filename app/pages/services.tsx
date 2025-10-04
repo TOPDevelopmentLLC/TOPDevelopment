@@ -1,6 +1,7 @@
 import BaseButton from "components/BaseButton";
 import BasePage from "components/BasePage";
 import Collapsible from "components/Collapsible";
+import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
 import * as MailComposer from 'expo-mail-composer';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
@@ -37,7 +38,7 @@ const Services = () => {
             >
                 <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Our Services</Text>
                 <Text style={[styles.baseText, { width: componentWidth, marginTop: defaultMargin }]}>{subTitleText}</Text>
-                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: '#8c1513' }]}>
+                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: Colors.background.redDark }]}>
                     <View style={ styles.textContainer}>
                         <Text style={styles.subTitle}>Software Development</Text>
                         <Collapsible
@@ -56,16 +57,16 @@ const Services = () => {
                             subtext={backendDevelopmentSubtext}
                         />
                     </View>
-                    <Image 
-                        source={require("../../assets/images/code.jpg")} 
+                    <Image
+                        source={require("../../assets/images/code.jpg")}
                         style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
                         resizeMode="cover"
                     />
                 </View>
 
                 <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin }]}>
-                    <Image 
-                        source={require("../../assets/images/seo.jpg")} 
+                    <Image
+                        source={require("../../assets/images/seo.jpg")}
                         style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
                         resizeMode="cover"
                     />
@@ -75,22 +76,22 @@ const Services = () => {
                     </View>
                 </View>
 
-                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: '#8c1513' }]}>
+                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: Colors.background.redDark }]}>
                     <View style={ styles.textContainer}>
                         <Text style={styles.subTitle}>Modernization</Text>
                         <Text style={[styles.baseText, { marginTop: defaultMargin }]}>{modernizationDescription}</Text>
                     </View>
-                    <Image 
-                        source={require("../../assets/images/modernization.jpg")} 
+                    <Image
+                        source={require("../../assets/images/modernization.jpg")}
                         style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
                         resizeMode="cover"
                     />
                 </View>
                 <Text style={[styles.subTitle, { marginTop: defaultMargin }]}>Interested to learn more?</Text>
-                <BaseButton 
+                <BaseButton
                     style={{ marginTop: defaultMargin }}
-                    text={"Contact Us"} 
-                    onPress={contactUsButtonPressed} 
+                    text={"Contact Us"}
+                    onPress={contactUsButtonPressed}
                 />
             </ScrollView>
         </BasePage>
@@ -102,34 +103,34 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontFamily: 'Audiowide',
-        fontSize: 48,
-        color: '#FFFFFF'
+        fontFamily: FontFamily.primary,
+        fontSize: FontSize.xl,
+        color: Colors.text.primary,
     },
     subTitle: {
-        fontFamily: 'NotoSans',
-        fontSize: 24,
-        color: '#FFFFFF',
-        alignSelf: 'center'
+        fontFamily: FontFamily.secondary,
+        fontSize: FontSize.lg,
+        color: Colors.text.primary,
+        alignSelf: 'center',
     },
     baseText: {
-        fontFamily: 'NotoSans',
-        color: '#FFFFFF'
+        fontFamily: FontFamily.secondary,
+        color: Colors.text.primary,
     },
     rowContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 50,
-        padding: 20,
-        borderRadius: 16
+        gap: Spacing.xxl,
+        padding: Spacing.lg,
+        borderRadius: BorderRadius.md,
     },
     textContainer: {
         width: '45%',
         alignItems: 'center'
     },
     images: {
-        borderRadius: 16
+        borderRadius: BorderRadius.md,
     },
     collapsibles: {
         width: '85%'

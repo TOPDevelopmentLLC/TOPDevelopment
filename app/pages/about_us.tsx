@@ -1,4 +1,5 @@
 import BasePage from "components/BasePage";
+import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 
 
@@ -19,14 +20,14 @@ const AboutUs = () => {
                 showsHorizontalScrollIndicator={false}
             >
                 <Text style={[styles.title, { marginTop: pageHeight * 0.1 }]}>About Us</Text>
-                <View style={[styles.rowContainer, { width: componentWidth, marginTop: pageHeight * 0.05, backgroundColor: '#8c1513' }]}>
-                    <Text style={[styles.subTitle, {  }]}>Our Story</Text>
-                    <Text style={[styles.allText, { marginTop: 20, width: pageWidth * 0.4 }]}>{aboutUsMessage1}</Text>
-                    <Text style={[styles.allText, { marginTop: 20, width: pageWidth * 0.4 }]}>{aboutUsMessage2}</Text>
+                <View style={[styles.rowContainer, { width: componentWidth, marginTop: pageHeight * 0.05, backgroundColor: Colors.background.redDark }]}>
+                    <Text style={styles.subTitle}>Our Story</Text>
+                    <Text style={[styles.allText, { marginTop: Spacing.lg, width: pageWidth * 0.4 }]}>{aboutUsMessage1}</Text>
+                    <Text style={[styles.allText, { marginTop: Spacing.lg, width: pageWidth * 0.4 }]}>{aboutUsMessage2}</Text>
                 </View>
                 <View style={[styles.rowContainer, { width: componentWidth, marginTop: pageHeight * 0.05 }]}>
                     <Text style={styles.subTitle}>Our Mission</Text>
-                    <Text style={[styles.allText, { marginTop: 20, width: pageWidth * 0.4 }]}>{aboutUsMessage3}</Text>
+                    <Text style={[styles.allText, { marginTop: Spacing.lg, width: pageWidth * 0.4 }]}>{aboutUsMessage3}</Text>
                 </View>
             </ScrollView>
         </BasePage>
@@ -38,26 +39,26 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        color: '#FFFFFF',
+        color: Colors.text.primary,
         fontWeight: 'bold',
-        fontSize: 48,
-        fontFamily: 'Audiowide'
+        fontSize: FontSize.xl,
+        fontFamily: FontFamily.primary,
     },
     subTitle: {
-        fontSize: 24,
-        color: '#FFFFFF',
-        fontFamily: 'NotoSans'
+        fontSize: FontSize.lg,
+        color: Colors.text.primary,
+        fontFamily: FontFamily.secondary,
     },
     allText: {
-        fontSize: 18,
-        color: '#FFFFFF',
+        fontSize: FontSize.md,
+        color: Colors.text.primary,
         flexWrap: 'wrap',
-        fontFamily: 'NotoSans'
+        fontFamily: FontFamily.secondary,
     },
     rowContainer: {
         alignItems: 'center',
-        padding: 20,
-        borderRadius: 16
+        padding: Spacing.lg,
+        borderRadius: BorderRadius.md,
     }
 });
 

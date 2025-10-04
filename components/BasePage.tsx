@@ -1,6 +1,7 @@
 import BaseButton from "components/BaseButton";
 import MenuBar from "components/MenuBar";
 import { Triangle } from "components/Triangle";
+import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
 import { LinearGradient } from "expo-linear-gradient";
 import * as MailComposer from 'expo-mail-composer';
 import React from "react";
@@ -31,9 +32,9 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
     }
 
     return (
-        <LinearGradient 
+        <LinearGradient
             style={styles.background}
-            colors={['#ea2320', '#000000', '#000000', '#ea2320']}
+            colors={[Colors.brand.primary, Colors.brand.black, Colors.brand.black, Colors.brand.primary]}
             locations={[0, 0.01, 0.99, 1]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}>
@@ -41,8 +42,8 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
                     {
                         displayTriangle && (
                             <Triangle
-                                style={styles.backgroundTriangle} 
-                                direction="down" 
+                                style={styles.backgroundTriangle}
+                                direction="down"
                                 height={pageHeight}
                                 base={pageWidth * 0.9}
                             />
@@ -54,8 +55,8 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
                 {
                     optionalLeftItem && (
                         <View style={styles.optionalLeftItem}>
-                            <Image 
-                                source={require("../assets/images/top_development_logo.png")} 
+                            <Image
+                                source={require("../assets/images/top_development_logo.png")}
                                 style={{ width: pageWidth * 0.025, height: pageWidth * 0.025 }}
                                 resizeMode="contain"
                             />
@@ -65,10 +66,10 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
                 }
                 {
                     optionalRightItem && (
-                        <BaseButton 
-                            style={[styles.optionalRightItem, { right: pageWidth * 0.1 }]} 
-                            text={"Contact Us"} 
-                            onPress={contactUsButtonPressed} 
+                        <BaseButton
+                            style={[styles.optionalRightItem, { right: pageWidth * 0.1 }]}
+                            text={"Contact Us"}
+                            onPress={contactUsButtonPressed}
                         />
                     )
                 }
@@ -87,24 +88,24 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     menuBar: {
-        marginTop: 20
+        marginTop: Spacing.lg,
     },
     optionalLeftItem: {
         position: 'absolute',
-        top: 10,
+        top: Spacing.sm,
         left: 15,
         alignItems: 'center',
         flexDirection: 'row',
-        gap: 10
+        gap: Spacing.sm,
     },
     optionalLeftItemText: {
-        color: '#FFFFFF',
-        fontSize: 24,
-        fontFamily: 'Audiowide'
+        color: Colors.text.primary,
+        fontSize: FontSize.lg,
+        fontFamily: FontFamily.primary,
     },
     optionalRightItem: {
         position: 'absolute',
-        top: 20,
+        top: Spacing.lg,
     }
 });
 
