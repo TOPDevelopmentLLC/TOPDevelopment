@@ -3,12 +3,12 @@ import { IconType } from "components/IconContainer";
 import LabeledIcon from "components/LabeledIcon";
 import { Colors, FontFamily, FontSize, Spacing } from "constants/theme";
 import { Image } from "expo-image";
-import { Dimensions, StyleSheet, Text } from "react-native";
+import { useScreenDimensions } from "hooks/useScreenDimensions";
+import { StyleSheet, Text } from "react-native";
 
 
 const HomePage = () => {
-    const pageWidth = Dimensions.get('window').width;
-    const pageHeight = Dimensions.get('window').height;
+    const { pageWidth, pageHeight } = useScreenDimensions();
     
     return (
         <BasePage

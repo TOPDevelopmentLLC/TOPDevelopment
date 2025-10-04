@@ -1,13 +1,13 @@
 import BasePage from "components/BasePage";
 import FAQList, { FAQListType } from "components/FAQList";
 import { Colors, FontFamily, FontSize } from "constants/theme";
+import { useScreenDimensions } from "hooks/useScreenDimensions";
 import { FAQ } from "lib/models/FAQ";
-import { Dimensions, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 
 const FAQs = () => {
-    const pageWidth = Dimensions.get('window').width;
-    const pageHeight = Dimensions.get('window').height;
+    const { pageWidth, pageHeight } = useScreenDimensions();
     const questions: FAQ[] = [
         {
             question: "What services does TOP Development offer?",

@@ -6,14 +6,14 @@ import WUModal from "components/WUModal";
 import WUPaperTextInput from "components/WUPaperTextInput";
 import { Colors, FontFamily, FontSize, Spacing } from "constants/theme";
 import { globalStyles } from "constants/globalStyles";
+import { useScreenDimensions } from "hooks/useScreenDimensions";
 import * as MailComposer from 'expo-mail-composer';
 import { useState } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 
 const ContactUs = () => {
-    const pageWidth = Dimensions.get('window').width;
-    const pageHeight = Dimensions.get('window').height;
+    const { pageWidth, pageHeight } = useScreenDimensions();
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
     const [message,setMessage] = useState('');

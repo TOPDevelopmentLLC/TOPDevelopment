@@ -3,8 +3,9 @@ import BasePage from "components/BasePage";
 import Collapsible from "components/Collapsible";
 import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
 import { Image } from "expo-image";
+import { useScreenDimensions } from "hooks/useScreenDimensions";
 import * as MailComposer from 'expo-mail-composer';
-import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 
 const Services = () => {
@@ -14,10 +15,9 @@ const Services = () => {
     const backendDevelopmentSubtext = `We design and operate secure, scalable APIs and data systems. Using Spring Boot (Java/Kotlin), we deliver clean architectures, resilient event-driven workflows, and robust data layers—built for performance, observability, and cost efficiency.`;
     const seoServiesDescription = `We help businesses increase their online visibility and attract more customers through proven SEO strategies. Specializing in optimizing websites to rank higher on search engines, ensuring your brand is found by the right audience at the right time.\n\nFrom keyword research and on-page optimization to technical SEO, link building and content strategy, we provide comprehensive solutions designed to boost traffic, improve search rankings and maximize ROI.\n\nWe stay ahead of ever-changing search algorithms so your business stays competitive in today's digital landscape. Whether you're a small business looking to grow locally or an enterprise targeting a global audience, TOP Development delivers customized SEO strategies that drive measurable results and long-term success.`
     const modernizationDescription = `We help organizations modernize their IT infrastructure to stay agile, secure and competitie in today's fast-changing digital world. Our team specializes in upgrading legacy systems, migrating workloads to the cloud, and implementing scalable, resilient architectures that support innovation and growth.\n\nFrom cloud adoption and containerization to automation, DevOps and security enhancements, we provide end-to-end infrastructure modernization solutions tailored to your business needs. By leveraging cutting-edge technologies and best practices, we ensure your infrastructure is not only efficient but also future-ready.\n\nWhether you're looking to reduce operational costs, improve performance or accelerate digital transformation, TOP Development is your trusted partner in building the foundation for tomorrow's success.`;
-    
-    const pageWidth = Dimensions.get('window').width;
+
+    const { pageWidth, pageHeight } = useScreenDimensions();
     const componentWidth = pageWidth * 0.6;
-    const pageHeight = Dimensions.get('window').height;
     const defaultMargin = pageHeight * 0.025;
 
     const contactUsButtonPressed = async () => {

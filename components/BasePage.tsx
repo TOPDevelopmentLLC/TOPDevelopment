@@ -4,9 +4,10 @@ import { Triangle } from "components/Triangle";
 import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
+import { useScreenDimensions } from "hooks/useScreenDimensions";
 import * as MailComposer from 'expo-mail-composer';
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export interface BasePageProps {
     displayTriangle?: boolean;
@@ -20,8 +21,7 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
     optionalLeftItem = false,
     optionalRightItem = false,
 }) => {
-    const pageWidth = Dimensions.get('window').width;
-    const pageHeight = Dimensions.get('window').height;
+    const { pageWidth, pageHeight } = useScreenDimensions();
 
     const contactUsButtonPressed = async () => {
         //todo: fix this when email microservice is created
