@@ -8,6 +8,7 @@ import { Dimensions, StyleSheet, Text } from "react-native";
 
 const HomePage = () => {
     const pageWidth = Dimensions.get('window').width;
+    const pageHeight = Dimensions.get('window').height;
     
     return (
         <BasePage
@@ -15,7 +16,7 @@ const HomePage = () => {
             optionalLeftItem={true}
             optionalRightItem={true}
         >
-            <Text style={styles.title1}>Redefining Software</Text>
+            <Text style={[styles.title1, { marginTop: pageHeight * 0.05 }]}>Redefining Software</Text>
             <Text style={styles.title2}>Development</Text>
             <LabeledIcon
                 style={styles.subTitle}

@@ -31,13 +31,13 @@ const Services = () => {
 
     return (
         <BasePage>
+            <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Our Services</Text>
             <ScrollView 
                 contentContainerStyle={styles.container}
                 style={{ height: pageHeight * 0.925, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
             >
-                <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Our Services</Text>
                 <Text style={[styles.baseText, { width: componentWidth, marginTop: defaultMargin }]}>{subTitleText}</Text>
                 <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: Colors.background.redDark }]}>
                     <View style={ styles.textContainer}>

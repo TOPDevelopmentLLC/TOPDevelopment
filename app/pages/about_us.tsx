@@ -13,13 +13,13 @@ const AboutUs = () => {
 
     return (
         <BasePage>
+            <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>About Us</Text>
             <ScrollView
                 contentContainerStyle={styles.container}
                 style={{ height: pageHeight * 0.95, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
             >
-                <Text style={[styles.title, { marginTop: pageHeight * 0.1 }]}>About Us</Text>
                 <View style={[styles.rowContainer, { width: componentWidth, marginTop: pageHeight * 0.05, backgroundColor: Colors.background.redDark }]}>
                     <Text style={styles.subTitle}>Our Story</Text>
                     <Text style={[styles.allText, { marginTop: Spacing.lg, width: pageWidth * 0.4 }]}>{aboutUsMessage1}</Text>
