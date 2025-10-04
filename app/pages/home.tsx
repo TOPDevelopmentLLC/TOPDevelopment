@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
         color: Colors.text.primary,
         marginTop: Spacing.sm,
         fontFamily: FontFamily.primary,
+        textAlign: 'center'
     },
     title2: {
         fontSize: FontSize.xl,
