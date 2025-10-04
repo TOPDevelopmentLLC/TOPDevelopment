@@ -1,12 +1,13 @@
 import BasePage from "components/BasePage";
 import FAQList, { FAQListType } from "components/FAQList";
+import { Colors, FontFamily, FontSize } from "constants/theme";
+import { useScreenDimensions } from "hooks/useScreenDimensions";
 import { FAQ } from "lib/models/FAQ";
-import { Dimensions, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 
 const FAQs = () => {
-    const pageWidth = Dimensions.get('window').width;
-    const pageHeight = Dimensions.get('window').height;
+    const { pageWidth, pageHeight } = useScreenDimensions();
     const questions: FAQ[] = [
         {
             question: "What services does TOP Development offer?",
@@ -85,10 +86,10 @@ const FAQs = () => {
     return (
         <BasePage>
             <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>FAQs</Text>
-            <FAQList 
-                style={{ width: pageWidth * 0.4, height: pageHeight * 0.75, marginTop: pageHeight * 0.05 }}
-                type={FAQListType.card} 
-                FAQs={questions} 
+            <FAQList
+                style={{ width: pageWidth, height: pageHeight * 0.75, marginTop: pageHeight * 0.05 }}
+                type={FAQListType.card}
+                FAQs={questions}
             />
         </BasePage>
     )
@@ -96,10 +97,10 @@ const FAQs = () => {
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 48,
+        fontSize: FontSize.xl,
         fontWeight: 'bold',
-        color: '#FFFFFF',
-        fontFamily: 'Audiowide'
+        color: Colors.text.primary,
+        fontFamily: FontFamily.primary,
     },
 });
 

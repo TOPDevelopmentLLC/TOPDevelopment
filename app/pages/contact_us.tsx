@@ -4,14 +4,16 @@ import { IconType } from "components/IconContainer";
 import WUCheckbox, { WUCheckboxColor } from "components/WUCheckbox";
 import WUModal from "components/WUModal";
 import WUPaperTextInput from "components/WUPaperTextInput";
+import { Colors, FontFamily, FontSize, Spacing } from "constants/theme";
+import { globalStyles } from "constants/globalStyles";
+import { useScreenDimensions } from "hooks/useScreenDimensions";
 import * as MailComposer from 'expo-mail-composer';
 import { useState } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 
 const ContactUs = () => {
-    const pageWidth = Dimensions.get('window').width;
-    const pageHeight = Dimensions.get('window').height;
+    const { pageWidth, pageHeight } = useScreenDimensions();
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
     const [message,setMessage] = useState('');
@@ -93,8 +95,8 @@ const ContactUs = () => {
                     title: modalTitle,
                     icon: {
                         name:'exclamation-circle',
-                        size: 48,
-                        color: '#000000',
+                        size: FontSize.xl,
+                        color: Colors.brand.black,
                         type: IconType.AntDesign
                     }
                 }} 
@@ -107,21 +109,21 @@ const ContactUs = () => {
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 48,
+        fontSize: FontSize.xl,
         fontWeight: 'bold',
-        color: '#FFFFFF',
-        fontFamily: 'Audiowide'
+        color: Colors.text.primary,
+        fontFamily: FontFamily.primary,
     },
     subTitle: {
-        fontSize: 18,
-        color: '#FFFFFF',
-        fontFamily: 'Audiowide'
+        fontSize: FontSize.md,
+        color: Colors.text.primary,
+        fontFamily: FontFamily.primary,
     },
     formContainer: {
-        gap: 20,
+        gap: Spacing.lg,
         alignSelf: 'center',
         alignItems: 'center',
-        marginTop: 50
+        marginTop: Spacing.xxl,
     },
 });
 

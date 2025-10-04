@@ -1,10 +1,13 @@
 import BaseButton from "components/BaseButton";
 import MenuBar from "components/MenuBar";
 import { Triangle } from "components/Triangle";
+import { Colors, FontFamily, FontSize, Spacing } from "constants/theme";
+import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import * as MailComposer from 'expo-mail-composer';
-import React from "react";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import { useScreenDimensions } from "hooks/useScreenDimensions";
+import React, { useState } from "react";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 
 export interface BasePageProps {
     displayTriangle?: boolean;
@@ -18,8 +21,9 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
     optionalLeftItem = false,
     optionalRightItem = false,
 }) => {
-    const pageWidth = Dimensions.get('window').width;
-    const pageHeight = Dimensions.get('window').height;
+    const { pageWidth, pageHeight } = useScreenDimensions();
+    const [initialWidth] = useState(Dimensions.get('window').width);
+    const shouldShowOptionalItems = pageWidth >= initialWidth * 0.5;
 
     const contactUsButtonPressed = async () => {
         //todo: fix this when email microservice is created
@@ -31,9 +35,9 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
     }
 
     return (
-        <LinearGradient 
+        <LinearGradient
             style={styles.background}
-            colors={['#ea2320', '#000000', '#000000', '#ea2320']}
+            colors={[Colors.brand.primary, Colors.brand.black, Colors.brand.black, Colors.brand.primary]}
             locations={[0, 0.01, 0.99, 1]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}>
@@ -41,8 +45,8 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
                     {
                         displayTriangle && (
                             <Triangle
-                                style={styles.backgroundTriangle} 
-                                direction="down" 
+                                style={styles.backgroundTriangle}
+                                direction="down"
                                 height={pageHeight}
                                 base={pageWidth * 0.9}
                             />
@@ -52,23 +56,26 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
                     {children}
                 </View>
                 {
-                    optionalLeftItem && (
+                    optionalLeftItem && shouldShowOptionalItems && (
                         <View style={styles.optionalLeftItem}>
-                            <Image 
-                                source={require("../assets/images/top_development_logo.png")} 
+                            <Image
+                                source={require("../assets/images/top_development_logo.png")}
                                 style={{ width: pageWidth * 0.025, height: pageWidth * 0.025 }}
-                                resizeMode="contain"
+                                contentFit="cover"
+                                priority="high"
+                                transition={200}
+                                cachePolicy="memory-disk"
                             />
                             <Text style={styles.optionalLeftItemText}>TOP Development</Text>
                         </View>
                     )
                 }
                 {
-                    optionalRightItem && (
-                        <BaseButton 
-                            style={[styles.optionalRightItem, { right: pageWidth * 0.1 }]} 
-                            text={"Contact Us"} 
-                            onPress={contactUsButtonPressed} 
+                    optionalRightItem && shouldShowOptionalItems && (
+                        <BaseButton
+                            style={[styles.optionalRightItem, { right: pageWidth * 0.1 }]}
+                            text={"Contact Us"}
+                            onPress={contactUsButtonPressed}
                         />
                     )
                 }
@@ -87,24 +94,24 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     menuBar: {
-        marginTop: 20
+        marginTop: Spacing.lg,
     },
     optionalLeftItem: {
         position: 'absolute',
-        top: 10,
+        top: Spacing.sm,
         left: 15,
         alignItems: 'center',
         flexDirection: 'row',
-        gap: 10
+        gap: Spacing.sm,
     },
     optionalLeftItemText: {
-        color: '#FFFFFF',
-        fontSize: 24,
-        fontFamily: 'Audiowide'
+        color: Colors.text.primary,
+        fontSize: FontSize.lg,
+        fontFamily: FontFamily.primary,
     },
     optionalRightItem: {
         position: 'absolute',
-        top: 20,
+        top: Spacing.lg,
     }
 });
 

@@ -1,3 +1,4 @@
+import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
 import { Pressable, StyleProp, StyleSheet, Text, ViewStyle } from "react-native";
 
 
@@ -16,13 +17,13 @@ const MenuButton = ({
 }: MenuButtonProps) => {
 
     return (
-        <Pressable 
+        <Pressable
             style={[style, styles.container]}
             onPress={onPress}
             accessible={true}
             accessibilityRole={"button"}
             accessibilityLabel={text}>
-            <Text style={[styles.text, { color: active ? '#FFFFFF' : '#B4B4B4' }]}>{text}</Text>
+            <Text style={[styles.text, { color: active ? Colors.text.primary : Colors.text.secondary }]}>{text}</Text>
         </Pressable>
     )
 }
@@ -30,13 +31,13 @@ const MenuButton = ({
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'transparent',
-        paddingHorizontal: 16,
-        paddingVertical: 10,
-        borderRadius: 32,
+        paddingHorizontal: Spacing.md,
+        paddingVertical: Spacing.sm,
+        borderRadius: BorderRadius.lg,
     },
     text: {
-        fontSize: 18,
-        fontFamily: 'Audiowide'
+        fontSize: FontSize.md,
+        fontFamily: FontFamily.primary,
     }
 });
 

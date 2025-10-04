@@ -1,41 +1,67 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Centralized theme constants for TOP Development website
  */
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
+// Brand Colors
 export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+  brand: {
+    primary: '#ea2320',      // TOP Development red
+    primaryDark: '#8c1513',  // Darker red for backgrounds
+    black: '#000000',
+    white: '#FFFFFF',
   },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+  text: {
+    primary: '#FFFFFF',
+    secondary: '#B4B4B4',
+    tertiary: '#4D4D4D',
+  },
+  background: {
+    dark: '#000000',
+    gray: '#4D4D4D',
+    red: '#ea2320',
+    redDark: '#8c1513',
   },
 };
 
+// Typography
+export const FontFamily = {
+  primary: 'Audiowide',  // Headers, titles, menu items
+  secondary: 'NotoSans', // Body text, descriptions
+};
+
+export const FontSize = {
+  xl: 48,      // Page titles
+  lg: 24,      // Section titles
+  md: 18,      // Body text, subtitles
+  sm: 16,      // Smaller text
+  xs: 14,      // Extra small text
+};
+
+// Spacing
+export const Spacing = {
+  xs: 4,
+  sm: 10,
+  md: 16,
+  lg: 20,
+  xl: 32,
+  xxl: 50,
+};
+
+// Border Radius
+export const BorderRadius = {
+  sm: 8,
+  md: 16,
+  lg: 32,
+};
+
+// Legacy Fonts (for platform-specific needs)
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
     sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
     serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
     rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
     mono: 'ui-monospace',
   },
   default: {

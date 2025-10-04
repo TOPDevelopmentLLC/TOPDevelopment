@@ -1,4 +1,5 @@
 import IconContainer, { IconProps } from "components/IconContainer";
+import { Colors, FontFamily, Spacing } from "constants/theme";
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
 export interface LabeledIconProps {
@@ -23,14 +24,14 @@ const LabeledIcon = ({
 
 const styles = StyleSheet.create({
     container: {
-        padding: 4,
+        padding: Spacing.xs,
         flexDirection: 'row',
-        gap: 16,
+        gap: Spacing.md,
         alignItems: 'center',
     },
     text: {
-        color: '#FFFFFF',
-        fontFamily: 'Audiowide'
+        color: Colors.text.primary,
+        fontFamily: FontFamily.primary,
     }
 });
 

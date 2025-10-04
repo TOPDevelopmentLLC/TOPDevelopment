@@ -1,8 +1,11 @@
 import BaseButton from "components/BaseButton";
 import BasePage from "components/BasePage";
 import Collapsible from "components/Collapsible";
+import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
+import { Image } from "expo-image";
+import { useScreenDimensions } from "hooks/useScreenDimensions";
 import * as MailComposer from 'expo-mail-composer';
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 
 const Services = () => {
@@ -12,10 +15,9 @@ const Services = () => {
     const backendDevelopmentSubtext = `We design and operate secure, scalable APIs and data systems. Using Spring Boot (Java/Kotlin), we deliver clean architectures, resilient event-driven workflows, and robust data layers—built for performance, observability, and cost efficiency.`;
     const seoServiesDescription = `We help businesses increase their online visibility and attract more customers through proven SEO strategies. Specializing in optimizing websites to rank higher on search engines, ensuring your brand is found by the right audience at the right time.\n\nFrom keyword research and on-page optimization to technical SEO, link building and content strategy, we provide comprehensive solutions designed to boost traffic, improve search rankings and maximize ROI.\n\nWe stay ahead of ever-changing search algorithms so your business stays competitive in today's digital landscape. Whether you're a small business looking to grow locally or an enterprise targeting a global audience, TOP Development delivers customized SEO strategies that drive measurable results and long-term success.`
     const modernizationDescription = `We help organizations modernize their IT infrastructure to stay agile, secure and competitie in today's fast-changing digital world. Our team specializes in upgrading legacy systems, migrating workloads to the cloud, and implementing scalable, resilient architectures that support innovation and growth.\n\nFrom cloud adoption and containerization to automation, DevOps and security enhancements, we provide end-to-end infrastructure modernization solutions tailored to your business needs. By leveraging cutting-edge technologies and best practices, we ensure your infrastructure is not only efficient but also future-ready.\n\nWhether you're looking to reduce operational costs, improve performance or accelerate digital transformation, TOP Development is your trusted partner in building the foundation for tomorrow's success.`;
-    
-    const pageWidth = Dimensions.get('window').width;
+
+    const { pageWidth, pageHeight } = useScreenDimensions();
     const componentWidth = pageWidth * 0.6;
-    const pageHeight = Dimensions.get('window').height;
     const defaultMargin = pageHeight * 0.025;
 
     const contactUsButtonPressed = async () => {
@@ -29,15 +31,15 @@ const Services = () => {
 
     return (
         <BasePage>
+            <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Our Services</Text>
             <ScrollView 
                 contentContainerStyle={styles.container}
                 style={{ height: pageHeight * 0.925, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
             >
-                <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Our Services</Text>
                 <Text style={[styles.baseText, { width: componentWidth, marginTop: defaultMargin }]}>{subTitleText}</Text>
-                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: '#8c1513' }]}>
+                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: Colors.background.redDark }]}>
                     <View style={ styles.textContainer}>
                         <Text style={styles.subTitle}>Software Development</Text>
                         <Collapsible
@@ -56,18 +58,26 @@ const Services = () => {
                             subtext={backendDevelopmentSubtext}
                         />
                     </View>
-                    <Image 
-                        source={require("../../assets/images/code.jpg")} 
+                    <Image
+                        source={require("../../assets/images/code.jpg")}
                         style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
-                        resizeMode="cover"
+                        contentFit="cover"
+                        priority="normal"
+                        transition={300}
+                        cachePolicy="memory-disk"
+                        recyclingKey="code-image"
                     />
                 </View>
 
                 <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin }]}>
-                    <Image 
-                        source={require("../../assets/images/seo.jpg")} 
+                    <Image
+                        source={require("../../assets/images/seo.jpg")}
                         style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
-                        resizeMode="cover"
+                        contentFit="cover"
+                        priority="normal"
+                        transition={300}
+                        cachePolicy="memory-disk"
+                        recyclingKey="seo-image"
                     />
                     <View style={styles.textContainer}>
                         <Text style={styles.subTitle}>SEO Services</Text>
@@ -75,22 +85,26 @@ const Services = () => {
                     </View>
                 </View>
 
-                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: '#8c1513' }]}>
+                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: Colors.background.redDark }]}>
                     <View style={ styles.textContainer}>
                         <Text style={styles.subTitle}>Modernization</Text>
                         <Text style={[styles.baseText, { marginTop: defaultMargin }]}>{modernizationDescription}</Text>
                     </View>
-                    <Image 
-                        source={require("../../assets/images/modernization.jpg")} 
+                    <Image
+                        source={require("../../assets/images/modernization.jpg")}
                         style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
-                        resizeMode="cover"
+                        contentFit="cover"
+                        priority="normal"
+                        transition={300}
+                        cachePolicy="memory-disk"
+                        recyclingKey="modernization-image"
                     />
                 </View>
                 <Text style={[styles.subTitle, { marginTop: defaultMargin }]}>Interested to learn more?</Text>
-                <BaseButton 
+                <BaseButton
                     style={{ marginTop: defaultMargin }}
-                    text={"Contact Us"} 
-                    onPress={contactUsButtonPressed} 
+                    text={"Contact Us"}
+                    onPress={contactUsButtonPressed}
                 />
             </ScrollView>
         </BasePage>
@@ -102,34 +116,34 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontFamily: 'Audiowide',
-        fontSize: 48,
-        color: '#FFFFFF'
+        fontFamily: FontFamily.primary,
+        fontSize: FontSize.xl,
+        color: Colors.text.primary,
     },
     subTitle: {
-        fontFamily: 'NotoSans',
-        fontSize: 24,
-        color: '#FFFFFF',
-        alignSelf: 'center'
+        fontFamily: FontFamily.secondary,
+        fontSize: FontSize.lg,
+        color: Colors.text.primary,
+        alignSelf: 'center',
     },
     baseText: {
-        fontFamily: 'NotoSans',
-        color: '#FFFFFF'
+        fontFamily: FontFamily.secondary,
+        color: Colors.text.primary,
     },
     rowContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 50,
-        padding: 20,
-        borderRadius: 16
+        gap: Spacing.xxl,
+        padding: Spacing.lg,
+        borderRadius: BorderRadius.md,
     },
     textContainer: {
         width: '45%',
         alignItems: 'center'
     },
     images: {
-        borderRadius: 16
+        borderRadius: BorderRadius.md,
     },
     collapsibles: {
         width: '85%'

@@ -1,34 +1,40 @@
 import BasePage from "components/BasePage";
 import { IconType } from "components/IconContainer";
 import LabeledIcon from "components/LabeledIcon";
-import { Dimensions, Image, StyleSheet, Text } from "react-native";
+import { Colors, FontFamily, FontSize, Spacing } from "constants/theme";
+import { Image } from "expo-image";
+import { useScreenDimensions } from "hooks/useScreenDimensions";
+import { StyleSheet, Text } from "react-native";
 
 
 const HomePage = () => {
-    const pageWidth = Dimensions.get('window').width;
+    const { pageWidth, pageHeight } = useScreenDimensions();
     
     return (
-        <BasePage 
-            displayTriangle={true} 
-            optionalLeftItem={true} 
+        <BasePage
+            displayTriangle={true}
+            optionalLeftItem={true}
             optionalRightItem={true}
         >
-            <Text style={styles.title1}>Redefining Software</Text>
+            <Text style={[styles.title1, { marginTop: pageHeight * 0.05 }]}>Redefining Software</Text>
             <Text style={styles.title2}>Development</Text>
-            <LabeledIcon 
+            <LabeledIcon
                 style={styles.subTitle}
-                label={"Pushing Production-level Code"} 
+                label={"Pushing Production-level Code"}
                 iconProps={{
                     name: 'computer',
-                    size: 24,
-                    color: '#FFFFFF',
+                    size: FontSize.lg,
+                    color: Colors.text.primary,
                     type: IconType.MaterialIcons
-                }} 
+                }}
             />
-            <Image 
-                source={require("../../assets/images/top_development_logo.png")} 
+            <Image
+                source={require("../../assets/images/top_development_logo.png")}
                 style={[styles.logo, { width: pageWidth * 0.25, height: pageWidth * 0.25 }]}
-                resizeMode="contain"
+                contentFit="cover"
+                priority="high"
+                transition={200}
+                cachePolicy="memory-disk"
             />
         </BasePage>
     )
@@ -36,22 +42,23 @@ const HomePage = () => {
 
 const styles = StyleSheet.create({
     title1: {
-        fontSize: 48,
-        color: '#FFFFFF',
-        marginTop: 10,
-        fontFamily: 'Audiowide'
+        fontSize: FontSize.xl,
+        color: Colors.text.primary,
+        marginTop: Spacing.sm,
+        fontFamily: FontFamily.primary,
+        textAlign: 'center'
     },
     title2: {
-        fontSize: 48,
-        color: '#ea2320',
-        fontFamily: 'Audiowide'
+        fontSize: FontSize.xl,
+        color: Colors.brand.primary,
+        fontFamily: FontFamily.primary,
     },
     subTitle: {
-        marginTop: 20,
-        fontFamily: 'Audiowide'
+        marginTop: Spacing.lg,
+        fontFamily: FontFamily.primary,
     },
     logo: {
-        marginTop: 20
+        marginTop: Spacing.lg,
     }
 });
 
