@@ -87,7 +87,7 @@ const FAQs = () => {
         <BasePage>
             <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>FAQs</Text>
             <FAQList
-                style={{ width: pageWidth * 0.4, height: pageHeight * 0.75, marginTop: pageHeight * 0.05 }}
+                style={{ width: pageWidth, height: pageHeight * 0.75, marginTop: pageHeight * 0.05 }}
                 type={FAQListType.card}
                 FAQs={questions}
             />

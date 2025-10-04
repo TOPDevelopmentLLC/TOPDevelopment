@@ -33,18 +33,19 @@ const FAQList = ({
     }
 
     return (
-        <ScrollView 
+        <ScrollView
             style={[style, type === FAQListType.border ? styles.border : null]}
+            contentContainerStyle={styles.contentContainer}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
         >
             {
                 FAQs.map((faq,i) => (
-                    <FAQListItem 
-                        key={i} 
+                    <FAQListItem
+                        key={i}
                         style={styles.faqItem}
-                        FAQ={faq} 
-                        type={getItemType()} 
+                        FAQ={faq}
+                        type={getItemType()}
                     />
                 ))
             }
@@ -53,8 +54,12 @@ const FAQList = ({
 }
 
 const styles = StyleSheet.create({
+    contentContainer: {
+        alignItems: 'center',
+    },
     faqItem: {
-        marginVertical: 4
+        marginVertical: 4,
+        width: '60%',
     },
     border: {
         borderRadius: 8,
