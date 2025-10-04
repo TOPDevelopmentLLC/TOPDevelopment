@@ -2,8 +2,9 @@ import BaseButton from "components/BaseButton";
 import BasePage from "components/BasePage";
 import Collapsible from "components/Collapsible";
 import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
+import { Image } from "expo-image";
 import * as MailComposer from 'expo-mail-composer';
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 
 
 const Services = () => {
@@ -60,7 +61,11 @@ const Services = () => {
                     <Image
                         source={require("../../assets/images/code.jpg")}
                         style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
-                        resizeMode="cover"
+                        contentFit="cover"
+                        priority="normal"
+                        transition={300}
+                        cachePolicy="memory-disk"
+                        recyclingKey="code-image"
                     />
                 </View>
 
@@ -68,7 +73,11 @@ const Services = () => {
                     <Image
                         source={require("../../assets/images/seo.jpg")}
                         style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
-                        resizeMode="cover"
+                        contentFit="cover"
+                        priority="normal"
+                        transition={300}
+                        cachePolicy="memory-disk"
+                        recyclingKey="seo-image"
                     />
                     <View style={styles.textContainer}>
                         <Text style={styles.subTitle}>SEO Services</Text>
@@ -84,7 +93,11 @@ const Services = () => {
                     <Image
                         source={require("../../assets/images/modernization.jpg")}
                         style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
-                        resizeMode="cover"
+                        contentFit="cover"
+                        priority="normal"
+                        transition={300}
+                        cachePolicy="memory-disk"
+                        recyclingKey="modernization-image"
                     />
                 </View>
                 <Text style={[styles.subTitle, { marginTop: defaultMargin }]}>Interested to learn more?</Text>

@@ -2,7 +2,8 @@ import BasePage from "components/BasePage";
 import { IconType } from "components/IconContainer";
 import LabeledIcon from "components/LabeledIcon";
 import { Colors, FontFamily, FontSize, Spacing } from "constants/theme";
-import { Dimensions, Image, StyleSheet, Text } from "react-native";
+import { Image } from "expo-image";
+import { Dimensions, StyleSheet, Text } from "react-native";
 
 
 const HomePage = () => {
@@ -29,7 +30,10 @@ const HomePage = () => {
             <Image
                 source={require("../../assets/images/top_development_logo.png")}
                 style={[styles.logo, { width: pageWidth * 0.25, height: pageWidth * 0.25 }]}
-                resizeMode="contain"
+                contentFit="cover"
+                priority="high"
+                transition={200}
+                cachePolicy="memory-disk"
             />
         </BasePage>
     )

@@ -2,10 +2,11 @@ import BaseButton from "components/BaseButton";
 import MenuBar from "components/MenuBar";
 import { Triangle } from "components/Triangle";
 import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
+import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import * as MailComposer from 'expo-mail-composer';
 import React from "react";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 
 export interface BasePageProps {
     displayTriangle?: boolean;
@@ -58,7 +59,10 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
                             <Image
                                 source={require("../assets/images/top_development_logo.png")}
                                 style={{ width: pageWidth * 0.025, height: pageWidth * 0.025 }}
-                                resizeMode="contain"
+                                contentFit="cover"
+                                priority="high"
+                                transition={200}
+                                cachePolicy="memory-disk"
                             />
                             <Text style={styles.optionalLeftItemText}>TOP Development</Text>
                         </View>
