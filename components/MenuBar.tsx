@@ -13,24 +13,24 @@ const MenuBar = ({
 }: MenuBarProps) => {
     const pathname = usePathname();
 
-    const isHomeActive = pathname === '/pages/home';
+    const isHomeActive = pathname === '/home';
     const homeButtonPressed = () => {
-        if (!isHomeActive) router.push('/pages/home');
+        if (!isHomeActive) router.push('/home');
     }
 
-    const isServicesActive = pathname === '/pages/services';
+    const isServicesActive = pathname === '/services';
     const servicesButtonPressed = () => {
-        if (!isServicesActive) router.push('/pages/services');
+        if (!isServicesActive) router.push('/services');
     }
 
-    const isAboutActive = pathname === '/pages/about_us';
+    const isAboutActive = pathname === '/about_us';
     const aboutButtonPressed = () => {
-        if (!isAboutActive) router.push('/pages/about_us');
+        if (!isAboutActive) router.push('/about_us');
     }
 
-    const isFAQActive = pathname === '/pages/faq';
+    const isFAQActive = pathname === '/faq';
     const faqButtonPressed = () => {
-        if (!isFAQActive) router.push('/pages/faq');
+        if (!isFAQActive) router.push('/faq');
     }
 
     return (
