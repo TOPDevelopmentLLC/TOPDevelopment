@@ -4,6 +4,7 @@ import Collapsible from "components/Collapsible";
 import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
 import { Image } from "expo-image";
 import * as MailComposer from 'expo-mail-composer';
+import { useResponsive } from "hooks/useResponsive";
 import { useScreenDimensions } from "hooks/useScreenDimensions";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
@@ -17,8 +18,9 @@ const Services = () => {
     const modernizationDescription = `We help organizations modernize their IT infrastructure to stay agile, secure and competitie in today's fast-changing digital world. Our team specializes in upgrading legacy systems, migrating workloads to the cloud, and implementing scalable, resilient architectures that support innovation and growth.\n\nFrom cloud adoption and containerization to automation, DevOps and security enhancements, we provide end-to-end infrastructure modernization solutions tailored to your business needs. By leveraging cutting-edge technologies and best practices, we ensure your infrastructure is not only efficient but also future-ready.\n\nWhether you're looking to reduce operational costs, improve performance or accelerate digital transformation, TOP Development is your trusted partner in building the foundation for tomorrow's success.`;
 
     const { pageWidth, pageHeight } = useScreenDimensions();
-    const componentWidth = pageWidth * 0.6;
+    const { isMobile, contentWidth } = useResponsive();
     const defaultMargin = pageHeight * 0.025;
+    const imageSize = isMobile ? pageWidth * 0.6 : pageWidth * 0.25;
 
     const contactUsButtonPressed = async () => {
         //todo: fix this when email microservice is created
@@ -38,9 +40,9 @@ const Services = () => {
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
             >
-                <Text style={[styles.baseText, { width: componentWidth, marginTop: defaultMargin }]}>{subTitleText}</Text>
-                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: Colors.background.redDark }]}>
-                    <View style={ styles.textContainer}>
+                <Text style={[styles.baseText, { width: contentWidth, marginTop: defaultMargin }]}>{subTitleText}</Text>
+                <View style={[styles.rowContainer, { width: contentWidth, marginTop: defaultMargin, backgroundColor: Colors.background.redDark, flexDirection: isMobile ? 'column' : 'row' }]}>
+                    <View style={[styles.textContainer, { width: isMobile ? '90%' : '45%' }]}>
                         <Text style={styles.subTitle}>Software Development</Text>
                         <Collapsible
                             style={styles.collapsibles}
@@ -60,7 +62,7 @@ const Services = () => {
                     </View>
                     <Image
                         source={require("../../assets/images/code.jpg")}
-                        style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
+                        style={[styles.images, { width: imageSize, height: imageSize * 0.8, marginTop: isMobile ? defaultMargin : 0 }]}
                         contentFit="cover"
                         priority="normal"
                         transition={300}
@@ -69,30 +71,30 @@ const Services = () => {
                     />
                 </View>
 
-                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin }]}>
+                <View style={[styles.rowContainer, { width: contentWidth, marginTop: defaultMargin, flexDirection: isMobile ? 'column-reverse' : 'row' }]}>
                     <Image
                         source={require("../../assets/images/seo.jpg")}
-                        style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
+                        style={[styles.images, { width: imageSize, height: imageSize * 0.8, marginBottom: isMobile ? defaultMargin : 0 }]}
                         contentFit="cover"
                         priority="normal"
                         transition={300}
                         cachePolicy="memory-disk"
                         recyclingKey="seo-image"
                     />
-                    <View style={styles.textContainer}>
+                    <View style={[styles.textContainer, { width: isMobile ? '90%' : '45%' }]}>
                         <Text style={styles.subTitle}>SEO Services</Text>
                         <Text style={[styles.baseText, { marginTop: defaultMargin }]}>{seoServiesDescription}</Text>
                     </View>
                 </View>
 
-                <View style={[styles.rowContainer, { width: componentWidth, marginTop: defaultMargin, backgroundColor: Colors.background.redDark }]}>
-                    <View style={ styles.textContainer}>
+                <View style={[styles.rowContainer, { width: contentWidth, marginTop: defaultMargin, backgroundColor: Colors.background.redDark, flexDirection: isMobile ? 'column' : 'row' }]}>
+                    <View style={[styles.textContainer, { width: isMobile ? '90%' : '45%' }]}>
                         <Text style={styles.subTitle}>Modernization</Text>
                         <Text style={[styles.baseText, { marginTop: defaultMargin }]}>{modernizationDescription}</Text>
                     </View>
                     <Image
                         source={require("../../assets/images/modernization.jpg")}
-                        style={[styles.images, { width: pageWidth * 0.25, height: pageWidth * 0.2 }]}
+                        style={[styles.images, { width: imageSize, height: imageSize * 0.8, marginTop: isMobile ? defaultMargin : 0 }]}
                         contentFit="cover"
                         priority="normal"
                         transition={300}
@@ -131,7 +133,6 @@ const styles = StyleSheet.create({
         color: Colors.text.primary,
     },
     rowContainer: {
-        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         gap: Spacing.xxl,
@@ -139,7 +140,6 @@ const styles = StyleSheet.create({
         borderRadius: BorderRadius.md,
     },
     textContainer: {
-        width: '45%',
         alignItems: 'center'
     },
     images: {
