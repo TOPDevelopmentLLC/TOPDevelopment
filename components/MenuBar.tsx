@@ -33,6 +33,11 @@ const MenuBar = ({
         if (!isFAQActive) router.push('/faq');
     }
 
+    const isPricingActive = pathname === '/pricing';
+    const pricingButtonPressed = () => {
+        if (!isPricingActive) router.push('/pricing');
+    }
+
     return (
         <View style={[style, styles.container]}>
             <MenuButton
@@ -44,6 +49,11 @@ const MenuBar = ({
                 text={"Services"}
                 onPress={servicesButtonPressed}
                 active={isServicesActive}
+            />
+            <MenuButton
+                text={"Pricing"}
+                onPress={pricingButtonPressed}
+                active={isPricingActive}
             />
             <MenuButton
                 text={"About"}
