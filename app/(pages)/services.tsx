@@ -36,7 +36,7 @@ const Services = () => {
             <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Our Services</Text>
             <ScrollView 
                 contentContainerStyle={styles.container}
-                style={{ height: pageHeight * 0.925, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
+                style={{ height: pageHeight * 0.85, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
             >

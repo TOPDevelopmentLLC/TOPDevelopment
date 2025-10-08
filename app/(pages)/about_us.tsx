@@ -17,7 +17,7 @@ const AboutUs = () => {
             <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>About Us</Text>
             <ScrollView
                 contentContainerStyle={styles.container}
-                style={{ height: pageHeight * 0.95, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
+                style={{ height: pageHeight * 0.9, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
             >
