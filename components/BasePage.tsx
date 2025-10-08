@@ -27,7 +27,7 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
 
     const contactUsButtonPressed = async () => {
         //todo: fix this when email microservice is created
-        //router.push('/pages/contact_us');
+        //router.push('/contact_us');
 
         await MailComposer.composeAsync({
             recipients: ['thatoneprogrammer@gmail.com'],
