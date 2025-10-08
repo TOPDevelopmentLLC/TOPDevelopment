@@ -1,12 +1,13 @@
 import BasePage from "components/BasePage";
 import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
+import { useResponsive } from "hooks/useResponsive";
 import { useScreenDimensions } from "hooks/useScreenDimensions";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 
 const Pricing = () => {
     const { pageWidth, pageHeight } = useScreenDimensions();
-    const componentWidth = pageWidth * 0.75;
+    const { isMobile, contentWidth } = useResponsive();
     const defaultMargin = pageHeight * 0.025;
 
     return (
@@ -19,10 +20,10 @@ const Pricing = () => {
                 showsHorizontalScrollIndicator={false}
             >
                 {/* Build Pricing Section */}
-                <View style={[styles.sectionContainer, { width: componentWidth, marginTop: defaultMargin }]}>
+                <View style={[styles.sectionContainer, { width: contentWidth, marginTop: defaultMargin }]}>
                     <Text style={styles.sectionTitle}>Website Builds</Text>
 
-                    <View style={styles.pricingGrid}>
+                    <View style={[styles.pricingGrid, { maxWidth: contentWidth }]}>
                         {/* Simple Landing Page */}
                         <View style={styles.pricingCard}>
                             <Text style={styles.tierTitle}>Simple Landing Page</Text>
@@ -133,9 +134,9 @@ const Pricing = () => {
                 </View>
 
                 {/* Simple Add-ons Section */}
-                <View style={[styles.sectionContainer, { width: componentWidth, marginTop: defaultMargin * 2 }]}>
+                <View style={[styles.sectionContainer, { width: contentWidth, marginTop: defaultMargin * 2 }]}>
                     <Text style={styles.sectionTitle}>Simple Add-Ons</Text>
-                    <View style={styles.addonsGrid}>
+                    <View style={[styles.addonsGrid, { maxWidth: contentWidth }]}>
                         <View style={styles.addonCard}>
                             <Text style={styles.addonName}>Additional Support Hours</Text>
                             <Text style={styles.addonPrice}>$125/hour</Text>
@@ -188,10 +189,10 @@ const Pricing = () => {
                 </View>
 
                 {/* Maintenance Pricing Section */}
-                <View style={[styles.sectionContainer, { width: componentWidth, marginTop: defaultMargin * 2, marginBottom: defaultMargin * 2 }]}>
+                <View style={[styles.sectionContainer, { width: contentWidth, marginTop: defaultMargin * 2, marginBottom: defaultMargin * 2 }]}>
                     <Text style={styles.sectionTitle}>Maintenance & Support</Text>
 
-                    <View style={styles.maintenanceGrid}>
+                    <View style={[styles.maintenanceGrid, { maxWidth: contentWidth }]}>
                         {/* Essentials Only */}
                         <View style={styles.maintenanceCard}>
                             <Text style={styles.tierTitle}>Essentials Only</Text>
@@ -288,8 +289,10 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.background.gray,
         borderRadius: BorderRadius.md,
         padding: Spacing.lg,
-        width: '45%',
-        minWidth: 300,
+        width: '100%',
+        maxWidth: 450,
+        flex: 1,
+        minWidth: 280,
     },
     highlightedCard: {
         backgroundColor: Colors.background.redDark,
@@ -342,7 +345,9 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.background.gray,
         borderRadius: BorderRadius.md,
         padding: Spacing.md,
-        minWidth: 200,
+        minWidth: 160,
+        flex: 1,
+        maxWidth: 220,
         alignItems: 'center',
     },
     addonName: {
@@ -368,8 +373,10 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.background.gray,
         borderRadius: BorderRadius.md,
         padding: Spacing.lg,
-        width: '45%',
-        minWidth: 300,
+        width: '100%',
+        maxWidth: 450,
+        flex: 1,
+        minWidth: 280,
     },
     annualPrice: {
         fontFamily: FontFamily.secondary,
