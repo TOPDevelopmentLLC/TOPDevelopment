@@ -41,7 +41,7 @@ const ContactUs = () => {
 
         try {
             const response = await axios.post(
-                'http://Emailmicroservice-env.eba-atkqjpfd.us-east-2.elasticbeanstalk.com/api/v1/email/send',
+                'https://api.thatoneprogrammer.dev/api/v1/email/send',
                 {
                     to: email,
                     textBody: message,
