@@ -1,3 +1,4 @@
+import axios from 'axios';
 import BaseButton from "components/BaseButton";
 import BasePage from "components/BasePage";
 import { IconType } from "components/IconContainer";
@@ -5,9 +6,7 @@ import WUCheckbox, { WUCheckboxColor } from "components/WUCheckbox";
 import WUModal from "components/WUModal";
 import WUPaperTextInput from "components/WUPaperTextInput";
 import { Colors, FontFamily, FontSize, Spacing } from "constants/theme";
-import { globalStyles } from "constants/globalStyles";
 import { useScreenDimensions } from "hooks/useScreenDimensions";
-import * as MailComposer from 'expo-mail-composer';
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -16,12 +15,14 @@ const ContactUs = () => {
     const { pageWidth, pageHeight } = useScreenDimensions();
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
+    const [phone,setPhone] = useState('');
+    const [company,setCompany] = useState('');
     const [message,setMessage] = useState('');
     const [contactAgreement,setContactAgreement] = useState(false);
     const [modalTitle,setModalTitle] = useState('');
     const [isModalVisible,setIsModalVisible] = useState(false);
 
-    const submitButtonClicked = () => {
+    const submitButtonClicked = async () => {
         if (name.length === 0) {
             setModalTitle('Insert Valid Name');
             setIsModalVisible(true);
@@ -37,20 +38,52 @@ const ContactUs = () => {
             setIsModalVisible(true);
             return;
         }
-        const sendEmail = async () => {
-            const isAvailable = await MailComposer.isAvailableAsync();
-            if (isAvailable) {
-                await MailComposer.composeAsync({
-                    recipients: ['thatoneprogrammer@gmail.com'],
-                    subject: 'Subject of the email',
-                    body: message,
-                });
-            } else {
-                setModalTitle('Cannot Connect to Email.');
+
+        try {
+            const response = await axios.post(
+                'http://Emailmicroservice-env.eba-atkqjpfd.us-east-2.elasticbeanstalk.com/api/v1/email/send',
+                {
+                    to: email,
+                    textBody: message,
+                    customerName: name,
+                    customerPhone: phone,
+                    customerCompany: company
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-KEY': 'ThatOneProgrammerDevelopment.AppAPIKey'
+                    },
+                    timeout: 10000 // 10 second timeout
+                }
+            );
+
+            if (response.status === 200) {
+                setModalTitle('Email Sent Successfully!');
                 setIsModalVisible(true);
+                // Clear form
+                setName('');
+                setEmail('');
+                setPhone('');
+                setCompany('');
+                setMessage('');
+                setContactAgreement(false);
             }
-        };
-        sendEmail();
+        } catch (error: any) {
+            if (error.code === 'ECONNABORTED') {
+                setModalTitle('Request Timeout - Please Try Again');
+            } else if (error.response) {
+                setModalTitle(`Failed to Send Email: ${error.response.status}`);
+                console.error('Error response:', error.response.data);
+            } else if (error.request) {
+                setModalTitle('No Response from Server');
+                console.error('No response received:', error.request);
+            } else {
+                setModalTitle(`Error: ${error.message || 'Cannot Connect'}`);
+            }
+            setIsModalVisible(true);
+            console.error('Request error:', error);
+        }
     }
 
     return (
@@ -66,16 +99,26 @@ const ContactUs = () => {
                     placeholder={"Name"} 
                     onTextChange={(newName) => setName(newName)} 
                 />
-                <WUPaperTextInput 
+                <WUPaperTextInput
                     style={{ width: pageWidth * 0.5 }}
-                    placeholder={"Email"} 
-                    onTextChange={(newEmail) => setEmail(newEmail)} 
+                    placeholder={"Email"}
+                    onTextChange={(newEmail) => setEmail(newEmail)}
                 />
-                <WUPaperTextInput 
+                <WUPaperTextInput
                     style={{ width: pageWidth * 0.5 }}
-                    placeholder={"Message"} 
-                    multiline={true} 
-                    onTextChange={(newMessage) => setMessage(newMessage)} 
+                    placeholder={"Phone Number"}
+                    onTextChange={(newPhone) => setPhone(newPhone)}
+                />
+                <WUPaperTextInput
+                    style={{ width: pageWidth * 0.5 }}
+                    placeholder={"Company"}
+                    onTextChange={(newCompany) => setCompany(newCompany)}
+                />
+                <WUPaperTextInput
+                    style={{ width: pageWidth * 0.5 }}
+                    placeholder={"Message"}
+                    multiline={true}
+                    onTextChange={(newMessage) => setMessage(newMessage)}
                 />
                 <WUCheckbox 
                     style={{ width: pageWidth * 0.5 }}

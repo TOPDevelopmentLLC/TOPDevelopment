@@ -4,7 +4,7 @@ import { Triangle } from "components/Triangle";
 import { Colors, FontFamily, FontSize, Spacing } from "constants/theme";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import * as MailComposer from 'expo-mail-composer';
+import { router } from 'expo-router';
 import { useScreenDimensions } from "hooks/useScreenDimensions";
 import React, { useState } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
@@ -25,13 +25,8 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
     const [initialWidth] = useState(Dimensions.get('window').width);
     const shouldShowOptionalItems = pageWidth >= initialWidth * 0.5;
 
-    const contactUsButtonPressed = async () => {
-        //todo: fix this when email microservice is created
-        //router.push('/contact_us');
-
-        await MailComposer.composeAsync({
-            recipients: ['thatoneprogrammer@gmail.com'],
-        });
+    const contactUsButtonPressed = () => {
+        router.push('/contact_us');
     }
 
     return (
