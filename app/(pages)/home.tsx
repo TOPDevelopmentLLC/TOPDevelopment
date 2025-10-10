@@ -9,10 +9,11 @@ import { StyleSheet, Text } from "react-native";
 
 const HomePage = () => {
     const { pageWidth, pageHeight } = useScreenDimensions();
-    
+    const isMobile = pageWidth < 768;
+
     return (
         <BasePage
-            displayTriangle={true}
+            displayTriangle={!isMobile}
             optionalLeftItem={true}
             optionalRightItem={true}
         >
