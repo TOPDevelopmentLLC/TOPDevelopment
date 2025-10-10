@@ -31,7 +31,7 @@ const HomePage = () => {
             />
             <Image
                 source={require("../../assets/images/top_development_logo.png")}
-                style={[styles.logo, { width: pageWidth * 0.25, height: pageWidth * 0.25 }]}
+                style={[styles.logo, { width: pageWidth * (isMobile ? 0.5 : 0.25), height: pageWidth * (isMobile ? 0.5 : 0.25) }]}
                 contentFit="cover"
                 priority="high"
                 transition={200}
