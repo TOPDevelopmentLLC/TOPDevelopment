@@ -3,7 +3,7 @@ import BasePage from "components/BasePage";
 import Collapsible from "components/Collapsible";
 import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
 import { Image } from "expo-image";
-import * as MailComposer from 'expo-mail-composer';
+import { router } from 'expo-router';
 import { useResponsive } from "hooks/useResponsive";
 import { useScreenDimensions } from "hooks/useScreenDimensions";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
@@ -22,13 +22,8 @@ const Services = () => {
     const defaultMargin = pageHeight * 0.025;
     const imageSize = isMobile ? pageWidth * 0.6 : pageWidth * 0.25;
 
-    const contactUsButtonPressed = async () => {
-        //todo: fix this when email microservice is created
-        //router.push('/contact_us');
-
-        await MailComposer.composeAsync({
-            recipients: ['thatoneprogrammer@gmail.com'],
-        });
+    const contactUsButtonPressed = () => {
+        router.push('/contact_us');
     }
 
     return (
