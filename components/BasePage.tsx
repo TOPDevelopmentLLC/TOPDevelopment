@@ -6,8 +6,8 @@ import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from 'expo-router';
 import { useScreenDimensions } from "hooks/useScreenDimensions";
-import React, { useState } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 export interface BasePageProps {
     displayTriangle?: boolean;
@@ -22,8 +22,7 @@ const BasePage: React.FC<React.PropsWithChildren<BasePageProps>> = ({
     optionalRightItem = false,
 }) => {
     const { pageWidth, pageHeight } = useScreenDimensions();
-    const [initialWidth] = useState(Dimensions.get('window').width);
-    const shouldShowOptionalItems = pageWidth >= initialWidth * 0.5;
+    const shouldShowOptionalItems = pageWidth >= 768; // Hide on mobile devices (< 768px)
 
     const contactUsButtonPressed = () => {
         router.push('/contact_us');

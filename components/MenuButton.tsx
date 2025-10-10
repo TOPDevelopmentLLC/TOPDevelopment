@@ -7,6 +7,7 @@ export interface MenuButtonProps {
     text: string;
     onPress: () => void;
     active: boolean;
+    isMobile?: boolean;
 }
 
 const MenuButton = ({
@@ -14,16 +15,17 @@ const MenuButton = ({
     text,
     onPress,
     active,
+    isMobile = false,
 }: MenuButtonProps) => {
 
     return (
         <Pressable
-            style={[style, styles.container]}
+            style={[style, styles.container, isMobile && styles.containerMobile]}
             onPress={onPress}
             accessible={true}
             accessibilityRole={"button"}
             accessibilityLabel={text}>
-            <Text style={[styles.text, { color: active ? Colors.text.primary : Colors.text.secondary }]}>{text}</Text>
+            <Text style={[styles.text, isMobile && styles.textMobile, { color: active ? Colors.text.primary : Colors.text.secondary }]}>{text}</Text>
         </Pressable>
     )
 }
@@ -35,9 +37,16 @@ const styles = StyleSheet.create({
         paddingVertical: Spacing.sm,
         borderRadius: BorderRadius.lg,
     },
+    containerMobile: {
+        paddingHorizontal: Spacing.xs,
+        paddingVertical: Spacing.xs,
+    },
     text: {
         fontSize: FontSize.md,
         fontFamily: FontFamily.primary,
+    },
+    textMobile: {
+        fontSize: FontSize.xs,
     }
 });
 
