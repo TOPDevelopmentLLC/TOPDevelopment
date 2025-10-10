@@ -58,7 +58,7 @@ const ContactUs = () => {
                 }
             );
 
-            if (response.status === 200) {
+            if (response.status === 200 || response.status === 202) {
                 setModalTitle('Email Sent Successfully!');
                 setIsModalVisible(true);
                 // Clear form
