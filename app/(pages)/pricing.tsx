@@ -1,5 +1,7 @@
+import BaseButton from "components/BaseButton";
 import BasePage from "components/BasePage";
 import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
+import { router } from "expo-router";
 import { useResponsive } from "hooks/useResponsive";
 import { useScreenDimensions } from "hooks/useScreenDimensions";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
@@ -9,13 +11,16 @@ const Pricing = () => {
     const { pageWidth, pageHeight } = useScreenDimensions();
     const { isMobile, contentWidth } = useResponsive();
     const defaultMargin = pageHeight * 0.025;
+    const contactUsButtonPressed = () => {
+        router.push('/contact_us');
+    }
 
     return (
         <BasePage>
             <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Pricing</Text>
             <ScrollView
-                contentContainerStyle={styles.container}
-                style={{ height: pageHeight * 0.9, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
+                contentContainerStyle={[styles.container, { paddingBottom: pageHeight * 0.1 }]}
+                style={{ height: pageHeight * 0.9, width: pageWidth }}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
             >
@@ -33,7 +38,7 @@ const Pricing = () => {
                                 <Text style={styles.feature}>• Responsive Design</Text>
                                 <Text style={styles.feature}>• Contact Form with Email Notifications</Text>
                                 <Text style={styles.feature}>• Optimized Images</Text>
-                                <Text style={styles.feature}>• {"<"}3 second load times</Text>
+                                <Text style={styles.feature}>• {`< 3 second load times`}</Text>
                                 <Text style={styles.feature}>• SEO Basics</Text>
                                 <Text style={styles.feature}>• Hosting Setup</Text>
                                 <Text style={styles.feature}>• Domain Setup</Text>
@@ -63,6 +68,7 @@ const Pricing = () => {
                         <View style={[styles.pricingCard, styles.highlightedCard]}>
                             <Text style={styles.tierTitle}>Advanced/Custom Site</Text>
                             <Text style={styles.price}>$5,000 - $15,000</Text>
+                            <Text style={styles.price}>{`(Recommended)`}</Text>
                             <View style={styles.featuresList}>
                                 <Text style={styles.featureHighlight}>Everything from Small Business Website</Text>
                                 <Text style={styles.feature}>• 10-25 pages with complex architecture</Text>
@@ -71,7 +77,7 @@ const Pricing = () => {
                                 <Text style={styles.feature}>• Advanced Search/Filtering</Text>
                                 <Text style={styles.feature}>• API Integrations</Text>
                                 <Text style={styles.feature}>• Document Management System</Text>
-                                <Text style={styles.feature}>• Unlimited Custom forms with conditional logic</Text>
+                                <Text style={styles.feature}>• Unlimited Custom forms</Text>
                                 <Text style={styles.feature}>• CRM Integration (HubSpot, Salesforce, etc)</Text>
                                 <Text style={styles.feature}>• Payment Processing (Stripe/PayPal)</Text>
                                 <Text style={styles.feature}>• Social Media API Integrations</Text>
@@ -256,6 +262,12 @@ const Pricing = () => {
                         </View>
                     </View>
                 </View>
+                <Text style={[styles.subTitle, { marginTop: defaultMargin }]}>Interested to learn more?</Text>
+                <BaseButton
+                    style={{ marginTop: defaultMargin }}
+                    text={"Contact Us"}
+                    onPress={contactUsButtonPressed}
+                />
             </ScrollView>
         </BasePage>
     )
@@ -269,6 +281,12 @@ const styles = StyleSheet.create({
         fontFamily: FontFamily.primary,
         fontSize: FontSize.xl,
         color: Colors.text.primary,
+    },
+    subTitle: {
+        fontFamily: FontFamily.secondary,
+        fontSize: FontSize.lg,
+        color: Colors.text.primary,
+        alignSelf: 'center',
     },
     sectionContainer: {
         alignItems: 'center',

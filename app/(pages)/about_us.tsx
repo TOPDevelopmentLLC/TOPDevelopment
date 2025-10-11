@@ -1,5 +1,7 @@
+import BaseButton from "components/BaseButton";
 import BasePage from "components/BasePage";
 import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
+import { router } from "expo-router";
 import { useResponsive } from "hooks/useResponsive";
 import { useScreenDimensions } from "hooks/useScreenDimensions";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
@@ -7,10 +9,14 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 const AboutUs = () => {
     const { pageWidth, pageHeight } = useScreenDimensions();
+    const defaultMargin = pageHeight * 0.025;
     const { contentWidth } = useResponsive();
     const aboutUsMessage1 = "TOP Development LLC was founded in September 2025 out of a passion for software development and a drive to solve meaningful problems. What began as an unexpected journey—starting in Pre-Law before realizing that path wasn’t the right fit—turned into a pursuit of creating solutions that truly matter. That realization led to a move to Florida, where I attended Full Sail University and earned an Associate’s Degree in Mobile Development.";
     const aboutUsMessage2 = "Over time, my skills expanded beyond mobile into web, backend, and DevOps, allowing me to build across the full stack of modern development. Today, TOP Development LLC is built on that same foundation of curiosity, adaptability, and commitment to delivering impactful software.";
     const aboutUsMessage3 = "At TOP Development LLC, our mission is simple: solve real problems with practical and lasting solutions. We take the time to analyze your unique needs, then design strategies that fit—not just for today, but for the future. By modernizing infrastructure and leveraging modern frameworks, we create solutions that are efficient, scalable, and built to grow with you. Our goal is to deliver technology that empowers, streamlines, and makes a meaningful difference.";
+    const contactUsButtonPressed = () => {
+        router.push('/contact_us');
+    }
 
     return (
         <BasePage>
@@ -30,6 +36,12 @@ const AboutUs = () => {
                     <Text style={styles.subTitle}>Our Mission</Text>
                     <Text style={[styles.allText, { marginTop: Spacing.lg, maxWidth: contentWidth * 0.85 }]}>{aboutUsMessage3}</Text>
                 </View>
+                <Text style={[styles.subTitle, { marginTop: defaultMargin }]}>Interested to learn more?</Text>
+                <BaseButton
+                    style={{ marginTop: defaultMargin }}
+                    text={"Contact Us"}
+                    onPress={contactUsButtonPressed}
+                />
             </ScrollView>
         </BasePage>
     )
