@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { StyleProp, StyleSheet, TextStyle } from "react-native";
 import { TextInput } from "react-native-paper";
+import { FontFamily } from "constants/theme";
 
 
 export interface WUPaperTextInputProps {
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF'
     },
     inputText: {
-        fontFamily: 'Audiowide'
+        fontFamily: FontFamily.secondary
     }
 })
 
