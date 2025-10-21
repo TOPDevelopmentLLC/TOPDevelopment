@@ -1,6 +1,7 @@
 import IconContainer, { IconType } from 'components/IconContainer';
 import React from 'react';
 import { Pressable, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { FontFamily } from 'constants/theme';
 
 export interface WUCheckboxProps {
   style?: StyleProp<ViewStyle>;
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     flexWrap: 'wrap',
-    fontFamily: 'Audiowide'
+    fontFamily: FontFamily.secondary
   },
 });
 
