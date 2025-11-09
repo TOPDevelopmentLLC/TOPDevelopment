@@ -24,6 +24,7 @@ module.exports = function (api) {
                     'lib': './lib',
                     'hooks': './hooks',
                     'constants': './constants',
+                    'assets': './assets',
                 },
             },
         ],
