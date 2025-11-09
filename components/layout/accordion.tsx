@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ViewStyle, TextStyle } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from '../../constants/theme';
+import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from 'constants/theme';
 
 interface AccordionProps {
   children?: React.ReactNode;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, ViewStyle, View } from 'react-native';
-import { Colors, BorderRadius, Spacing } from '../../constants/theme';
+import { Colors, BorderRadius, Spacing } from 'constants/theme';
 
 interface ToggleProps {
   children?: React.ReactNode;

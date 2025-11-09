@@ -9,7 +9,7 @@ import {
   TextStyle,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from '../../constants/theme';
+import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from 'constants/theme';
 
 interface SheetContextType {
   isOpen: boolean;

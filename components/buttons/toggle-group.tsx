@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { View, Pressable, StyleSheet, ViewStyle } from 'react-native';
-import { Colors, BorderRadius, Spacing } from '../../constants/theme';
+import { Colors, BorderRadius, Spacing } from 'constants/theme';
 
 type ToggleGroupType = 'single' | 'multiple';
 type ToggleGroupVariant = 'default' | 'outline';

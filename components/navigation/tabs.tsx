@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 import { View, Text, Pressable, StyleSheet, ViewStyle, TextStyle } from 'react-native';
-import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from '../../constants/theme';
+import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from 'constants/theme';
 
 interface TabsProps {
   children?: React.ReactNode;

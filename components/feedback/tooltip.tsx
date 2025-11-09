@@ -1,7 +1,7 @@
 import React, { useState, ReactNode } from 'react';
 import { View, Text, StyleSheet, Pressable, ViewStyle, TextStyle } from 'react-native';
-import { Colors, BorderRadius, Spacing, FontFamily } from '../../constants/theme';
-import { Typography } from '../../constants/globalStyles';
+import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
+import { Typography } from 'constants/globalStyles';
 
 interface TooltipProviderProps {
   children: ReactNode;

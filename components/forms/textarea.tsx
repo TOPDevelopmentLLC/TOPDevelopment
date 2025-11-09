@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextInput, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
-import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from '../../constants/theme';
+import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from 'constants/theme';
 
 interface TextareaProps extends Omit<TextInputProps, 'style'> {
   style?: ViewStyle;

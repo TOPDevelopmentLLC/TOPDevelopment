@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { CircuitBackground } from '../../components/layout/CircuitBackground';
-import { BasePage } from '../../components/layout/BasePage';
-import { Badge } from '../../components/data/badge';
-import { Button } from '../../components/buttons/button';
-import { Card, CardContent } from '../../components/layout/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/navigation/tabs';
+import { CircuitBackground } from 'components/layout/CircuitBackground';
+import { BasePage } from 'components/layout/BasePage';
+import { Badge } from 'components/data/badge';
+import { Button } from 'components/buttons/button';
+import { Card, CardContent } from 'components/layout/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from 'components/navigation/tabs';
 import { router } from 'expo-router';
-import { Colors, BorderRadius, Spacing, FontFamily } from '../../constants/theme';
-import { Typography } from '../../constants/globalStyles';
+import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
+import { Typography } from 'constants/globalStyles';
 
 const Services = () => {
   const [activeTab, setActiveTab] = useState('web');

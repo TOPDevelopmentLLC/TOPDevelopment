@@ -3,17 +3,17 @@ import { View, Text, StyleSheet, Pressable, Linking } from 'react-native';
 import axios from 'axios';
 import { MaterialIcons } from '@expo/vector-icons';
 import { toast } from 'sonner';
-import { CircuitBackground } from '../../components/layout/CircuitBackground';
-import { BasePage } from '../../components/layout/BasePage';
-import { Badge } from '../../components/data/badge';
-import { Button } from '../../components/buttons/button';
-import { Card, CardContent } from '../../components/layout/card';
-import { Input } from '../../components/forms/input';
-import { Label } from '../../components/forms/label';
-import { Textarea } from '../../components/forms/textarea';
+import { CircuitBackground } from 'components/layout/CircuitBackground';
+import { BasePage } from 'components/layout/BasePage';
+import { Badge } from 'components/data/badge';
+import { Button } from 'components/buttons/button';
+import { Card, CardContent } from 'components/layout/card';
+import { Input } from 'components/forms/input';
+import { Label } from 'components/forms/label';
+import { Textarea } from 'components/forms/textarea';
 import { router } from 'expo-router';
-import { Colors, BorderRadius, Spacing, FontFamily } from '../../constants/theme';
-import { Typography } from '../../constants/globalStyles';
+import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
+import { Typography } from 'constants/globalStyles';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({

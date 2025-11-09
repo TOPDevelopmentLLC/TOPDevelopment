@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable, Linking } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { Colors, Spacing, FontFamily } from '../../constants/theme';
-import { Typography } from '../../constants/globalStyles';
+import { Colors, Spacing, FontFamily } from 'constants/theme';
+import { Typography } from 'constants/globalStyles';
 
 export function Footer() {
   const handleNavigate = (page: string) => {

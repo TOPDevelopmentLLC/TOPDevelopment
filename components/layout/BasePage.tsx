@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { ScrollView, StyleSheet, ViewStyle } from 'react-native';
-import { Footer } from './Footer';
-import { Colors } from '../../constants/theme';
+import { Footer } from 'components/layout/Footer';
+import { Colors } from 'constants/theme';
 
 interface BasePageProps {
   children: ReactNode;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, Text, StyleSheet, ViewStyle, TextStyle, ActivityIndicator, View } from 'react-native';
-import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from '../../constants/theme';
+import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from 'constants/theme';
 
 interface ButtonProps {
   onPress?: () => void;

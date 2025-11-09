@@ -1,18 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { CircuitBackground } from '../../components/layout/CircuitBackground';
-import { BasePage } from '../../components/layout/BasePage';
+import { CircuitBackground } from 'components/layout/CircuitBackground';
+import { BasePage } from 'components/layout/BasePage';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '../../components/layout/accordion';
-import { Badge } from '../../components/data/badge';
-import { Button } from '../../components/buttons/button';
+} from 'components/layout/accordion';
+import { Badge } from 'components/data/badge';
+import { Button } from 'components/buttons/button';
 import { router } from 'expo-router';
-import { Colors, BorderRadius, Spacing, FontFamily } from '../../constants/theme';
-import { Typography } from '../../constants/globalStyles';
+import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
+import { Typography } from 'constants/globalStyles';
 
 const FAQs = () => {
   const faqs = [

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Svg, { Defs, Pattern, Circle, RadialGradient, Stop, Rect, Line, Polygon } from 'react-native-svg';
-import { Colors } from '../../constants/theme';
+import { Colors } from 'constants/theme';
 
 export function CircuitBackground() {
   return (

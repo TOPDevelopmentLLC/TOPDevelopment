@@ -2,7 +2,7 @@ import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
-import { Toaster } from '../components/feedback/sonner';
+import { Toaster } from 'components/feedback/sonner';
 import 'react-native-reanimated';
 
 export default function RootLayout() {

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Animated, StyleSheet, ViewStyle } from 'react-native';
-import { Colors, BorderRadius } from '../../constants/theme';
+import { Colors, BorderRadius } from 'constants/theme';
 
 interface SkeletonProps {
   style?: ViewStyle;

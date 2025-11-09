@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, TextStyle } from 'react-native';
-import { Colors, FontFamily, FontSize, Spacing } from '../../constants/theme';
+import { Colors, FontFamily, FontSize, Spacing } from 'constants/theme';
 
 interface LabelProps {
   children?: React.ReactNode;
