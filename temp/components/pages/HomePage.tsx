@@ -1,7 +1,7 @@
-import { Cpu, Globe, Smartphone, Server, Search, Users } from "lucide-react";
+import { Cpu, Globe, Search, Server, Smartphone, Users } from "lucide-react";
+import { CircuitBackground } from "../../../components/CircuitBackground";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
-import { CircuitBackground } from "../CircuitBackground";
 
 interface HomePageProps {
   onNavigate: (page: string) => void;

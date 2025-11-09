@@ -1,8 +1,8 @@
-import { Card } from "../ui/card";
+import { CheckCircle2 } from "lucide-react";
+import { CircuitBackground } from "../../../components/CircuitBackground";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { CheckCircle2 } from "lucide-react";
-import { CircuitBackground } from "../CircuitBackground";
+import { Card } from "../ui/card";
 
 interface PricingPageProps {
   onNavigate: (page: string) => void;

@@ -1,13 +1,13 @@
+import { CheckCircle2, Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner@2.0.3";
+import { CircuitBackground } from "../../../components/CircuitBackground";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { CircuitBackground } from "../CircuitBackground";
-import { Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
-import { toast } from "sonner@2.0.3";
 
 interface ContactPageProps {
   onNavigate: (page: string) => void;

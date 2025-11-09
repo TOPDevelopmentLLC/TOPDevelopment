@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { Card } from "../ui/card";
-import { Badge } from "../ui/badge";
 import {
-  Code,
-  Smartphone,
-  Database,
-  Search,
-  Cloud,
-  MessageSquare,
   CheckCircle2,
-  Zap,
+  Cloud,
+  Code,
+  Database,
+  MessageSquare,
+  Search,
   Shield,
+  Smartphone,
   TrendingUp,
+  Zap,
 } from "lucide-react";
-import { CircuitBackground } from "../CircuitBackground";
+import { useState } from "react";
+import { CircuitBackground } from "../../../components/CircuitBackground";
+import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import { Card } from "../ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 interface ServicesPageProps {
   onNavigate: (page: string) => void;

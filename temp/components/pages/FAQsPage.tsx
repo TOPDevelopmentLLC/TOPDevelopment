@@ -1,11 +1,11 @@
-import { Badge } from "../ui/badge";
+import { CircuitBackground } from "../../../components/CircuitBackground";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
-import { CircuitBackground } from "../CircuitBackground";
+import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 
 interface FAQsPageProps {

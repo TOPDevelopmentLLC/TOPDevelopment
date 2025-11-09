@@ -1,8 +1,8 @@
+import { Award, Lightbulb, Target, Users } from "lucide-react";
+import { CircuitBackground } from "../../../components/CircuitBackground";
 import { Badge } from "../ui/badge";
-import { Card } from "../ui/card";
-import { CircuitBackground } from "../CircuitBackground";
-import { Target, Lightbulb, Users, Award } from "lucide-react";
 import { Button } from "../ui/button";
+import { Card } from "../ui/card";
 
 interface AboutPageProps {
   onNavigate: (page: string) => void;

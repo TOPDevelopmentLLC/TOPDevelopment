@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { Navigation } from "./components/Navigation";
-import { Footer } from "./components/Footer";
-import { HomePage } from "./components/pages/HomePage";
-import { ServicesPage } from "./components/pages/ServicesPage";
-import { PricingPage } from "./components/pages/PricingPage";
+import { useEffect, useState } from "react";
+import { Footer } from "../components/Footer";
+import { Navigation } from "../components/Navigation";
 import { AboutPage } from "./components/pages/AboutPage";
-import { FAQsPage } from "./components/pages/FAQsPage";
 import { ContactPage } from "./components/pages/ContactPage";
+import { FAQsPage } from "./components/pages/FAQsPage";
+import { HomePage } from "./components/pages/HomePage";
+import { PricingPage } from "./components/pages/PricingPage";
+import { ServicesPage } from "./components/pages/ServicesPage";
 import { Toaster } from "./components/ui/sonner";
 
 export default function App() {
