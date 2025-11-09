@@ -1,73 +1,201 @@
-"use client";
+import React, { createContext, useContext, useState } from 'react';
+import { View, Pressable, StyleSheet, ViewStyle } from 'react-native';
+import { Colors, BorderRadius, Spacing } from '../../constants/theme';
 
-import * as React from "react";
-import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group@1.1.2";
-import { type VariantProps } from "class-variance-authority@0.7.1";
+type ToggleGroupType = 'single' | 'multiple';
+type ToggleGroupVariant = 'default' | 'outline';
+type ToggleGroupSize = 'default' | 'sm' | 'lg';
 
-import { cn } from "./utils";
-import { toggleVariants } from "./toggle";
+interface ToggleGroupContextType {
+  value: string | string[];
+  onValueChange: (value: string) => void;
+  type: ToggleGroupType;
+  variant?: ToggleGroupVariant;
+  size?: ToggleGroupSize;
+}
 
-const ToggleGroupContext = React.createContext<
-  VariantProps<typeof toggleVariants>
->({
-  size: "default",
-  variant: "default",
+const ToggleGroupContext = createContext<ToggleGroupContextType>({
+  value: '',
+  onValueChange: () => {},
+  type: 'single',
+  variant: 'default',
+  size: 'default',
 });
 
-function ToggleGroup({
-  className,
-  variant,
-  size,
+interface ToggleGroupProps {
+  children?: React.ReactNode;
+  type?: ToggleGroupType;
+  value?: string | string[];
+  onValueChange?: (value: string | string[]) => void;
+  defaultValue?: string | string[];
+  variant?: ToggleGroupVariant;
+  size?: ToggleGroupSize;
+  disabled?: boolean;
+  style?: ViewStyle;
+  className?: string;
+}
+
+export const ToggleGroup: React.FC<ToggleGroupProps> = ({
   children,
-  ...props
-}: React.ComponentProps<typeof ToggleGroupPrimitive.Root> &
-  VariantProps<typeof toggleVariants>) {
+  type = 'single',
+  value: controlledValue,
+  onValueChange,
+  defaultValue = type === 'single' ? '' : [],
+  variant = 'default',
+  size = 'default',
+  disabled = false,
+  style,
+}) => {
+  const [internalValue, setInternalValue] = useState(defaultValue);
+  const value = controlledValue !== undefined ? controlledValue : internalValue;
+
+  const handleValueChange = (itemValue: string) => {
+    if (disabled) return;
+
+    let newValue: string | string[];
+
+    if (type === 'single') {
+      newValue = value === itemValue ? '' : itemValue;
+    } else {
+      const currentArray = Array.isArray(value) ? value : [];
+      newValue = currentArray.includes(itemValue)
+        ? currentArray.filter(v => v !== itemValue)
+        : [...currentArray, itemValue];
+    }
+
+    if (controlledValue === undefined) {
+      setInternalValue(newValue);
+    }
+    onValueChange?.(newValue);
+  };
+
   return (
-    <ToggleGroupPrimitive.Root
-      data-slot="toggle-group"
-      data-variant={variant}
-      data-size={size}
-      className={cn(
-        "group/toggle-group flex w-fit items-center rounded-md data-[variant=outline]:shadow-xs",
-        className,
-      )}
-      {...props}
-    >
-      <ToggleGroupContext.Provider value={{ variant, size }}>
+    <ToggleGroupContext.Provider value={{ value, onValueChange: handleValueChange, type, variant, size }}>
+      <View style={[styles.toggleGroup, variant === 'outline' && styles.outlineGroup, style]}>
         {children}
-      </ToggleGroupContext.Provider>
-    </ToggleGroupPrimitive.Root>
+      </View>
+    </ToggleGroupContext.Provider>
   );
+};
+
+interface ToggleGroupItemProps {
+  children?: React.ReactNode;
+  value: string;
+  disabled?: boolean;
+  style?: ViewStyle;
+  className?: string;
 }
 
-function ToggleGroupItem({
-  className,
+export const ToggleGroupItem: React.FC<ToggleGroupItemProps> = ({
   children,
-  variant,
-  size,
-  ...props
-}: React.ComponentProps<typeof ToggleGroupPrimitive.Item> &
-  VariantProps<typeof toggleVariants>) {
-  const context = React.useContext(ToggleGroupContext);
+  value: itemValue,
+  disabled = false,
+  style,
+}) => {
+  const context = useContext(ToggleGroupContext);
+  const { value, onValueChange, type, variant, size } = context;
+
+  const isPressed = type === 'single'
+    ? value === itemValue
+    : Array.isArray(value) && value.includes(itemValue);
+
+  const getSizeStyle = (): ViewStyle => {
+    switch (size) {
+      case 'sm':
+        return styles.smSize;
+      case 'lg':
+        return styles.lgSize;
+      default:
+        return styles.defaultSize;
+    }
+  };
+
+  const getVariantStyle = (): ViewStyle => {
+    if (variant === 'outline') {
+      return isPressed ? styles.outlinePressed : styles.outlineItem;
+    }
+    return isPressed ? styles.defaultPressed : styles.defaultItem;
+  };
 
   return (
-    <ToggleGroupPrimitive.Item
-      data-slot="toggle-group-item"
-      data-variant={context.variant || variant}
-      data-size={context.size || size}
-      className={cn(
-        toggleVariants({
-          variant: context.variant || variant,
-          size: context.size || size,
-        }),
-        "min-w-0 flex-1 shrink-0 rounded-none shadow-none first:rounded-l-md last:rounded-r-md focus:z-10 focus-visible:z-10 data-[variant=outline]:border-l-0 data-[variant=outline]:first:border-l",
-        className,
-      )}
-      {...props}
+    <Pressable
+      onPress={() => onValueChange(itemValue)}
+      disabled={disabled}
+      style={({ pressed }) => [
+        styles.item,
+        getSizeStyle(),
+        getVariantStyle(),
+        pressed && styles.pressing,
+        disabled && styles.disabled,
+        style,
+      ]}
     >
-      {children}
-    </ToggleGroupPrimitive.Item>
+      <View style={styles.content}>
+        {children}
+      </View>
+    </Pressable>
   );
-}
+};
 
-export { ToggleGroup, ToggleGroupItem };
+const styles = StyleSheet.create({
+  toggleGroup: {
+    flexDirection: 'row',
+    alignSelf: 'flex-start',
+    borderRadius: BorderRadius.md,
+    overflow: 'hidden',
+  },
+  outlineGroup: {
+    // Outer shadow/border for outline variant
+  },
+  item: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: Spacing.sm,
+    borderRightWidth: 0,
+  },
+  defaultSize: {
+    minHeight: 36,
+    minWidth: 36,
+    paddingHorizontal: Spacing.sm,
+  },
+  smSize: {
+    minHeight: 32,
+    minWidth: 32,
+    paddingHorizontal: Spacing.xs,
+  },
+  lgSize: {
+    minHeight: 40,
+    minWidth: 40,
+    paddingHorizontal: Spacing.md,
+  },
+  defaultItem: {
+    backgroundColor: 'transparent',
+  },
+  defaultPressed: {
+    backgroundColor: Colors.background.gray,
+  },
+  outlineItem: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: Colors.border.primary,
+    borderLeftWidth: 0,
+  },
+  outlinePressed: {
+    backgroundColor: Colors.background.gray,
+    borderWidth: 1,
+    borderColor: Colors.border.primary,
+    borderLeftWidth: 0,
+  },
+  pressing: {
+    opacity: 0.7,
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.xs,
+  },
+});
