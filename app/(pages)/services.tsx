@@ -1,148 +1,351 @@
-import BaseButton from "components/BaseButton";
-import BasePage from "components/BasePage";
-import Collapsible from "components/Collapsible";
-import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
-import { Image } from "expo-image";
-import { router } from 'expo-router';
-import { useResponsive } from "hooks/useResponsive";
-import { useScreenDimensions } from "hooks/useScreenDimensions";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-
+import {
+  CheckCircle2,
+  Cloud,
+  Code,
+  Database,
+  MessageSquare,
+  Search,
+  Shield,
+  Smartphone,
+  TrendingUp,
+  Zap,
+} from "lucide-react";
+import { useState } from "react";
+import { CircuitBackground } from "../../components/layout/CircuitBackground";
+import { Badge } from "../../components/data/badge";
+import { Button } from "../../components/buttons/button";
+import { Card } from "../../components/layout/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/navigation/tabs";
+import { router } from "expo-router";
 
 const Services = () => {
-    const subTitleText = `TOP Development LLC is end-to-end technology solution provider specializing in web, mobile and backend development that delivers high performance, user-focused applications. Whether you're building from scratch, upgrading systems or optimizing digial presence, we deliver solutions tailored to your goals.`
-    const webDevelopmentSubtext = `We design and build fast, accessible, and scalable websites that convert. From marketing sites to complex web apps, we use modern frameworks (React/Next.js, TypeScript) and a clean design system to deliver pixel-perfect UI.`;
-    const mobileDevelopmentSubtext = `We design and ship high-performance iOS and Android apps that feel native and drive results. Using React Native/Expo for speed and shared code—or Swift/Kotlin when a project demands it. Releases are automated, monitored, and built to scale.`;
-    const backendDevelopmentSubtext = `We design and operate secure, scalable APIs and data systems. Using Spring Boot (Java/Kotlin), we deliver clean architectures, resilient event-driven workflows, and robust data layers—built for performance, observability, and cost efficiency.`;
-    const seoServiesDescription = `We help businesses increase their online visibility and attract more customers through proven SEO strategies. Specializing in optimizing websites to rank higher on search engines, ensuring your brand is found by the right audience at the right time.\n\nFrom keyword research and on-page optimization to technical SEO, link building and content strategy, we provide comprehensive solutions designed to boost traffic, improve search rankings and maximize ROI.\n\nWe stay ahead of ever-changing search algorithms so your business stays competitive in today's digital landscape. Whether you're a small business looking to grow locally or an enterprise targeting a global audience, TOP Development delivers customized SEO strategies that drive measurable results and long-term success.`
-    const modernizationDescription = `We help organizations modernize their IT infrastructure to stay agile, secure and competitie in today's fast-changing digital world. Our team specializes in upgrading legacy systems, migrating workloads to the cloud, and implementing scalable, resilient architectures that support innovation and growth.\n\nFrom cloud adoption and containerization to automation, DevOps and security enhancements, we provide end-to-end infrastructure modernization solutions tailored to your business needs. By leveraging cutting-edge technologies and best practices, we ensure your infrastructure is not only efficient but also future-ready.\n\nWhether you're looking to reduce operational costs, improve performance or accelerate digital transformation, TOP Development is your trusted partner in building the foundation for tomorrow's success.`;
+  const [activeTab, setActiveTab] = useState("web");
 
-    const { pageWidth, pageHeight } = useScreenDimensions();
-    const { isMobile, contentWidth } = useResponsive();
-    const defaultMargin = pageHeight * 0.025;
-    const imageSize = isMobile ? pageWidth * 0.6 : pageWidth * 0.25;
+  const serviceCategories = [
+    { value: "web", label: "Web Development", icon: Code },
+    { value: "mobile", label: "Mobile Apps", icon: Smartphone },
+    { value: "backend", label: "Backend", icon: Database },
+    { value: "seo", label: "SEO", icon: Search },
+    { value: "infrastructure", label: "Infrastructure", icon: Cloud },
+    { value: "consultation", label: "Consultation", icon: MessageSquare },
+  ];
 
-    const contactUsButtonPressed = () => {
-        router.push('/contact_us');
+  const serviceDetails = {
+    web: {
+      title: "Web Development",
+      subtitle: "Build powerful, responsive web applications",
+      features: [
+        "Custom React & React Native Applications",
+        "Mobile-friendly Web Pages",
+        "E-commerce Solutions",
+        "Content Management Systems",
+        "API Integration",
+        "Responsive Design",
+      ],
+      useCases: [
+        {
+          title: "E-Commerce Platforms",
+          description: "Full-featured online stores with payment processing, inventory management, and customer portals",
+        },
+        {
+          title: "SaaS Applications",
+          description: "Scalable software-as-a-service platforms with user management and subscription billing",
+        },
+        {
+          title: "Corporate Websites",
+          description: "Professional business websites with CMS integration and SEO optimization",
+        },
+      ],
+    },
+    mobile: {
+      title: "Mobile Development",
+      subtitle: "Native and cross-platform mobile experiences",
+      features: [
+        "iOS & Android Development",
+        "React Native Applications",
+        "Cross-Platform Solutions",
+        "App Store Deployment",
+        "Push Notifications",
+        "Offline Functionality",
+      ],
+      useCases: [
+        {
+          title: "Consumer Apps",
+          description: "Feature-rich mobile applications for iOS and Android with seamless user experiences",
+        },
+        {
+          title: "Enterprise Mobility",
+          description: "Internal business apps for field operations, inventory, and workforce management",
+        },
+        {
+          title: "Companion Apps",
+          description: "Mobile extensions of your web platform for on-the-go access",
+        },
+      ],
+    },
+    backend: {
+      title: "Backend Development",
+      subtitle: "Robust and scalable server-side solutions",
+      features: [
+        "RESTful API Development",
+        "Spring Boot Framework",
+        "Database Design & Optimization",
+        "Microservices Architecture",
+        "Real-time Data Processing",
+        "Authentication & Authorization",
+      ],
+      useCases: [
+        {
+          title: "API Development",
+          description: "Secure, scalable APIs for mobile apps, web platforms, and third-party integrations",
+        },
+        {
+          title: "Data Processing",
+          description: "Complex data pipelines and real-time processing systems",
+        },
+        {
+          title: "Integration Services",
+          description: "Connect multiple systems and services with custom middleware solutions",
+        },
+      ],
+    },
+    seo: {
+      title: "SEO Services",
+      subtitle: "Increase visibility and drive organic traffic",
+      features: [
+        "Technical SEO Audit",
+        "Keyword Research & Strategy",
+        "On-Page Optimization",
+        "Performance Optimization",
+        "Schema Markup Implementation",
+        "Analytics & Reporting",
+      ],
+      useCases: [
+        {
+          title: "Local SEO",
+          description: "Optimize your presence for local search results and Google Maps",
+        },
+        {
+          title: "E-commerce SEO",
+          description: "Product page optimization and structured data for better product visibility",
+        },
+        {
+          title: "Technical SEO",
+          description: "Core Web Vitals optimization, site speed, and crawlability improvements",
+        },
+      ],
+    },
+    infrastructure: {
+      title: "Infrastructure Modernization",
+      subtitle: "Upgrade and optimize your technology stack",
+      features: [
+        "AWS Supported Infrastructure",
+        "DevOps & CI/CD Pipeline",
+        "Auto-scaling Infrastructure",
+        "Load Balancing & CDN",
+        "Security & Compliance",
+        "Disaster Recovery Planning",
+      ],
+      useCases: [
+        {
+          title: "Cloud Migration",
+          description: "Move legacy applications to modern cloud infrastructure with minimal downtime",
+        },
+        {
+          title: "Performance Optimization",
+          description: "Improve application speed and reliability with infrastructure upgrades",
+        },
+        {
+          title: "Cost Optimization",
+          description: "Reduce infrastructure costs while maintaining or improving performance",
+        },
+      ],
+    },
+    consultation: {
+      title: "Consultation Services",
+      subtitle: "Expert guidance for your technology decisions",
+      features: [
+        "Technology Stack Selection",
+        "Architecture Design Review",
+        "Code Quality Assessment",
+        "Scalability Planning",
+        "Security Audit",
+        "Strategic Roadmap Planning",
+      ],
+      useCases: [
+        {
+          title: "Project Planning",
+          description: "Define scope, timeline, and technology choices for your next project",
+        },
+        {
+          title: "Code Review",
+          description: "Expert analysis of your codebase with actionable recommendations",
+        },
+        {
+          title: "Strategy Sessions",
+          description: "Monthly consulting to guide your technology decisions and roadmap",
+        },
+      ],
+    },
+  };
+
+  const currentService = serviceDetails[activeTab as keyof typeof serviceDetails];
+
+  const handleNavigate = (page: string) => {
+    const pageMap: { [key: string]: string } = {
+      'contact': '/contact_us',
+      'services': '/services',
+      'about': '/about_us',
+      'pricing': '/pricing',
+      'faq': '/faq',
+    };
+
+    const route = pageMap[page];
+    if (route) {
+      router.push(route as any);
     }
+  };
 
-    return (
-        <BasePage>
-            <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Our Services</Text>
-            <ScrollView 
-                contentContainerStyle={styles.container}
-                style={{ height: pageHeight * 0.85, width: pageWidth, paddingBottom: pageHeight * 0.05 }}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-            >
-                <Text style={[styles.baseText, { width: contentWidth, marginTop: defaultMargin }]}>{subTitleText}</Text>
-                <View style={[styles.rowContainer, { width: contentWidth, marginTop: defaultMargin, backgroundColor: Colors.background.redDark, flexDirection: isMobile ? 'column' : 'row' }]}>
-                    <View style={[styles.textContainer, { width: isMobile ? '90%' : '45%' }]}>
-                        <Text style={styles.subTitle}>Software Development</Text>
-                        <Collapsible
-                            style={styles.collapsibles}
-                            title="Web Development"
-                            subtext={webDevelopmentSubtext}
-                        />
-                        <Collapsible
-                            style={styles.collapsibles}
-                            title="Mobile Development"
-                            subtext={mobileDevelopmentSubtext}
-                        />
-                        <Collapsible
-                            style={styles.collapsibles}
-                            title="Backend Development"
-                            subtext={backendDevelopmentSubtext}
-                        />
-                    </View>
-                    <Image
-                        source={require("../../assets/images/code.jpg")}
-                        style={[styles.images, { width: imageSize, height: imageSize * 0.8, marginTop: isMobile ? defaultMargin : 0 }]}
-                        contentFit="cover"
-                        priority="normal"
-                        transition={300}
-                        cachePolicy="memory-disk"
-                        recyclingKey="code-image"
-                    />
-                </View>
+  return (
+    <div className="min-h-screen bg-black text-white pt-20">
+      {/* Hero Section */}
+      <section className="relative py-20 overflow-hidden">
+        <CircuitBackground />
+        <div className="container mx-auto px-4 text-center z-10 relative">
+          <Badge className="mb-4 bg-[#ea2320]/10 border-[#ea2320]/30 text-[#ea2320]">
+            Services
+          </Badge>
+          <h1 className="text-4xl md:text-6xl text-white mb-4">
+            Comprehensive Development Solutions
+          </h1>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            From concept to deployment, we provide end-to-end software development services
+          </p>
+        </div>
+      </section>
 
-                <View style={[styles.rowContainer, { width: contentWidth, marginTop: defaultMargin, flexDirection: isMobile ? 'column-reverse' : 'row' }]}>
-                    <Image
-                        source={require("../../assets/images/seo.jpg")}
-                        style={[styles.images, { width: imageSize, height: imageSize * 0.8, marginBottom: isMobile ? defaultMargin : 0 }]}
-                        contentFit="cover"
-                        priority="normal"
-                        transition={300}
-                        cachePolicy="memory-disk"
-                        recyclingKey="seo-image"
-                    />
-                    <View style={[styles.textContainer, { width: isMobile ? '90%' : '45%' }]}>
-                        <Text style={styles.subTitle}>SEO Services</Text>
-                        <Text style={[styles.baseText, { marginTop: defaultMargin }]}>{seoServiesDescription}</Text>
-                    </View>
-                </View>
+      {/* Service Tabs */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 bg-transparent h-auto mb-12">
+              {serviceCategories.map((category) => (
+                <TabsTrigger
+                  key={category.value}
+                  value={category.value}
+                  className="data-[state=active]:bg-[#ea2320] data-[state=active]:text-white bg-white/5 border border-white/10 py-3"
+                >
+                  <category.icon className="h-4 w-4 mr-2" />
+                  <span className="hidden sm:inline">{category.label}</span>
+                </TabsTrigger>
+              ))}
+            </TabsList>
 
-                <View style={[styles.rowContainer, { width: contentWidth, marginTop: defaultMargin, backgroundColor: Colors.background.redDark, flexDirection: isMobile ? 'column' : 'row' }]}>
-                    <View style={[styles.textContainer, { width: isMobile ? '90%' : '45%' }]}>
-                        <Text style={styles.subTitle}>Modernization</Text>
-                        <Text style={[styles.baseText, { marginTop: defaultMargin }]}>{modernizationDescription}</Text>
-                    </View>
-                    <Image
-                        source={require("../../assets/images/modernization.jpg")}
-                        style={[styles.images, { width: imageSize, height: imageSize * 0.8, marginTop: isMobile ? defaultMargin : 0 }]}
-                        contentFit="cover"
-                        priority="normal"
-                        transition={300}
-                        cachePolicy="memory-disk"
-                        recyclingKey="modernization-image"
-                    />
-                </View>
-                <Text style={[styles.subTitle, { marginTop: defaultMargin }]}>Interested to learn more?</Text>
-                <BaseButton
-                    style={{ marginTop: defaultMargin }}
-                    text={"Contact Us"}
-                    onPress={contactUsButtonPressed}
-                />
-            </ScrollView>
-        </BasePage>
-    )
-}
+            {Object.entries(serviceDetails).map(([key, service]) => (
+              <TabsContent key={key} value={key} className="space-y-12">
+                {/* Service Header */}
+                <div className="text-center">
+                  <h2 className="text-3xl md:text-4xl text-white mb-4">{service.title}</h2>
+                  <p className="text-xl text-gray-400">{service.subtitle}</p>
+                </div>
 
-const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center'
-    },
-    title: {
-        fontFamily: FontFamily.primary,
-        fontSize: FontSize.xl,
-        color: Colors.text.primary,
-    },
-    subTitle: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.lg,
-        color: Colors.text.primary,
-        alignSelf: 'center',
-    },
-    baseText: {
-        fontFamily: FontFamily.secondary,
-        color: Colors.text.primary,
-    },
-    rowContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: Spacing.xxl,
-        padding: Spacing.lg,
-        borderRadius: BorderRadius.md,
-    },
-    textContainer: {
-        alignItems: 'center'
-    },
-    images: {
-        borderRadius: BorderRadius.md,
-    },
-    collapsibles: {
-        width: '85%'
-    }
-});
+                {/* Features Grid */}
+                <div>
+                  <h3 className="text-2xl text-white mb-6 text-center">Key Features</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {service.features.map((feature, index) => (
+                      <Card
+                        key={index}
+                        className="bg-white/5 border-white/10 p-4 flex items-center gap-3"
+                      >
+                        <CheckCircle2 className="h-5 w-5 text-[#ea2320] flex-shrink-0" />
+                        <span className="text-white">{feature}</span>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Use Cases */}
+                <div>
+                  <h3 className="text-2xl text-white mb-6 text-center">Use Cases</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {service.useCases.map((useCase, index) => (
+                      <Card
+                        key={index}
+                        className="bg-gradient-to-br from-white/5 to-white/0 border-white/10 hover:border-[#ea2320]/50 transition-all p-6"
+                      >
+                        <h4 className="text-xl text-white mb-3">{useCase.title}</h4>
+                        <p className="text-gray-400">{useCase.description}</p>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </TabsContent>
+            ))}
+          </Tabs>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-20 relative">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl text-white mb-12 text-center">Why Choose TOP Development</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="bg-white/5 border-white/10 p-8 text-center">
+              <Zap className="h-12 w-12 text-[#ea2320] mx-auto mb-4" />
+              <h3 className="text-xl text-white mb-3">AI-Powered Speed</h3>
+              <p className="text-gray-400">
+                Leverage cutting-edge AI tools to build and deploy faster than traditional methods
+              </p>
+            </Card>
+            <Card className="bg-white/5 border-white/10 p-8 text-center">
+              <Shield className="h-12 w-12 text-[#ea2320] mx-auto mb-4" />
+              <h3 className="text-xl text-white mb-3">Quality Assurance</h3>
+              <p className="text-gray-400">
+                Rigorous testing and quality control ensure reliable, production-ready solutions
+              </p>
+            </Card>
+            <Card className="bg-white/5 border-white/10 p-8 text-center">
+              <TrendingUp className="h-12 w-12 text-[#ea2320] mx-auto mb-4" />
+              <h3 className="text-xl text-white mb-3">Scalable Solutions</h3>
+              <p className="text-gray-400">
+                Built to grow with your business, from startup to enterprise scale
+              </p>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="bg-gradient-to-r from-[#ea2320]/20 to-transparent border border-[#ea2320]/30 rounded-2xl p-12 text-center">
+            <h2 className="text-3xl md:text-4xl text-white mb-4">
+              Ready to Start Your Project?
+            </h2>
+            <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+              Get in touch to discuss your requirements and receive a detailed proposal
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                onClick={() => handleNavigate("contact")}
+                className="bg-[#ea2320] hover:bg-[#c91e1b] text-white px-8 py-6"
+              >
+                Contact Us
+              </Button>
+              <Button
+                onClick={() => handleNavigate("pricing")}
+                variant="outline"
+                className="border-white/20 hover:bg-white/5 text-white px-8 py-6"
+              >
+                View Pricing
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
 
 export default Services;

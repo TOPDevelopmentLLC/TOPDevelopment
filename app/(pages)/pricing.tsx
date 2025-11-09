@@ -1,408 +1,365 @@
-import BaseButton from "components/BaseButton";
-import BasePage from "components/BasePage";
-import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
+import { CheckCircle2 } from "lucide-react";
+import { CircuitBackground } from "../../components/layout/CircuitBackground";
+import { Badge } from "../../components/data/badge";
+import { Button } from "../../components/buttons/button";
+import { Card } from "../../components/layout/card";
 import { router } from "expo-router";
-import { useResponsive } from "hooks/useResponsive";
-import { useScreenDimensions } from "hooks/useScreenDimensions";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-
 
 const Pricing = () => {
-    const { pageWidth, pageHeight } = useScreenDimensions();
-    const { isMobile, contentWidth } = useResponsive();
-    const defaultMargin = pageHeight * 0.025;
-    const contactUsButtonPressed = () => {
-        router.push('/contact_us');
+  const websiteBuilds = [
+    {
+      name: "Simple Landing Page",
+      price: "$1,000 - $1,500",
+      description: "Perfect for startups and small projects",
+      features: [
+        "1-3 pages (Home, About, Contact)",
+        "Responsive Design",
+        "Contact Form with Email Notifications",
+        "Optimized Images",
+        "< 3 second load times",
+        "SEO Basics",
+        "Hosting Setup",
+        "Domain Setup",
+        "Design Revisions (3 rounds)",
+      ],
+    },
+    {
+      name: "Small Business Site",
+      price: "$3,000 - $4,000",
+      description: "Comprehensive solution for small businesses",
+      features: [
+        "Everything from Simple Landing Page",
+        "5-10 pages",
+        "Dynamic Drawer Menu",
+        "Contact Us Forms",
+        "Service Inquiry Forms",
+        "Newsletter Signup Forms",
+        "CMS Plugin",
+        "Custom CMS",
+        "Google Maps Integration",
+        "Design Revisions (5 rounds)",
+      ],
+      popular: true,
+    },
+    {
+      name: "Advanced/Custom Site",
+      price: "$5,000 - $15,000",
+      description: "Feature-rich applications",
+      features: [
+        "Everything from Small Business Website",
+        "10-25 pages with complex architecture",
+        "User Authentication",
+        "User Dashboards/Profiles",
+        "Advanced Search/Filtering",
+        "API Integrations",
+        "Document Management System",
+        "Unlimited Custom forms",
+        "CRM Integration (HubSpot, Salesforce, etc)",
+        "Payment Processing (Stripe/PayPal)",
+        "Social Media API Integrations",
+      ],
+    },
+    {
+      name: "Enterprise Site",
+      price: "$15,000 - $75,000",
+      description: "Large-scale enterprise solutions",
+      features: [
+        "Multi-Site architecture or site network",
+        "Complex database architecture",
+        "Advanced API development",
+        "Real-time features (notifications/live updates)",
+        "Data visualization and custom reporting",
+        "Document generation (invoices, contracts, reports)",
+        "ERP systems (SAP, Oracle, NetSuite)",
+        "CRM (Salesforce, Microsoft Dynamics)",
+        "Custom legacy system integrations",
+        "HR systems integration",
+        "Microservices architecture",
+        "Auto-scaling infrastructure",
+        "Load balancing",
+        "Staging/prod environments",
+        "Monthly strategy calls",
+      ],
+    },
+    {
+      name: "E-Commerce Site",
+      price: "$7,500 - $40,000",
+      description: "Full-featured online store",
+      features: [
+        "Up to 500 SKUs (+$500 for every 100 SKUs after 500)",
+        "Product Category/Details Pages",
+        "Cart/Checkout Pages",
+        "Shipping/Returns Policy Pages",
+        "Blog Pages",
+        "Real-time inventory tracking",
+        "Low stock alerts",
+        "Order processing and status updates",
+        "Order history",
+        "Wishlist",
+        "Email notifications",
+        "Customer reviews and ratings",
+        "Newsletter signup",
+        "Gift card functionality",
+        "Stripe/PayPal Integration",
+        "Tax Calculation (TaxJar Integration)",
+        "Shipping Calculator",
+        "International Shipping Support",
+        "Guest Checkout",
+        "Design Revisions (5 rounds)",
+      ],
+    },
+  ];
+
+  const addOns = [
+    { name: "Additional Support Hours", price: "$100/hour" },
+    { name: "Live-chat Integration", price: "$500" },
+    { name: "Advanced Animations", price: "$1,000" },
+    { name: "Appointment Booking", price: "$1,000" },
+    { name: "Member Portal", price: "$2,000" },
+    { name: "Custom Admin Panel", price: "$2,000" },
+    { name: "Loyalty/Rewards", price: "$2,000" },
+    { name: "Mobile Application", price: "$2,000+" },
+    { name: "Multi-Currency Support", price: "$2,500" },
+    { name: "Subscriptions/Recurring Payments", price: "$2,500" },
+    { name: "Third-Party API Development", price: "$4,000" },
+    { name: "Multi-Vendor Marketplace", price: "$7,500" },
+  ];
+
+  const maintenancePlans = [
+    {
+      name: "Essentials Only",
+      price: "$50/month",
+      annualPrice: "$510/annually",
+      features: [
+        "AWS Hosting",
+        "Security Monitoring",
+        "Monthly Uptime Reports",
+        "2 Hours of Minor Updates/Support per month",
+        "SSL Certificate Management",
+      ],
+    },
+    {
+      name: "Basic",
+      price: "$100/month",
+      annualPrice: "$1,080/annually",
+      features: [
+        "Everything in Essentials Only",
+        "5 Hours of Minor Updates/Support per month",
+        "Plugin/Dependency Updates",
+        "Monthly Security Scans",
+        "Monthly Performance Optimization",
+        "Google Analytics",
+      ],
+      popular: true,
+    },
+    {
+      name: "Professional",
+      price: "$300/month",
+      annualPrice: "$3,240/annually",
+      features: [
+        "Everything in Basic",
+        "10 Hours of Minor Updates/Support per month",
+        "Priority Email Support",
+        "Quarterly Strategy Consulting",
+        "Bi-Weekly Security Scans",
+        "Bi-Weekly Performance Optimization",
+      ],
+    },
+    {
+      name: "Enterprise",
+      price: "$600 - $2,500/month",
+      annualPrice: "$6,120 - $25,500/annually",
+      features: [
+        "Everything in Professional",
+        "24/7 Security Monitoring",
+        "25+ Hours of Development Support per month",
+        "A/B Testing Implementation",
+        "Scalability Planning",
+        "Infrastructure Optimization",
+        "Disaster Recovery Planning",
+        "Monthly Strategy Consulting",
+      ],
+    },
+  ];
+
+  const handleNavigate = (page: string) => {
+    const pageMap: { [key: string]: string } = {
+      'contact': '/contact_us',
+      'services': '/services',
+      'about': '/about_us',
+      'pricing': '/pricing',
+      'faq': '/faq',
+    };
+
+    const route = pageMap[page];
+    if (route) {
+      router.push(route as any);
     }
+  };
 
-    return (
-        <BasePage>
-            <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Pricing</Text>
-            <ScrollView
-                contentContainerStyle={[styles.container, { paddingBottom: pageHeight * 0.1 }]}
-                style={{ height: pageHeight * 0.9, width: pageWidth }}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
+  return (
+    <div className="min-h-screen bg-black text-white pt-20">
+      {/* Hero Section */}
+      <section className="relative py-20 overflow-hidden">
+        <CircuitBackground />
+        <div className="container mx-auto px-4 text-center z-10 relative">
+          <Badge className="mb-4 bg-[#ea2320]/10 border-[#ea2320]/30 text-[#ea2320]">
+            Pricing
+          </Badge>
+          <h1 className="text-4xl md:text-6xl text-white mb-4">
+            Transparent, Flexible Pricing
+          </h1>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            Choose the package that fits your needs. All pricing is transparent with no hidden fees.
+          </p>
+        </div>
+      </section>
+
+      {/* Website Builds */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl text-white mb-4">Website Development</h2>
+            <p className="text-gray-400">Complete website solutions from landing pages to enterprise platforms</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {websiteBuilds.map((tier, index) => (
+              <Card
+                key={index}
+                className={`bg-white/5 border-white/10 p-6 flex flex-col ${
+                  tier.popular ? "border-[#ea2320] relative" : ""
+                }`}
+              >
+                {tier.popular && (
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#ea2320] text-white">
+                    Most Popular
+                  </Badge>
+                )}
+                <div className="mb-6">
+                  <h3 className="text-2xl text-white mb-2">{tier.name}</h3>
+                  <p className="text-gray-400 text-sm mb-4">{tier.description}</p>
+                  <div className="text-3xl text-[#ea2320]">{tier.price}</div>
+                </div>
+                <ul className="space-y-3 mb-6 flex-grow">
+                  {tier.features.map((feature, fIndex) => (
+                    <li key={fIndex} className="flex items-start gap-2 text-sm">
+                      <CheckCircle2 className="h-4 w-4 text-[#ea2320] flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-300">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  onClick={() => handleNavigate("contact")}
+                  className={`w-full ${
+                    tier.popular
+                      ? "bg-[#ea2320] hover:bg-[#c91e1b] text-white"
+                      : "bg-white/10 hover:bg-white/20 text-white"
+                  }`}
+                >
+                  Get Started
+                </Button>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Add-ons */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl text-white mb-4">Simple Add-ons</h2>
+            <p className="text-gray-400">Enhance your website with additional features</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {addOns.map((addon, index) => (
+              <Card
+                key={index}
+                className="bg-white/5 border-white/10 hover:border-[#ea2320]/50 transition-all p-4"
+              >
+                <div className="flex justify-between items-center">
+                  <span className="text-white">{addon.name}</span>
+                  <span className="text-[#ea2320]">{addon.price}</span>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Maintenance & Support */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl text-white mb-4">Maintenance & Support</h2>
+            <p className="text-gray-400">Keep your website secure, updated, and performing at its best</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {maintenancePlans.map((plan, index) => (
+              <Card
+                key={index}
+                className={`bg-white/5 border-white/10 p-6 flex flex-col ${
+                  plan.popular ? "border-[#ea2320] relative" : ""
+                }`}
+              >
+                {plan.popular && (
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#ea2320] text-white">
+                    Most Popular
+                  </Badge>
+                )}
+                <div className="mb-6">
+                  <h3 className="text-2xl text-white mb-2">{plan.name}</h3>
+                  <div className="text-2xl text-[#ea2320] mb-1">{plan.price}</div>
+                  <div className="text-sm text-gray-400">{plan.annualPrice}</div>
+                </div>
+                <ul className="space-y-3 mb-6 flex-grow">
+                  {plan.features.map((feature, fIndex) => (
+                    <li key={fIndex} className="flex items-start gap-2 text-sm">
+                      <CheckCircle2 className="h-4 w-4 text-[#ea2320] flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-300">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  onClick={() => handleNavigate("contact")}
+                  className={`w-full ${
+                    plan.popular
+                      ? "bg-[#ea2320] hover:bg-[#c91e1b] text-white"
+                      : "bg-white/10 hover:bg-white/20 text-white"
+                  }`}
+                >
+                  Choose Plan
+                </Button>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="bg-gradient-to-r from-[#ea2320]/20 to-transparent border border-[#ea2320]/30 rounded-2xl p-12 text-center">
+            <h2 className="text-3xl md:text-4xl text-white mb-4">
+              Need a Custom Quote?
+            </h2>
+            <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+              Every project is unique. Contact us for a personalized quote tailored to your specific requirements.
+            </p>
+            <Button
+              onClick={() => handleNavigate("contact")}
+              className="bg-[#ea2320] hover:bg-[#c91e1b] text-white px-8 py-6"
             >
-                {/* Build Pricing Section */}
-                <View style={[styles.sectionContainer, { width: contentWidth, marginTop: defaultMargin }]}>
-                    <Text style={styles.sectionTitle}>Website Builds</Text>
-
-                    <View style={[styles.pricingGrid, { maxWidth: contentWidth }]}>
-                        {/* Simple Landing Page */}
-                        <View style={styles.pricingCard}>
-                            <Text style={styles.tierTitle}>Simple Landing Page</Text>
-                            <Text style={styles.price}>$1,000 - $1,500</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.feature}>• 1-3 pages (Home, About, Contact)</Text>
-                                <Text style={styles.feature}>• Responsive Design</Text>
-                                <Text style={styles.feature}>• Contact Form with Email Notifications</Text>
-                                <Text style={styles.feature}>• Optimized Images</Text>
-                                <Text style={styles.feature}>• {`< 3 second load times`}</Text>
-                                <Text style={styles.feature}>• SEO Basics</Text>
-                                <Text style={styles.feature}>• Hosting Setup</Text>
-                                <Text style={styles.feature}>• Domain Setup</Text>
-                                <Text style={styles.feature}>• Design Revisions (3 rounds)</Text>
-                            </View>
-                        </View>
-
-                        {/* Small Business Site */}
-                        <View style={styles.pricingCard}>
-                            <Text style={styles.tierTitle}>Small Business Site</Text>
-                            <Text style={styles.price}>$3,000 - $4,000</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything from Simple Landing Page</Text>
-                                <Text style={styles.feature}>• 5-10 pages</Text>
-                                <Text style={styles.feature}>• Dynamic Drawer Menu</Text>
-                                <Text style={styles.feature}>• Contact Us Forms</Text>
-                                <Text style={styles.feature}>• Service Inquiry Forms</Text>
-                                <Text style={styles.feature}>• Newsletter Signup Forms</Text>
-                                <Text style={styles.feature}>• CMS Plugin</Text>
-                                <Text style={styles.feature}>• Custom CMS</Text>
-                                <Text style={styles.feature}>• Google Maps Integration</Text>
-                                <Text style={styles.feature}>• Design Revisions (5 rounds)</Text>
-                            </View>
-                        </View>
-
-                        {/* Advanced/Custom Site */}
-                        <View style={[styles.pricingCard, styles.highlightedCard]}>
-                            <Text style={styles.tierTitle}>Advanced/Custom Site</Text>
-                            <Text style={styles.price}>$5,000 - $15,000</Text>
-                            <Text style={styles.price}>{`(Recommended)`}</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything from Small Business Website</Text>
-                                <Text style={styles.feature}>• 10-25 pages with complex architecture</Text>
-                                <Text style={styles.feature}>• User Authentication</Text>
-                                <Text style={styles.feature}>• User Dashboards/Profiles</Text>
-                                <Text style={styles.feature}>• Advanced Search/Filtering</Text>
-                                <Text style={styles.feature}>• API Integrations</Text>
-                                <Text style={styles.feature}>• Document Management System</Text>
-                                <Text style={styles.feature}>• Unlimited Custom forms</Text>
-                                <Text style={styles.feature}>• CRM Integration (HubSpot, Salesforce, etc)</Text>
-                                <Text style={styles.feature}>• Payment Processing (Stripe/PayPal)</Text>
-                                <Text style={styles.feature}>• Social Media API Integrations</Text>
-                            </View>
-                        </View>
-
-                        {/* Enterprise Site */}
-                        <View style={styles.pricingCard}>
-                            <Text style={styles.tierTitle}>Enterprise Site</Text>
-                            <Text style={styles.price}>$15,000 - $75,000</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything from Advanced/Custom Website</Text>
-                                <Text style={styles.feature}>• Multi-Site architecture or site network</Text>
-                                <Text style={styles.feature}>• Complex database architecture</Text>
-                                <Text style={styles.feature}>• Advanced API development</Text>
-                                <Text style={styles.feature}>• Real-time features (notifications/live updates)</Text>
-                                <Text style={styles.feature}>• Data visualization and custom reporting</Text>
-                                <Text style={styles.feature}>• Document generation (invoices, contracts, reports)</Text>
-                                <Text style={styles.feature}>• ERP systems (SAP, Oracle, NetSuite)</Text>
-                                <Text style={styles.feature}>• CRM (Salesforce, Microsoft Dynamics)</Text>
-                                <Text style={styles.feature}>• Custom legacy system integrations</Text>
-                                <Text style={styles.feature}>• HR systems integration</Text>
-                                <Text style={styles.feature}>• Microservices architecture</Text>
-                                <Text style={styles.feature}>• Auto-scaling infrastructure</Text>
-                                <Text style={styles.feature}>• Load balancing</Text>
-                                <Text style={styles.feature}>• Staging/prod environments</Text>
-                                <Text style={styles.feature}>• Monthly strategy calls</Text>
-                            </View>
-                        </View>
-
-                        {/* E-Commerce Site */}
-                        <View style={styles.pricingCard}>
-                            <Text style={styles.tierTitle}>E-Commerce Site</Text>
-                            <Text style={styles.price}>$7,500 - $20,000</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.feature}>• Up to 500 SKUs</Text>
-                                <Text style={styles.featureNote}>  (+$500 for every 100 SKUs after 500)</Text>
-                                <Text style={styles.feature}>• Product Category/Details Pages</Text>
-                                <Text style={styles.feature}>• Cart/Checkout Pages</Text>
-                                <Text style={styles.feature}>• Shipping/Returns Policy Pages</Text>
-                                <Text style={styles.feature}>• Blog Pages</Text>
-                                <Text style={styles.feature}>• Real-time inventory tracking</Text>
-                                <Text style={styles.feature}>• Low stock alerts</Text>
-                                <Text style={styles.feature}>• Order processing and status updates</Text>
-                                <Text style={styles.feature}>• Order history</Text>
-                                <Text style={styles.feature}>• Wishlists</Text>
-                                <Text style={styles.feature}>• Email notifications</Text>
-                                <Text style={styles.feature}>• Customer reviews and ratings</Text>
-                                <Text style={styles.feature}>• Newsletter signup</Text>
-                                <Text style={styles.feature}>• Gift card functionality</Text>
-                                <Text style={styles.feature}>• Stripe/PayPal Integration</Text>
-                                <Text style={styles.feature}>• Tax Calculation (TaxJar Integration)</Text>
-                                <Text style={styles.feature}>• Shipping Calculator</Text>
-                                <Text style={styles.feature}>• International Shipping Support</Text>
-                                <Text style={styles.feature}>• Guest Checkout</Text>
-                                <Text style={styles.feature}>• Design Revisions (5 rounds)</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-
-                {/* Simple Add-ons Section */}
-                <View style={[styles.sectionContainer, { width: contentWidth, marginTop: defaultMargin * 2 }]}>
-                    <Text style={styles.sectionTitle}>Simple Add-Ons</Text>
-                    <View style={[styles.addonsGrid, { maxWidth: contentWidth }]}>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Additional Support Hours</Text>
-                            <Text style={styles.addonPrice}>$125/hour</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Live-chat Integration</Text>
-                            <Text style={styles.addonPrice}>$500</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Advanced Animations</Text>
-                            <Text style={styles.addonPrice}>$500</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Appointment Booking</Text>
-                            <Text style={styles.addonPrice}>$1,000</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Member Portal</Text>
-                            <Text style={styles.addonPrice}>$2,000</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Custom Admin Panel</Text>
-                            <Text style={styles.addonPrice}>$2,000</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Loyalty/Rewards Program</Text>
-                            <Text style={styles.addonPrice}>$2,000</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Mobile Application</Text>
-                            <Text style={styles.addonPrice}>$2,000+</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Multi-Currency Support</Text>
-                            <Text style={styles.addonPrice}>$2,500</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Subscriptions/Recurring Payments</Text>
-                            <Text style={styles.addonPrice}>$2,500</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Third-Party API Development</Text>
-                            <Text style={styles.addonPrice}>$4,000</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Multi-Vendor Marketplace</Text>
-                            <Text style={styles.addonPrice}>$7,500</Text>
-                        </View>
-                    </View>
-                </View>
-
-                {/* Maintenance Pricing Section */}
-                <View style={[styles.sectionContainer, { width: contentWidth, marginTop: defaultMargin * 2, marginBottom: defaultMargin * 2 }]}>
-                    <Text style={styles.sectionTitle}>Maintenance & Support</Text>
-
-                    <View style={[styles.maintenanceGrid, { maxWidth: contentWidth }]}>
-                        {/* Essentials Only */}
-                        <View style={styles.maintenanceCard}>
-                            <Text style={styles.tierTitle}>Essentials Only</Text>
-                            <Text style={styles.price}>$50/month</Text>
-                            <Text style={styles.annualPrice}>$510/annually</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.feature}>• AWS Hosting</Text>
-                                <Text style={styles.feature}>• Security Monitoring</Text>
-                                <Text style={styles.feature}>• Monthly Uptime Reports</Text>
-                                <Text style={styles.feature}>• 2 Hours of Minor Updates/Support per month</Text>
-                                <Text style={styles.feature}>• SSL Certificate Management</Text>
-                            </View>
-                        </View>
-
-                        {/* Basic */}
-                        <View style={styles.maintenanceCard}>
-                            <Text style={styles.tierTitle}>Basic</Text>
-                            <Text style={styles.price}>$100/month</Text>
-                            <Text style={styles.annualPrice}>$1,080/annually</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything in Essentials Only</Text>
-                                <Text style={styles.feature}>• 5 Hours of Minor Updates/Support per month</Text>
-                                <Text style={styles.feature}>• Plugin/Dependency Updates</Text>
-                                <Text style={styles.feature}>• Monthly Security Scans</Text>
-                                <Text style={styles.feature}>• Monthly Performance Optimization</Text>
-                                <Text style={styles.feature}>• Google Analytics</Text>
-                            </View>
-                        </View>
-
-                        {/* Professional */}
-                        <View style={[styles.maintenanceCard, styles.highlightedCard]}>
-                            <Text style={styles.tierTitle}>Professional</Text>
-                            <Text style={styles.price}>$300/month</Text>
-                            <Text style={styles.annualPrice}>$3,240/annually</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything in Basic</Text>
-                                <Text style={styles.feature}>• 10 Hours of Minor Updates/Support per month</Text>
-                                <Text style={styles.feature}>• Priority Email Support</Text>
-                                <Text style={styles.feature}>• Quarterly Strategy Consulting</Text>
-                                <Text style={styles.feature}>• Bi-Weekly Security Scans</Text>
-                                <Text style={styles.feature}>• Bi-Weekly Performance Optimization</Text>
-                            </View>
-                        </View>
-
-                        {/* Enterprise */}
-                        <View style={styles.maintenanceCard}>
-                            <Text style={styles.tierTitle}>Enterprise</Text>
-                            <Text style={styles.price}>$600 - $2,500/month</Text>
-                            <Text style={styles.annualPrice}>$6,120 - $25,500/annually</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything in Professional</Text>
-                                <Text style={styles.feature}>• 24/7 Security Monitoring</Text>
-                                <Text style={styles.feature}>• 25+ Hours of Development Support per month</Text>
-                                <Text style={styles.feature}>• A/B Testing Implementation</Text>
-                                <Text style={styles.feature}>• Scalability Planning</Text>
-                                <Text style={styles.feature}>• Infrastructure Optimization</Text>
-                                <Text style={styles.feature}>• Disaster Recovery Planning</Text>
-                                <Text style={styles.feature}>• Monthly Strategy Consulting</Text>
-                                <Text style={styles.featureNote}>  Optional: Dedicated Account Manager</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                <Text style={[styles.subTitle, { marginTop: defaultMargin }]}>Interested to learn more?</Text>
-                <BaseButton
-                    style={{ marginTop: defaultMargin }}
-                    text={"Contact Us"}
-                    onPress={contactUsButtonPressed}
-                />
-            </ScrollView>
-        </BasePage>
-    )
-}
-
-const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center'
-    },
-    title: {
-        fontFamily: FontFamily.primary,
-        fontSize: FontSize.xl,
-        color: Colors.text.primary,
-    },
-    subTitle: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.lg,
-        color: Colors.text.primary,
-        alignSelf: 'center',
-    },
-    sectionContainer: {
-        alignItems: 'center',
-    },
-    sectionTitle: {
-        fontFamily: FontFamily.primary,
-        fontSize: FontSize.lg,
-        color: Colors.brand.primary,
-        marginBottom: Spacing.lg,
-    },
-    pricingGrid: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: Spacing.lg,
-        justifyContent: 'center',
-    },
-    pricingCard: {
-        backgroundColor: Colors.background.gray,
-        borderRadius: BorderRadius.md,
-        padding: Spacing.lg,
-        width: '100%',
-        maxWidth: 450,
-        flex: 1,
-        minWidth: 280,
-    },
-    highlightedCard: {
-        backgroundColor: Colors.background.redDark,
-        borderWidth: 2,
-        borderColor: Colors.brand.primary,
-    },
-    tierTitle: {
-        fontFamily: FontFamily.primary,
-        fontSize: FontSize.md,
-        color: Colors.text.primary,
-        marginBottom: Spacing.sm,
-        textAlign: 'center',
-    },
-    price: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.lg,
-        color: Colors.brand.primary,
-        marginBottom: Spacing.md,
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    featuresList: {
-        gap: Spacing.xs,
-    },
-    feature: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.sm,
-        color: Colors.text.primary,
-    },
-    featureHighlight: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.sm,
-        color: Colors.brand.primary,
-        fontWeight: 'bold',
-        marginBottom: Spacing.xs,
-    },
-    featureNote: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.xs,
-        color: Colors.text.secondary,
-        fontStyle: 'italic',
-    },
-    addonsGrid: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: Spacing.md,
-        justifyContent: 'center',
-    },
-    addonCard: {
-        backgroundColor: Colors.background.gray,
-        borderRadius: BorderRadius.md,
-        padding: Spacing.md,
-        minWidth: 160,
-        flex: 1,
-        maxWidth: 220,
-        alignItems: 'center',
-    },
-    addonName: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.sm,
-        color: Colors.text.primary,
-        marginBottom: Spacing.xs,
-        textAlign: 'center',
-    },
-    addonPrice: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.md,
-        color: Colors.brand.primary,
-        fontWeight: 'bold',
-    },
-    maintenanceGrid: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: Spacing.lg,
-        justifyContent: 'center',
-    },
-    maintenanceCard: {
-        backgroundColor: Colors.background.gray,
-        borderRadius: BorderRadius.md,
-        padding: Spacing.lg,
-        width: '100%',
-        maxWidth: 450,
-        flex: 1,
-        minWidth: 280,
-    },
-    annualPrice: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.sm,
-        color: Colors.text.secondary,
-        marginBottom: Spacing.md,
-        textAlign: 'center',
-    },
-});
+              Request Custom Quote
+            </Button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
 
 export default Pricing;
