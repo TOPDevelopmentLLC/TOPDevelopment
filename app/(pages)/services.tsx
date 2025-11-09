@@ -50,7 +50,10 @@ const Services = () => {
                 <TabsTrigger
                   key={category.value}
                   value={category.value}
-                  style={styles.tabTrigger}
+                  style={[
+                    styles.tabTrigger,
+                    activeTab === category.value && styles.tabTriggerActive
+                  ] as any}
                 >
                   <View style={styles.tabTriggerContent}>
                     <IconContainer iconProps={{ name: category.icon, size: 16, color: Colors.text.primary, type: IconType.MaterialIcons }} />
@@ -175,6 +178,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
     marginBottom: Spacing.xl * 3,
     justifyContent: 'center',
+    paddingHorizontal: Spacing.md,
   },
   tabTrigger: {
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
@@ -183,6 +187,10 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.sm * 1.5,
     paddingHorizontal: Spacing.md,
     borderRadius: BorderRadius.sm,
+  },
+  tabTriggerActive: {
+    backgroundColor: Colors.brand.primary,
+    borderColor: Colors.brand.primary,
   },
   tabTriggerContent: {
     flexDirection: 'row',
