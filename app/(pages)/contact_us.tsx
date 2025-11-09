@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Pressable, Linking } from 'react-native';
 import axios from 'axios';
-import { CheckCircle2, Mail, MapPin, Phone } from 'lucide-react';
+import { MaterialIcons } from '@expo/vector-icons';
 import { toast } from 'sonner';
 import { CircuitBackground } from '../../components/layout/CircuitBackground';
 import { Badge } from '../../components/data/badge';
@@ -142,7 +142,7 @@ const ContactUs = () => {
             <View style={styles.contactInfoColumn}>
               <Card style={styles.infoCard}>
                 <CardContent style={styles.infoCardContent}>
-                  <Mail size={32} color={Colors.brand.primary} style={styles.infoIcon} />
+                  <MaterialIcons name="email" size={32} color={Colors.brand.primary} style={styles.infoIcon} />
                   <Text style={styles.infoTitle}>Email</Text>
                   <Pressable onPress={() => Linking.openURL('mailto:contact@topdevelopment.com')}>
                     <Text style={styles.infoLink}>contact@topdevelopment.com</Text>
@@ -152,7 +152,7 @@ const ContactUs = () => {
 
               <Card style={styles.infoCard}>
                 <CardContent style={styles.infoCardContent}>
-                  <Phone size={32} color={Colors.brand.primary} style={styles.infoIcon} />
+                  <MaterialIcons name="phone" size={32} color={Colors.brand.primary} style={styles.infoIcon} />
                   <Text style={styles.infoTitle}>Phone</Text>
                   <Pressable onPress={() => Linking.openURL('tel:+1234567890')}>
                     <Text style={styles.infoLink}>+1 (234) 567-890</Text>
@@ -162,7 +162,7 @@ const ContactUs = () => {
 
               <Card style={styles.infoCard}>
                 <CardContent style={styles.infoCardContent}>
-                  <MapPin size={32} color={Colors.brand.primary} style={styles.infoIcon} />
+                  <MaterialIcons name="place" size={32} color={Colors.brand.primary} style={styles.infoIcon} />
                   <Text style={styles.infoTitle}>Location</Text>
                   <Text style={styles.infoText}>Florida, United States</Text>
                 </CardContent>
@@ -173,19 +173,19 @@ const ContactUs = () => {
                   <Text style={styles.expectTitle}>What to Expect</Text>
                   <View style={styles.expectList}>
                     <View style={styles.expectItem}>
-                      <CheckCircle2 size={16} color={Colors.brand.primary} style={styles.expectIcon} />
+                      <MaterialIcons name="check-circle" size={16} color={Colors.brand.primary} style={styles.expectIcon} />
                       <Text style={styles.expectText}>Response within 24 hours</Text>
                     </View>
                     <View style={styles.expectItem}>
-                      <CheckCircle2 size={16} color={Colors.brand.primary} style={styles.expectIcon} />
+                      <MaterialIcons name="check-circle" size={16} color={Colors.brand.primary} style={styles.expectIcon} />
                       <Text style={styles.expectText}>Free consultation call</Text>
                     </View>
                     <View style={styles.expectItem}>
-                      <CheckCircle2 size={16} color={Colors.brand.primary} style={styles.expectIcon} />
+                      <MaterialIcons name="check-circle" size={16} color={Colors.brand.primary} style={styles.expectIcon} />
                       <Text style={styles.expectText}>Detailed proposal & timeline</Text>
                     </View>
                     <View style={styles.expectItem}>
-                      <CheckCircle2 size={16} color={Colors.brand.primary} style={styles.expectIcon} />
+                      <MaterialIcons name="check-circle" size={16} color={Colors.brand.primary} style={styles.expectIcon} />
                       <Text style={styles.expectText}>No obligation to proceed</Text>
                     </View>
                   </View>

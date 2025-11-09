@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { Award, Lightbulb, Target, Users } from 'lucide-react';
+import { MaterialIcons } from '@expo/vector-icons';
 import { CircuitBackground } from '../../components/layout/CircuitBackground';
 import { Badge } from '../../components/data/badge';
 import { Button } from '../../components/buttons/button';
@@ -12,22 +12,22 @@ import { Typography } from '../../constants/globalStyles';
 const AboutUs = () => {
   const values = [
     {
-      icon: Target,
+      icon: 'track_changes',
       title: 'Problem-Focused',
       description: 'We prioritize solving real problems with practical, lasting solutions',
     },
     {
-      icon: Lightbulb,
+      icon: 'lightbulb',
       title: 'Innovation',
       description: 'Leveraging AI and modern frameworks to deliver faster without compromising quality',
     },
     {
-      icon: Users,
+      icon: 'people',
       title: 'Client-Centric',
       description: 'Your success is our success. We build solutions tailored to your unique needs',
     },
     {
-      icon: Award,
+      icon: 'workspace_premium',
       title: 'Excellence',
       description: 'Commitment to delivering high-quality, scalable, and maintainable code',
     },
@@ -135,7 +135,7 @@ const AboutUs = () => {
             {values.map((value, index) => (
               <Card key={index} style={styles.valueCard}>
                 <CardContent style={styles.valueCardContent}>
-                  <value.icon size={48} color={Colors.brand.primary} style={styles.valueIcon} />
+                  <MaterialIcons name={value.icon as any} size={48} color={Colors.brand.primary} style={styles.valueIcon} />
                   <Text style={styles.valueTitle}>{value.title}</Text>
                   <Text style={styles.valueDescription}>{value.description}</Text>
                 </CardContent>

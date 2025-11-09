@@ -1,17 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import {
-  CheckCircle2,
-  Cloud,
-  Code,
-  Database,
-  MessageSquare,
-  Search,
-  Shield,
-  Smartphone,
-  TrendingUp,
-  Zap,
-} from 'lucide-react';
+import { MaterialIcons } from '@expo/vector-icons';
 import { CircuitBackground } from '../../components/layout/CircuitBackground';
 import { Badge } from '../../components/data/badge';
 import { Button } from '../../components/buttons/button';
@@ -25,12 +14,12 @@ const Services = () => {
   const [activeTab, setActiveTab] = useState('web');
 
   const serviceCategories = [
-    { value: 'web', label: 'Web Development', icon: Code },
-    { value: 'mobile', label: 'Mobile Apps', icon: Smartphone },
-    { value: 'backend', label: 'Backend', icon: Database },
-    { value: 'seo', label: 'SEO', icon: Search },
-    { value: 'infrastructure', label: 'Infrastructure', icon: Cloud },
-    { value: 'consultation', label: 'Consultation', icon: MessageSquare },
+    { value: 'web', label: 'Web Development', icon: 'code' },
+    { value: 'mobile', label: 'Mobile Apps', icon: 'smartphone' },
+    { value: 'backend', label: 'Backend', icon: 'storage' },
+    { value: 'seo', label: 'SEO', icon: 'search' },
+    { value: 'infrastructure', label: 'Infrastructure', icon: 'cloud' },
+    { value: 'consultation', label: 'Consultation', icon: 'chat' },
   ];
 
   const serviceDetails = {
@@ -237,7 +226,7 @@ const Services = () => {
                   style={styles.tabTrigger}
                 >
                   <View style={styles.tabTriggerContent}>
-                    <category.icon size={16} color={Colors.text.primary} />
+                    <MaterialIcons name={category.icon as any} size={16} color={Colors.text.primary} />
                     <Text style={styles.tabLabel}>{category.label}</Text>
                   </View>
                 </TabsTrigger>
@@ -259,7 +248,7 @@ const Services = () => {
                     {service.features.map((feature, index) => (
                       <Card key={index} style={styles.featureCard}>
                         <CardContent style={styles.featureCardContent}>
-                          <CheckCircle2 size={20} color={Colors.brand.primary} />
+                          <MaterialIcons name="check-circle" size={20} color={Colors.brand.primary} />
                           <Text style={styles.featureText}>{feature}</Text>
                         </CardContent>
                       </Card>
@@ -294,7 +283,7 @@ const Services = () => {
           <View style={styles.whyGrid}>
             <Card style={styles.whyCard}>
               <CardContent style={styles.whyCardContent}>
-                <Zap size={48} color={Colors.brand.primary} style={styles.whyIcon} />
+                <MaterialIcons name="flash-on" size={48} color={Colors.brand.primary} style={styles.whyIcon} />
                 <Text style={styles.whyCardTitle}>AI-Powered Speed</Text>
                 <Text style={styles.whyCardDescription}>
                   Leverage cutting-edge AI tools to build and deploy faster than traditional methods
@@ -303,7 +292,7 @@ const Services = () => {
             </Card>
             <Card style={styles.whyCard}>
               <CardContent style={styles.whyCardContent}>
-                <Shield size={48} color={Colors.brand.primary} style={styles.whyIcon} />
+                <MaterialIcons name="security" size={48} color={Colors.brand.primary} style={styles.whyIcon} />
                 <Text style={styles.whyCardTitle}>Quality Assurance</Text>
                 <Text style={styles.whyCardDescription}>
                   Rigorous testing and quality control ensure reliable, production-ready solutions
@@ -312,7 +301,7 @@ const Services = () => {
             </Card>
             <Card style={styles.whyCard}>
               <CardContent style={styles.whyCardContent}>
-                <TrendingUp size={48} color={Colors.brand.primary} style={styles.whyIcon} />
+                <MaterialIcons name="trending-up" size={48} color={Colors.brand.primary} style={styles.whyIcon} />
                 <Text style={styles.whyCardTitle}>Scalable Solutions</Text>
                 <Text style={styles.whyCardDescription}>
                   Built to grow with your business, from startup to enterprise scale

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { Cpu, Globe, Search, Server, Smartphone, Users } from 'lucide-react';
+import { MaterialIcons } from '@expo/vector-icons';
 import { CircuitBackground } from '../../components/layout/CircuitBackground';
 import { Button } from '../../components/buttons/button';
 import { Card, CardContent } from '../../components/layout/card';
@@ -12,32 +12,32 @@ import { Typography } from '../../constants/globalStyles';
 const HomePage = () => {
   const services = [
     {
-      icon: Globe,
+      icon: 'public',
       title: 'Web Development',
       description: 'Custom web applications built with modern frameworks and AI-powered development',
     },
     {
-      icon: Smartphone,
+      icon: 'smartphone',
       title: 'Mobile Development',
       description: 'Native and cross-platform mobile apps that deliver exceptional user experiences',
     },
     {
-      icon: Server,
+      icon: 'storage',
       title: 'Backend Development',
       description: 'Scalable backend solutions with robust APIs and database architecture',
     },
     {
-      icon: Search,
+      icon: 'search',
       title: 'SEO Services',
       description: 'Optimize your digital presence and increase visibility in search results',
     },
     {
-      icon: Cpu,
+      icon: 'memory',
       title: 'Infrastructure Modernization',
       description: 'Upgrade and optimize your existing infrastructure for better performance',
     },
     {
-      icon: Users,
+      icon: 'people',
       title: 'Consultation Services',
       description: 'Expert guidance to help you navigate your technology decisions',
     },
@@ -104,7 +104,7 @@ const HomePage = () => {
             {services.map((service, index) => (
               <Card key={index} style={styles.serviceCard} onPress={() => handleNavigate('services')}>
                 <CardContent style={styles.serviceCardContent}>
-                  <service.icon size={48} color={Colors.brand.primary} style={styles.serviceIcon} />
+                  <MaterialIcons name={service.icon as any} size={48} color={Colors.brand.primary} style={styles.serviceIcon} />
                   <Text style={styles.serviceTitle}>{service.title}</Text>
                   <Text style={styles.serviceDescription}>{service.description}</Text>
                 </CardContent>

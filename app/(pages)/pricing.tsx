@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { CheckCircle2 } from 'lucide-react';
+import { MaterialIcons } from '@expo/vector-icons';
 import { CircuitBackground } from '../../components/layout/CircuitBackground';
 import { Badge } from '../../components/data/badge';
 import { Button } from '../../components/buttons/button';
@@ -247,7 +247,8 @@ const Pricing = () => {
                   <View style={styles.featureList}>
                     {tier.features.map((feature, fIndex) => (
                       <View key={fIndex} style={styles.featureItem}>
-                        <CheckCircle2
+                        <MaterialIcons
+                          name="check-circle"
                           size={16}
                           color={Colors.brand.primary}
                           style={styles.featureIcon}
@@ -324,7 +325,8 @@ const Pricing = () => {
                   <View style={styles.featureList}>
                     {plan.features.map((feature, fIndex) => (
                       <View key={fIndex} style={styles.featureItem}>
-                        <CheckCircle2
+                        <MaterialIcons
+                          name="check-circle"
                           size={16}
                           color={Colors.brand.primary}
                           style={styles.featureIcon}
