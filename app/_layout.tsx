@@ -1,9 +1,8 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
-import { PaperProvider } from 'react-native-paper';
+import { Toaster } from '../components/feedback/sonner';
 import 'react-native-reanimated';
 
 export default function RootLayout() {
@@ -20,15 +19,10 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={DefaultTheme}>
-      <PaperProvider
-        settings={{
-          icon: (props) => <MaterialCommunityIcons {...props} />,
-        }}
-      >
-        <Stack screenOptions={{
-            headerShown: false
-          }}/>
-      </PaperProvider>
+      <Stack screenOptions={{
+          headerShown: false
+        }}/>
+      <Toaster position="top-center" theme="dark" />
     </ThemeProvider>
   );
 }
