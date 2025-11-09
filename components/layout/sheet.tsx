@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, ReactNode } from 'react';
+import React, { useState, createContext, useContext, ReactNode, useEffect } from 'react';
 import {
   Modal,
   View,
@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ViewStyle,
   TextStyle,
+  Animated,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from 'constants/theme';
@@ -29,6 +30,13 @@ interface SheetProps {
 
 export function Sheet({ children, open, onOpenChange }: SheetProps) {
   const [isOpen, setIsOpen] = useState(open || false);
+
+  // Sync internal state with external open prop
+  useEffect(() => {
+    if (open !== undefined) {
+      setIsOpen(open);
+    }
+  }, [open]);
 
   const handleSetIsOpen = (newOpen: boolean) => {
     setIsOpen(newOpen);
@@ -75,12 +83,43 @@ interface SheetContentProps {
 
 export function SheetContent({ children, side = 'right', style }: SheetContentProps) {
   const { isOpen, setIsOpen } = useContext(SheetContext);
+  const slideAnim = React.useRef(new Animated.Value(side === 'right' || side === 'left' ? 400 : 600)).current;
+
+  useEffect(() => {
+    const distance = side === 'right' || side === 'left' ? 400 : 600;
+    if (isOpen) {
+      Animated.spring(slideAnim, {
+        toValue: 0,
+        useNativeDriver: true,
+        tension: 65,
+        friction: 11,
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: distance,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [isOpen, side, slideAnim]);
+
+  const getTransform = () => {
+    if (side === 'right') {
+      return [{ translateX: slideAnim }];
+    } else if (side === 'left') {
+      return [{ translateX: Animated.multiply(slideAnim, -1) }];
+    } else if (side === 'top') {
+      return [{ translateY: Animated.multiply(slideAnim, -1) }];
+    } else {
+      return [{ translateY: slideAnim }];
+    }
+  };
 
   return (
     <Modal
       visible={isOpen}
       transparent
-      animationType="slide"
+      animationType="fade"
       onRequestClose={() => setIsOpen(false)}
     >
       <View style={styles.overlay}>
@@ -88,7 +127,14 @@ export function SheetContent({ children, side = 'right', style }: SheetContentPr
           style={styles.overlayTouchable}
           onPress={() => setIsOpen(false)}
         />
-        <View style={[styles.content, styles[`content_${side}`], style]}>
+        <Animated.View
+          style={[
+            styles.content,
+            styles[`content_${side}`],
+            style,
+            { transform: getTransform() }
+          ]}
+        >
           <Pressable
             style={styles.closeButton}
             onPress={() => setIsOpen(false)}
@@ -96,7 +142,7 @@ export function SheetContent({ children, side = 'right', style }: SheetContentPr
             <MaterialIcons name="close" size={24} color={Colors.text.secondary} />
           </Pressable>
           {children}
-        </View>
+        </Animated.View>
       </View>
     </Modal>
   );

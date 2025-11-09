@@ -1,7 +1,8 @@
+import { Footer } from 'components/layout/Footer';
+import { Navigation } from 'components/navigation/Navigation';
+import { Colors } from 'constants/theme';
 import React, { ReactNode } from 'react';
 import { ScrollView, StyleSheet, ViewStyle } from 'react-native';
-import { Footer } from 'components/layout/Footer';
-import { Colors } from 'constants/theme';
 
 interface BasePageProps {
   children: ReactNode;
@@ -10,10 +11,14 @@ interface BasePageProps {
 
 export function BasePage({ children, style }: BasePageProps) {
   return (
-    <ScrollView style={[styles.container, style]}>
+    <>
+      <Navigation />
+      <ScrollView style={[styles.container, style]}>
       {children}
       <Footer />
     </ScrollView>
+    </>
+    
   );
 }
 

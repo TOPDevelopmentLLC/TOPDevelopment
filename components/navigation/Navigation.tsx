@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { router, usePathname } from 'expo-router';
 import { Sheet, SheetContent, SheetTrigger } from 'components/layout/sheet';
-import { Button } from 'components/buttons/button';
 import { Colors, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
 
 const topLogo = require('assets/images/top_development_logo.png');
 
-interface NavigationProps {
-  currentPage?: string;
-}
-
-export function Navigation({ currentPage }: NavigationProps) {
+export function Navigation() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   const menuItems = [
     { label: "Home", value: "home", route: "/home" },
@@ -54,33 +50,36 @@ export function Navigation({ currentPage }: NavigationProps) {
 
         {/* Hamburger Menu */}
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild>
-            <Button variant="ghost" style={styles.menuButton}>
+          <SheetTrigger>
+            <View style={styles.menuButton}>
               <MaterialIcons name="menu" size={24} color={Colors.text.primary} />
-            </Button>
+            </View>
           </SheetTrigger>
           <SheetContent side="right" style={styles.sheetContent}>
             <View style={styles.menuContainer}>
-              {menuItems.map((item) => (
-                <Pressable
-                  key={item.value}
-                  onPress={() => handleNavigation(item.route)}
-                  style={({ pressed }) => [
-                    styles.menuItem,
-                    currentPage === item.value && styles.menuItemActive,
-                    pressed && styles.menuItemPressed
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.menuItemText,
-                      currentPage === item.value && styles.menuItemTextActive
+              {menuItems.map((item) => {
+                const isActive = pathname === item.route;
+                return (
+                  <Pressable
+                    key={item.value}
+                    onPress={() => handleNavigation(item.route)}
+                    style={({ pressed }) => [
+                      styles.menuItem,
+                      isActive && styles.menuItemActive,
+                      pressed && styles.menuItemPressed
                     ]}
                   >
-                    {item.label}
-                  </Text>
-                </Pressable>
-              ))}
+                    <Text
+                      style={[
+                        styles.menuItemText,
+                        isActive && styles.menuItemTextActive
+                      ]}
+                    >
+                      {item.label}
+                    </Text>
+                  </Pressable>
+                );
+              })}
             </View>
           </SheetContent>
         </Sheet>
@@ -141,6 +140,7 @@ const styles = StyleSheet.create({
   },
   menuButton: {
     padding: Spacing.sm,
+    borderRadius: 8,
   },
   sheetContent: {
     width: 300,
