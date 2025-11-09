@@ -23,6 +23,7 @@ module.exports = function (api) {
                     'components': './components',
                     'lib': './lib',
                     'hooks': './hooks',
+                    'constants': './constants',
                 },
             },
         ],
