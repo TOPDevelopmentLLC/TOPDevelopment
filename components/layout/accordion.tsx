@@ -1,66 +1,187 @@
-"use client";
+import React, { useState } from 'react';
+import { View, Text, Pressable, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from '../../constants/theme';
 
-import * as React from "react";
-import * as AccordionPrimitive from "@radix-ui/react-accordion@1.2.3";
-import { ChevronDownIcon } from "lucide-react@0.487.0";
-
-import { cn } from "./utils";
-
-function Accordion({
-  ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Root>) {
-  return <AccordionPrimitive.Root data-slot="accordion" {...props} />;
+interface AccordionProps {
+  children?: React.ReactNode;
+  type?: 'single' | 'multiple';
+  collapsible?: boolean;
+  style?: ViewStyle;
+  className?: string;
 }
 
-function AccordionItem({
-  className,
-  ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Item>) {
-  return (
-    <AccordionPrimitive.Item
-      data-slot="accordion-item"
-      className={cn("border-b last:border-b-0", className)}
-      {...props}
-    />
-  );
+interface AccordionItemProps {
+  children?: React.ReactNode;
+  value: string;
+  style?: ViewStyle;
+  className?: string;
 }
 
-function AccordionTrigger({
-  className,
+interface AccordionTriggerProps {
+  children?: React.ReactNode;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+  className?: string;
+}
+
+interface AccordionContentProps {
+  children?: React.ReactNode;
+  style?: ViewStyle;
+  className?: string;
+}
+
+interface AccordionContextType {
+  openItems: string[];
+  toggleItem: (value: string) => void;
+  type: 'single' | 'multiple';
+}
+
+const AccordionContext = React.createContext<AccordionContextType>({
+  openItems: [],
+  toggleItem: () => {},
+  type: 'single',
+});
+
+export const Accordion: React.FC<AccordionProps> = ({
   children,
-  ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
+  type = 'single',
+  collapsible = true,
+  style,
+}) => {
+  const [openItems, setOpenItems] = useState<string[]>([]);
+
+  const toggleItem = (value: string) => {
+    if (type === 'single') {
+      setOpenItems(prev =>
+        prev.includes(value) && collapsible ? [] : [value]
+      );
+    } else {
+      setOpenItems(prev =>
+        prev.includes(value)
+          ? prev.filter(item => item !== value)
+          : [...prev, value]
+      );
+    }
+  };
+
   return (
-    <AccordionPrimitive.Header className="flex">
-      <AccordionPrimitive.Trigger
-        data-slot="accordion-trigger"
-        className={cn(
-          "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
-          className,
-        )}
-        {...props}
-      >
+    <AccordionContext.Provider value={{ openItems, toggleItem, type }}>
+      <View style={[styles.accordion, style]}>
         {children}
-        <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
-      </AccordionPrimitive.Trigger>
-    </AccordionPrimitive.Header>
+      </View>
+    </AccordionContext.Provider>
   );
-}
+};
 
-function AccordionContent({
-  className,
+const AccordionItemContext = React.createContext<string>('');
+
+export const AccordionItem: React.FC<AccordionItemProps> = ({
   children,
-  ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Content>) {
+  value,
+  style,
+}) => {
   return (
-    <AccordionPrimitive.Content
-      data-slot="accordion-content"
-      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
-      {...props}
-    >
-      <div className={cn("pt-0 pb-4", className)}>{children}</div>
-    </AccordionPrimitive.Content>
+    <AccordionItemContext.Provider value={value}>
+      <View style={[styles.accordionItem, style]}>
+        {children}
+      </View>
+    </AccordionItemContext.Provider>
   );
-}
+};
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export const AccordionTrigger: React.FC<AccordionTriggerProps> = ({
+  children,
+  style,
+  textStyle,
+}) => {
+  const { openItems, toggleItem } = React.useContext(AccordionContext);
+  const value = React.useContext(AccordionItemContext);
+  const isOpen = openItems.includes(value);
+
+  return (
+    <Pressable
+      onPress={() => toggleItem(value)}
+      style={({ pressed }) => [
+        styles.trigger,
+        pressed && styles.triggerPressed,
+        style,
+      ]}
+    >
+      <Text style={[styles.triggerText, textStyle]}>
+        {children}
+      </Text>
+      <MaterialIcons
+        name="keyboard-arrow-down"
+        size={24}
+        color={Colors.text.secondary}
+        style={[
+          styles.icon,
+          isOpen && styles.iconRotated,
+        ]}
+      />
+    </Pressable>
+  );
+};
+
+export const AccordionContent: React.FC<AccordionContentProps> = ({
+  children,
+  style,
+}) => {
+  const { openItems } = React.useContext(AccordionContext);
+  const value = React.useContext(AccordionItemContext);
+  const isOpen = openItems.includes(value);
+
+  if (!isOpen) return null;
+
+  return (
+    <View style={[styles.content, style]}>
+      {typeof children === 'string' ? (
+        <Text style={styles.contentText}>{children}</Text>
+      ) : (
+        children
+      )}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  accordion: {
+    gap: Spacing.md,
+  },
+  accordionItem: {
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.border.primary,
+  },
+  trigger: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: Spacing.md,
+    gap: Spacing.md,
+  },
+  triggerPressed: {
+    opacity: 0.7,
+  },
+  triggerText: {
+    flex: 1,
+    fontSize: FontSize.md,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+  },
+  icon: {
+    transition: 'transform 0.2s',
+  },
+  iconRotated: {
+    transform: [{ rotate: '180deg' }],
+  },
+  content: {
+    paddingBottom: Spacing.md,
+  },
+  contentText: {
+    fontSize: FontSize.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    lineHeight: 20,
+  },
+});

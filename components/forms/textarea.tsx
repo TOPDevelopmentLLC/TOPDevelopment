@@ -1,18 +1,47 @@
-import * as React from "react";
+import React from 'react';
+import { TextInput, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
+import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from '../../constants/theme';
 
-import { cn } from "./utils";
+interface TextareaProps extends Omit<TextInputProps, 'style'> {
+  style?: ViewStyle;
+  className?: string; // Keep for compatibility
+  rows?: number;
+}
 
-function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
+export const Textarea: React.FC<TextareaProps> = ({
+  style,
+  className,
+  rows = 4,
+  placeholderTextColor = Colors.text.secondary,
+  ...props
+}) => {
   return (
-    <textarea
-      data-slot="textarea"
-      className={cn(
-        "resize-none border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-input-background px-3 py-2 text-base transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-        className,
-      )}
+    <TextInput
+      style={[
+        styles.textarea,
+        { minHeight: rows * 24 + Spacing.sm * 2 },
+        style,
+      ]}
+      multiline
+      numberOfLines={rows}
+      textAlignVertical="top"
+      placeholderTextColor={placeholderTextColor}
       {...props}
     />
   );
-}
+};
 
-export { Textarea };
+const styles = StyleSheet.create({
+  textarea: {
+    backgroundColor: Colors.background.gray,
+    borderWidth: 1,
+    borderColor: Colors.border.primary,
+    borderRadius: BorderRadius.md,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+    fontSize: FontSize.md,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    minHeight: 100,
+  },
+});

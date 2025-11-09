@@ -1,21 +1,54 @@
-import * as React from "react";
+import React from 'react';
+import { TextInput, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
+import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from '../../constants/theme';
 
-import { cn } from "./utils";
+interface InputProps extends Omit<TextInputProps, 'style'> {
+  style?: ViewStyle;
+  className?: string; // Keep for compatibility
+  type?: string; // Keep for compatibility but won't use
+}
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+export const Input: React.FC<InputProps> = ({
+  style,
+  className,
+  type,
+  placeholderTextColor = Colors.text.secondary,
+  ...props
+}) => {
+  // Handle keyboard type based on type prop
+  const getKeyboardType = () => {
+    if (type === 'email') return 'email-address';
+    if (type === 'tel') return 'phone-pad';
+    if (type === 'number') return 'numeric';
+    return 'default';
+  };
+
+  const getSecureTextEntry = () => {
+    return type === 'password';
+  };
+
   return (
-    <input
-      type={type}
-      data-slot="input"
-      className={cn(
-        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base bg-input-background transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-        className,
-      )}
+    <TextInput
+      style={[styles.input, style]}
+      placeholderTextColor={placeholderTextColor}
+      keyboardType={getKeyboardType()}
+      secureTextEntry={getSecureTextEntry()}
       {...props}
     />
   );
-}
+};
 
-export { Input };
+const styles = StyleSheet.create({
+  input: {
+    backgroundColor: Colors.background.gray,
+    borderWidth: 1,
+    borderColor: Colors.border.primary,
+    borderRadius: BorderRadius.md,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+    fontSize: FontSize.md,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    minHeight: 44,
+  },
+});
