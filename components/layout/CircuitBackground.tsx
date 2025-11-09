@@ -114,14 +114,14 @@ const styles = StyleSheet.create({
   },
   dotGrid: {
     position: 'absolute',
-    opacity: 0.2,
+    opacity: 0.25,
   },
   network: {
     position: 'absolute',
-    opacity: 0.15,
+    opacity: 0.22,
   },
   geometric: {
     position: 'absolute',
-    opacity: 0.08,
+    opacity: 0.12,
   },
 });

@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     position: 'relative',
-    minHeight: '100%',
+    minHeight: '100vh' as any,
   },
 });
