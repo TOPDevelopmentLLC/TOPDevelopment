@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, Pressable, Linking } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Linking } from 'react-native';
 import axios from 'axios';
 import { MaterialIcons } from '@expo/vector-icons';
 import { toast } from 'sonner';
 import { CircuitBackground } from '../../components/layout/CircuitBackground';
+import { BasePage } from '../../components/layout/BasePage';
 import { Badge } from '../../components/data/badge';
 import { Button } from '../../components/buttons/button';
 import { Card, CardContent } from '../../components/layout/card';
@@ -119,7 +120,7 @@ const ContactUs = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <BasePage>
       {/* Hero Section */}
       <View style={styles.heroSection}>
         <CircuitBackground />
@@ -309,15 +310,11 @@ const ContactUs = () => {
           </View>
         </View>
       </View>
-    </ScrollView>
+    </BasePage>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background.dark,
-  },
   heroSection: {
     paddingVertical: Spacing.xl * 5,
     position: 'relative',

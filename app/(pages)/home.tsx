@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { CircuitBackground } from '../../components/layout/CircuitBackground';
+import { BasePage } from '../../components/layout/BasePage';
 import { Button } from '../../components/buttons/button';
 import { Card, CardContent } from '../../components/layout/card';
 import { Badge } from '../../components/data/badge';
@@ -59,7 +60,7 @@ const HomePage = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <BasePage>
       {/* Hero Section */}
       <View style={styles.heroSection}>
         <CircuitBackground />
@@ -126,15 +127,11 @@ const HomePage = () => {
           </Button>
         </View>
       </View>
-    </ScrollView>
+    </BasePage>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background.dark,
-  },
   heroSection: {
     minHeight: '90vh' as any,
     position: 'relative',

@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { CircuitBackground } from '../../components/layout/CircuitBackground';
+import { BasePage } from '../../components/layout/BasePage';
 import {
   Accordion,
   AccordionContent,
@@ -113,7 +114,7 @@ const FAQs = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <BasePage>
       {/* Hero Section */}
       <View style={styles.heroSection}>
         <CircuitBackground />
@@ -164,15 +165,11 @@ const FAQs = () => {
           </View>
         </View>
       </View>
-    </ScrollView>
+    </BasePage>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background.dark,
-  },
   heroSection: {
     paddingVertical: Spacing.xl * 5,
     position: 'relative',
