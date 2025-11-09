@@ -3,7 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
-import { Button } from 'components/buttons/button';
+import { PrimaryButton } from 'components/buttons/PrimaryButton';
+import { SecondaryButton } from 'components/buttons/SecondaryButton';
 import { Card, CardContent } from 'components/layout/card';
 import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
@@ -67,16 +68,12 @@ const HomePage = () => {
         subtitle="Utilizing AI to create websites and mobile apps faster than our competitors, with seamless UI interfaces and comprehensive infrastructure support."
       >
         <View style={styles.heroButtons}>
-          <Button onPress={() => handleNavigate('contact')} style={styles.primaryButton}>
-            <Text style={styles.primaryButtonText}>Get Started</Text>
-          </Button>
-          <Button
-            onPress={() => handleNavigate('services')}
-            variant="outline"
-            style={styles.secondaryButton}
-          >
-            <Text style={styles.secondaryButtonText}>Learn More</Text>
-          </Button>
+          <PrimaryButton onPress={() => handleNavigate('contact')}>
+            Get Started
+          </PrimaryButton>
+          <SecondaryButton onPress={() => handleNavigate('services')}>
+            Learn More
+          </SecondaryButton>
         </View>
       </HeroSection>
 
@@ -111,9 +108,9 @@ const HomePage = () => {
           <Text style={styles.ctaSubtitle}>
             Let's discuss how we can help you build solutions that make things easier
           </Text>
-          <Button onPress={() => handleNavigate('contact')} style={styles.ctaButton}>
-            <Text style={styles.ctaButtonText}>Contact Us Today</Text>
-          </Button>
+          <PrimaryButton onPress={() => handleNavigate('contact')}>
+            Contact Us Today
+          </PrimaryButton>
         </View>
       </View>
     </BasePage>
@@ -127,28 +124,6 @@ const styles = StyleSheet.create({
     marginTop: Spacing.xl,
     flexWrap: 'wrap',
     justifyContent: 'center',
-  },
-  primaryButton: {
-    backgroundColor: Colors.brand.primary,
-    paddingHorizontal: Spacing.xl * 2,
-    paddingVertical: Spacing.lg * 1.5,
-  },
-  primaryButtonText: {
-    color: Colors.text.primary,
-    fontSize: Typography.lg,
-    fontFamily: FontFamily.secondary,
-    fontWeight: '500',
-  },
-  secondaryButton: {
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-    paddingHorizontal: Spacing.xl * 2,
-    paddingVertical: Spacing.lg * 1.5,
-  },
-  secondaryButtonText: {
-    color: Colors.text.primary,
-    fontSize: Typography.lg,
-    fontFamily: FontFamily.secondary,
-    fontWeight: '500',
   },
   servicesSection: {
     paddingVertical: Spacing.xl * 5,
@@ -241,17 +216,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl * 2,
     textAlign: 'center',
     maxWidth: 672,
-  },
-  ctaButton: {
-    backgroundColor: Colors.brand.primary,
-    paddingHorizontal: Spacing.xl * 2,
-    paddingVertical: Spacing.lg * 1.5,
-  },
-  ctaButtonText: {
-    color: Colors.text.primary,
-    fontSize: Typography.lg,
-    fontFamily: FontFamily.secondary,
-    fontWeight: '500',
   },
 });
 

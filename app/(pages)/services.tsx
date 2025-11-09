@@ -3,7 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
-import { Button } from 'components/buttons/button';
+import { PrimaryButton } from 'components/buttons/PrimaryButton';
+import { SecondaryButton } from 'components/buttons/SecondaryButton';
 import { Card, CardContent } from 'components/layout/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from 'components/navigation/tabs';
 import { router } from 'expo-router';
@@ -313,16 +314,8 @@ const Services = () => {
             Get in touch to discuss your requirements and receive a detailed proposal
           </Text>
           <View style={styles.ctaButtons}>
-            <Button onPress={() => handleNavigate('contact')} style={styles.ctaButton}>
-              <Text style={styles.ctaButtonText}>Contact Us</Text>
-            </Button>
-            <Button
-              onPress={() => handleNavigate('pricing')}
-              variant="outline"
-              style={styles.ctaButtonSecondary}
-            >
-              <Text style={styles.ctaButtonSecondaryText}>View Pricing</Text>
-            </Button>
+            <PrimaryButton onPress={() => handleNavigate('contact')}>Contact Us</PrimaryButton>
+            <SecondaryButton onPress={() => handleNavigate('pricing')}>View Pricing</SecondaryButton>
           </View>
         </View>
       </View>
@@ -544,28 +537,6 @@ const styles = StyleSheet.create({
     gap: Spacing.lg,
     flexWrap: 'wrap',
     justifyContent: 'center',
-  },
-  ctaButton: {
-    backgroundColor: Colors.brand.primary,
-    paddingHorizontal: Spacing.xl * 2,
-    paddingVertical: Spacing.lg * 1.5,
-  },
-  ctaButtonText: {
-    color: Colors.text.primary,
-    fontSize: Typography.base,
-    fontFamily: FontFamily.secondary,
-    fontWeight: '500',
-  },
-  ctaButtonSecondary: {
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-    paddingHorizontal: Spacing.xl * 2,
-    paddingVertical: Spacing.lg * 1.5,
-  },
-  ctaButtonSecondaryText: {
-    color: Colors.text.primary,
-    fontSize: Typography.base,
-    fontFamily: FontFamily.secondary,
-    fontWeight: '500',
   },
 });
 

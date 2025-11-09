@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
 import { Badge } from 'components/data/badge';
-import { Button } from 'components/buttons/button';
+import { PrimaryButton } from 'components/buttons/PrimaryButton';
 import { Card, CardContent } from 'components/layout/card';
 import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
@@ -251,16 +251,12 @@ const Pricing = () => {
                       </View>
                     ))}
                   </View>
-                  <Button
+                  <PrimaryButton
                     onPress={() => handleNavigate('contact')}
                     style={StyleSheet.flatten([styles.pricingButton, tier.popular && styles.popularButton])}
                   >
-                    <Text
-                      style={StyleSheet.flatten([styles.pricingButtonText, tier.popular && styles.popularButtonText])}
-                    >
-                      Get Started
-                    </Text>
-                  </Button>
+                    Get Started
+                  </PrimaryButton>
                 </CardContent>
               </Card>
             ))}
@@ -329,16 +325,12 @@ const Pricing = () => {
                       </View>
                     ))}
                   </View>
-                  <Button
+                  <PrimaryButton
                     onPress={() => handleNavigate('contact')}
                     style={StyleSheet.flatten([styles.pricingButton, plan.popular && styles.popularButton])}
                   >
-                    <Text
-                      style={StyleSheet.flatten([styles.pricingButtonText, plan.popular && styles.popularButtonText])}
-                    >
-                      Choose Plan
-                    </Text>
-                  </Button>
+                    Choose Plan
+                  </PrimaryButton>
                 </CardContent>
               </Card>
             ))}
@@ -354,9 +346,7 @@ const Pricing = () => {
             <Text style={styles.ctaSubtitle}>
               Every project is unique. Contact us for a personalized quote tailored to your specific requirements.
             </Text>
-            <Button onPress={() => handleNavigate('contact')} style={styles.ctaButton}>
-              <Text style={styles.ctaButtonText}>Request Custom Quote</Text>
-            </Button>
+            <PrimaryButton onPress={() => handleNavigate('contact')}>Request Custom Quote</PrimaryButton>
           </View>
         </View>
       </View>
@@ -476,21 +466,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   pricingButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
     width: '100%',
-    paddingVertical: Spacing.md,
   },
   popularButton: {
-    backgroundColor: Colors.brand.primary,
-  },
-  pricingButtonText: {
-    color: Colors.text.primary,
-    fontSize: Typography.base,
-    fontFamily: FontFamily.secondary,
-    fontWeight: '500',
-  },
-  popularButtonText: {
-    color: Colors.text.primary,
+    // Override handled by PrimaryButton
   },
   addOnGrid: {
     flexDirection: 'row',
@@ -556,17 +535,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl * 2,
     textAlign: 'center',
     maxWidth: 672,
-  },
-  ctaButton: {
-    backgroundColor: Colors.brand.primary,
-    paddingHorizontal: Spacing.xl * 2,
-    paddingVertical: Spacing.lg * 1.5,
-  },
-  ctaButtonText: {
-    color: Colors.text.primary,
-    fontSize: Typography.base,
-    fontFamily: FontFamily.secondary,
-    fontWeight: '500',
   },
 });
 

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
-import { Button } from 'components/buttons/button';
+import { PrimaryButton } from 'components/buttons/PrimaryButton';
 import { Card, CardContent } from 'components/layout/card';
 import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
@@ -166,9 +166,7 @@ const AboutUs = () => {
           <Text style={styles.ctaSubtitle}>
             Ready to start your project? Get in touch and let's discuss how we can help you achieve your goals.
           </Text>
-          <Button onPress={() => handleNavigate('contact')} style={styles.ctaButton}>
-            <Text style={styles.ctaButtonText}>Contact Us</Text>
-          </Button>
+          <PrimaryButton onPress={() => handleNavigate('contact')}>Contact Us</PrimaryButton>
         </View>
       </View>
     </BasePage>
@@ -326,17 +324,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl * 2,
     textAlign: 'center',
     maxWidth: 672,
-  },
-  ctaButton: {
-    backgroundColor: Colors.brand.primary,
-    paddingHorizontal: Spacing.xl * 2,
-    paddingVertical: Spacing.lg * 1.5,
-  },
-  ctaButtonText: {
-    color: Colors.text.primary,
-    fontSize: Typography.lg,
-    fontFamily: FontFamily.secondary,
-    fontWeight: '500',
   },
 });
 

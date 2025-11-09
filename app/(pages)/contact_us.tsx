@@ -5,7 +5,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { toast } from 'sonner';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
-import { Button } from 'components/buttons/button';
+import { PrimaryButton } from 'components/buttons/PrimaryButton';
+import { SecondaryButton } from 'components/buttons/SecondaryButton';
 import { Card, CardContent } from 'components/layout/card';
 import { Input } from 'components/forms/input';
 import { Label } from 'components/forms/label';
@@ -258,15 +259,12 @@ const ContactUs = () => {
                       </Pressable>
                     </View>
 
-                    <Button
+                    <PrimaryButton
                       onPress={handleSubmit}
-                      disabled={isSubmitting}
                       style={styles.submitButton}
                     >
-                      <Text style={styles.submitButtonText}>
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
-                      </Text>
-                    </Button>
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                    </PrimaryButton>
                   </View>
                 </CardContent>
               </Card>
@@ -284,20 +282,8 @@ const ContactUs = () => {
               Check out our services and pricing to learn more about what we offer
             </Text>
             <View style={styles.ctaButtons}>
-              <Button
-                onPress={() => handleNavigate('services')}
-                variant="outline"
-                style={styles.ctaButton}
-              >
-                <Text style={styles.ctaButtonText}>View Services</Text>
-              </Button>
-              <Button
-                onPress={() => handleNavigate('pricing')}
-                variant="outline"
-                style={styles.ctaButton}
-              >
-                <Text style={styles.ctaButtonText}>See Pricing</Text>
-              </Button>
+              <SecondaryButton onPress={() => handleNavigate('services')}>View Services</SecondaryButton>
+              <SecondaryButton onPress={() => handleNavigate('pricing')}>See Pricing</SecondaryButton>
             </View>
           </View>
         </View>
@@ -456,15 +442,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   submitButton: {
-    backgroundColor: Colors.brand.primary,
     width: '100%',
-    paddingVertical: Spacing.lg * 1.5,
-  },
-  submitButtonText: {
-    color: Colors.text.primary,
-    fontSize: Typography.base,
-    fontFamily: FontFamily.secondary,
-    fontWeight: '500',
   },
   ctaSection: {
     paddingVertical: Spacing.xl * 5,
@@ -498,17 +476,6 @@ const styles = StyleSheet.create({
     gap: Spacing.lg,
     flexWrap: 'wrap',
     justifyContent: 'center',
-  },
-  ctaButton: {
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-    paddingHorizontal: Spacing.xl * 2,
-    paddingVertical: Spacing.lg * 1.5,
-  },
-  ctaButtonText: {
-    color: Colors.text.primary,
-    fontSize: Typography.base,
-    fontFamily: FontFamily.secondary,
-    fontWeight: '500',
   },
 });
 

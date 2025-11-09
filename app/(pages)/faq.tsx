@@ -8,7 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from 'components/layout/accordion';
-import { Button } from 'components/buttons/button';
+import { PrimaryButton } from 'components/buttons/PrimaryButton';
 import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
@@ -151,9 +151,7 @@ const FAQs = () => {
             <Text style={styles.ctaSubtitle}>
               Can't find the answer you're looking for? Get in touch with our team and we'll be happy to help.
             </Text>
-            <Button onPress={() => handleNavigate('contact')} style={styles.ctaButton}>
-              <Text style={styles.ctaButtonText}>Contact Us</Text>
-            </Button>
+            <PrimaryButton onPress={() => handleNavigate('contact')}>Contact Us</PrimaryButton>
           </View>
         </View>
       </View>
@@ -231,17 +229,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl * 2,
     textAlign: 'center',
     maxWidth: 672,
-  },
-  ctaButton: {
-    backgroundColor: Colors.brand.primary,
-    paddingHorizontal: Spacing.xl * 2,
-    paddingVertical: Spacing.lg * 1.5,
-  },
-  ctaButtonText: {
-    color: Colors.text.primary,
-    fontSize: Typography.base,
-    fontFamily: FontFamily.secondary,
-    fontWeight: '500',
   },
 });
 
