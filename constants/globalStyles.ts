@@ -1,13 +1,86 @@
 /**
  * Global styles for TOP Development website
  * Import and use these common styles across components
+ * Migrated from temp/globals.css
  */
 
 import { StyleSheet } from 'react-native';
 import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from './theme';
 
+// Typography sizes matching globals.css
+export const Typography = {
+  '2xl': 30,
+  'xl': 24,
+  'lg': 20,
+  'base': 16,
+  'sm': 14,
+  'xs': 12,
+};
+
+// Font weights from globals.css
+export const FontWeight = {
+  medium: '500' as const,
+  normal: '400' as const,
+};
+
 export const globalStyles = StyleSheet.create({
-  // Text Styles
+  // Base Typography Styles (from globals.css)
+  h1: {
+    fontSize: Typography['2xl'],
+    fontWeight: FontWeight.medium,
+    lineHeight: Typography['2xl'] * 1.5,
+    color: Colors.text.primary,
+    fontFamily: FontFamily.primary,
+  },
+  h2: {
+    fontSize: Typography.xl,
+    fontWeight: FontWeight.medium,
+    lineHeight: Typography.xl * 1.5,
+    color: Colors.text.primary,
+    fontFamily: FontFamily.primary,
+  },
+  h3: {
+    fontSize: Typography.lg,
+    fontWeight: FontWeight.medium,
+    lineHeight: Typography.lg * 1.5,
+    color: Colors.text.primary,
+    fontFamily: FontFamily.secondary,
+  },
+  h4: {
+    fontSize: Typography.base,
+    fontWeight: FontWeight.medium,
+    lineHeight: Typography.base * 1.5,
+    color: Colors.text.primary,
+    fontFamily: FontFamily.secondary,
+  },
+  p: {
+    fontSize: Typography.base,
+    fontWeight: FontWeight.normal,
+    lineHeight: Typography.base * 1.5,
+    color: Colors.text.primary,
+    fontFamily: FontFamily.secondary,
+  },
+  label: {
+    fontSize: Typography.base,
+    fontWeight: FontWeight.medium,
+    lineHeight: Typography.base * 1.5,
+    color: Colors.text.primary,
+    fontFamily: FontFamily.secondary,
+  },
+  button: {
+    fontSize: Typography.base,
+    fontWeight: FontWeight.medium,
+    lineHeight: Typography.base * 1.5,
+    fontFamily: FontFamily.secondary,
+  },
+  input: {
+    fontSize: Typography.base,
+    fontWeight: FontWeight.normal,
+    lineHeight: Typography.base * 1.5,
+    fontFamily: FontFamily.secondary,
+  },
+
+  // Legacy Text Styles
   titleXL: {
     fontSize: FontSize.xl,
     fontFamily: FontFamily.primary,

@@ -23,6 +23,10 @@ export const Colors = {
     red: '#ea2320',
     redDark: '#8c1513',
   },
+  border: {
+    primary: '#4D4D4D',      // Default border color
+    secondary: '#B4B4B4',
+  },
 };
 
 // Typography
