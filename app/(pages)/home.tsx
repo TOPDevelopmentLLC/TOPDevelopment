@@ -9,41 +9,9 @@ import { Card, CardContent } from 'components/layout/card';
 import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
+import { services } from 'lib/data/home';
 
 const HomePage = () => {
-  const services = [
-    {
-      icon: 'public',
-      title: 'Web Development',
-      description: 'Custom web applications built with modern frameworks and AI-powered development',
-    },
-    {
-      icon: 'smartphone',
-      title: 'Mobile Development',
-      description: 'Native and cross-platform mobile apps that deliver exceptional user experiences',
-    },
-    {
-      icon: 'storage',
-      title: 'Backend Development',
-      description: 'Scalable backend solutions with robust APIs and database architecture',
-    },
-    {
-      icon: 'search',
-      title: 'SEO Services',
-      description: 'Optimize your digital presence and increase visibility in search results',
-    },
-    {
-      icon: 'memory',
-      title: 'Infrastructure Modernization',
-      description: 'Upgrade and optimize your existing infrastructure for better performance',
-    },
-    {
-      icon: 'people',
-      title: 'Consultation Services',
-      description: 'Expert guidance to help you navigate your technology decisions',
-    },
-  ];
-
   const handleNavigate = (page: string) => {
     const pageMap: { [key: string]: string } = {
       contact: '/contact_us',
