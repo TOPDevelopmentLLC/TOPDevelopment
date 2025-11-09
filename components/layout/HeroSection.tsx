@@ -33,10 +33,11 @@ export function HeroSection({ badge, title, subtitle, children, style }: HeroSec
 
 const styles = StyleSheet.create({
   heroSection: {
-    minHeight: '90vh' as any,
     position: 'relative',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: Spacing.xl * 4,
+    paddingBottom: Spacing.xl * 4,
     overflow: 'hidden',
   },
   heroContent: {

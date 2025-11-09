@@ -33,5 +33,6 @@ const styles = StyleSheet.create({
   contentWrapper: {
     position: 'relative',
     minHeight: '100vh' as any,
+    paddingTop: 80, // Account for the fixed navigation height
   },
 });
