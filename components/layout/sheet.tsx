@@ -9,8 +9,8 @@ import {
   TextStyle,
   Animated,
 } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from 'constants/theme';
+import IconContainer, { IconType } from 'components/utils/IconContainer';
 
 interface SheetContextType {
   isOpen: boolean;
@@ -139,7 +139,7 @@ export function SheetContent({ children, side = 'right', style }: SheetContentPr
             style={styles.closeButton}
             onPress={() => setIsOpen(false)}
           >
-            <MaterialIcons name="close" size={24} color={Colors.text.secondary} />
+            <IconContainer iconProps={{ name: "close", size: 24, color: Colors.text.secondary, type: IconType.MaterialIcons }} />
           </Pressable>
           {children}
         </Animated.View>

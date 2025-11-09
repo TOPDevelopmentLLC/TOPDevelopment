@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
 import { PrimaryButton } from 'components/buttons/PrimaryButton';
@@ -10,6 +9,7 @@ import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
 import { services } from 'lib/data/home';
+import IconContainer, { IconType } from 'components/utils/IconContainer';
 
 const HomePage = () => {
   const handleNavigate = (page: string) => {
@@ -59,7 +59,7 @@ const HomePage = () => {
             {services.map((service, index) => (
               <Card key={index} style={styles.serviceCard} onPress={() => handleNavigate('services')}>
                 <CardContent style={styles.serviceCardContent}>
-                  <MaterialIcons name={service.icon as any} size={48} color={Colors.brand.primary} style={styles.serviceIcon} />
+                  <IconContainer iconProps={{ name: service.icon, size: 48, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.serviceIcon} />
                   <Text style={styles.serviceTitle}>{service.title}</Text>
                   <Text style={styles.serviceDescription}>{service.description}</Text>
                 </CardContent>

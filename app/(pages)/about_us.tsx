@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
 import { PrimaryButton } from 'components/buttons/PrimaryButton';
@@ -9,6 +8,7 @@ import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
 import { values } from 'lib/data/about_us';
+import IconContainer, { IconType } from 'components/utils/IconContainer';
 
 const AboutUs = () => {
 
@@ -106,7 +106,7 @@ const AboutUs = () => {
             {values.map((value, index) => (
               <Card key={index} style={styles.valueCard}>
                 <CardContent style={styles.valueCardContent}>
-                  <MaterialIcons name={value.icon as any} size={48} color={Colors.brand.primary} style={styles.valueIcon} />
+                  <IconContainer iconProps={{ name: value.icon, size: 48, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.valueIcon} />
                   <Text style={styles.valueTitle}>{value.title}</Text>
                   <Text style={styles.valueDescription}>{value.description}</Text>
                 </CardContent>

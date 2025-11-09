@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
 import { Badge } from 'components/data/badge';
@@ -10,6 +9,7 @@ import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
 import { websiteBuilds, addOns, maintenancePlans } from 'lib/data/pricing';
+import IconContainer, { IconType } from 'components/utils/IconContainer';
 
 const Pricing = () => {
   const handleNavigate = (page: string) => {
@@ -66,10 +66,13 @@ const Pricing = () => {
                   <View style={styles.featureList}>
                     {tier.features.map((feature, fIndex) => (
                       <View key={fIndex} style={styles.featureItem}>
-                        <MaterialIcons
-                          name="check-circle"
-                          size={16}
-                          color={Colors.brand.primary}
+                        <IconContainer
+                          iconProps={{
+                            name: "check-circle",
+                            size: 16,
+                            color: Colors.brand.primary,
+                            type: IconType.MaterialIcons
+                          }}
                           style={styles.featureIcon}
                         />
                         <Text style={styles.featureText}>{feature}</Text>
@@ -140,10 +143,13 @@ const Pricing = () => {
                   <View style={styles.featureList}>
                     {plan.features.map((feature, fIndex) => (
                       <View key={fIndex} style={styles.featureItem}>
-                        <MaterialIcons
-                          name="check-circle"
-                          size={16}
-                          color={Colors.brand.primary}
+                        <IconContainer
+                          iconProps={{
+                            name: "check-circle",
+                            size: 16,
+                            color: Colors.brand.primary,
+                            type: IconType.MaterialIcons
+                          }}
                           style={styles.featureIcon}
                         />
                         <Text style={styles.featureText}>{feature}</Text>

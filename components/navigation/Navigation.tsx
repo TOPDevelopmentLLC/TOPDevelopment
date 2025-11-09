@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { router, usePathname } from 'expo-router';
 import { Sheet, SheetContent, SheetTrigger } from 'components/layout/sheet';
 import { Colors, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
+import IconContainer, { IconType } from 'components/utils/IconContainer';
 
 const topLogo = require('assets/images/top_development_logo.png');
 
@@ -52,7 +52,7 @@ export function Navigation() {
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger>
             <View style={styles.menuButton}>
-              <MaterialIcons name="menu" size={24} color={Colors.text.primary} />
+              <IconContainer iconProps={{ name: "menu", size: 24, color: Colors.text.primary, type: IconType.MaterialIcons }} />
             </View>
           </SheetTrigger>
           <SheetContent side="right" style={styles.sheetContent}>

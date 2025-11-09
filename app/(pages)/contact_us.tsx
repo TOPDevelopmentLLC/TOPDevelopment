@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Linking } from 'react-native';
 import axios from 'axios';
-import { MaterialIcons } from '@expo/vector-icons';
 import { toast } from 'sonner';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
@@ -14,6 +13,7 @@ import { Textarea } from 'components/forms/textarea';
 import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
+import IconContainer, { IconType } from 'components/utils/IconContainer';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -136,7 +136,7 @@ const ContactUs = () => {
             <View style={styles.contactInfoColumn}>
               <Card style={styles.infoCard}>
                 <CardContent style={styles.infoCardContent}>
-                  <MaterialIcons name="email" size={32} color={Colors.brand.primary} style={styles.infoIcon} />
+                  <IconContainer iconProps={{ name: "email", size: 32, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.infoIcon} />
                   <Text style={styles.infoTitle}>Email</Text>
                   <Pressable onPress={() => Linking.openURL('mailto:contact@topdevelopment.com')}>
                     <Text style={styles.infoLink}>contact@topdevelopment.com</Text>
@@ -146,7 +146,7 @@ const ContactUs = () => {
 
               <Card style={styles.infoCard}>
                 <CardContent style={styles.infoCardContent}>
-                  <MaterialIcons name="phone" size={32} color={Colors.brand.primary} style={styles.infoIcon} />
+                  <IconContainer iconProps={{ name: "phone", size: 32, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.infoIcon} />
                   <Text style={styles.infoTitle}>Phone</Text>
                   <Pressable onPress={() => Linking.openURL('tel:+1234567890')}>
                     <Text style={styles.infoLink}>+1 (234) 567-890</Text>
@@ -156,7 +156,7 @@ const ContactUs = () => {
 
               <Card style={styles.infoCard}>
                 <CardContent style={styles.infoCardContent}>
-                  <MaterialIcons name="place" size={32} color={Colors.brand.primary} style={styles.infoIcon} />
+                  <IconContainer iconProps={{ name: "place", size: 32, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.infoIcon} />
                   <Text style={styles.infoTitle}>Location</Text>
                   <Text style={styles.infoText}>Florida, United States</Text>
                 </CardContent>
@@ -167,19 +167,19 @@ const ContactUs = () => {
                   <Text style={styles.expectTitle}>What to Expect</Text>
                   <View style={styles.expectList}>
                     <View style={styles.expectItem}>
-                      <MaterialIcons name="check-circle" size={16} color={Colors.brand.primary} style={styles.expectIcon} />
+                      <IconContainer iconProps={{ name: "check-circle", size: 16, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.expectIcon} />
                       <Text style={styles.expectText}>Response within 24 hours</Text>
                     </View>
                     <View style={styles.expectItem}>
-                      <MaterialIcons name="check-circle" size={16} color={Colors.brand.primary} style={styles.expectIcon} />
+                      <IconContainer iconProps={{ name: "check-circle", size: 16, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.expectIcon} />
                       <Text style={styles.expectText}>Free consultation call</Text>
                     </View>
                     <View style={styles.expectItem}>
-                      <MaterialIcons name="check-circle" size={16} color={Colors.brand.primary} style={styles.expectIcon} />
+                      <IconContainer iconProps={{ name: "check-circle", size: 16, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.expectIcon} />
                       <Text style={styles.expectText}>Detailed proposal & timeline</Text>
                     </View>
                     <View style={styles.expectItem}>
-                      <MaterialIcons name="check-circle" size={16} color={Colors.brand.primary} style={styles.expectIcon} />
+                      <IconContainer iconProps={{ name: "check-circle", size: 16, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.expectIcon} />
                       <Text style={styles.expectText}>No obligation to proceed</Text>
                     </View>
                   </View>

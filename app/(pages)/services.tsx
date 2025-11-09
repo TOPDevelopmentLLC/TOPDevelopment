@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
 import { PrimaryButton } from 'components/buttons/PrimaryButton';
@@ -11,6 +10,7 @@ import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
 import { serviceCategories, serviceDetails } from 'lib/data/services';
+import IconContainer, { IconType } from 'components/utils/IconContainer';
 
 const Services = () => {
   const [activeTab, setActiveTab] = useState('web');
@@ -53,7 +53,7 @@ const Services = () => {
                   style={styles.tabTrigger}
                 >
                   <View style={styles.tabTriggerContent}>
-                    <MaterialIcons name={category.icon as any} size={16} color={Colors.text.primary} />
+                    <IconContainer iconProps={{ name: category.icon, size: 16, color: Colors.text.primary, type: IconType.MaterialIcons }} />
                     <Text style={styles.tabLabel}>{category.label}</Text>
                   </View>
                 </TabsTrigger>
@@ -75,7 +75,7 @@ const Services = () => {
                     {service.features.map((feature: string, index: number) => (
                       <Card key={index} style={styles.featureCard}>
                         <CardContent style={styles.featureCardContent}>
-                          <MaterialIcons name="check-circle" size={20} color={Colors.brand.primary} />
+                          <IconContainer iconProps={{ name: "check-circle", size: 20, color: Colors.brand.primary, type: IconType.MaterialIcons }} />
                           <Text style={styles.featureText}>{feature}</Text>
                         </CardContent>
                       </Card>
@@ -110,7 +110,7 @@ const Services = () => {
           <View style={styles.whyGrid}>
             <Card style={styles.whyCard}>
               <CardContent style={styles.whyCardContent}>
-                <MaterialIcons name="flash-on" size={48} color={Colors.brand.primary} style={styles.whyIcon} />
+                <IconContainer iconProps={{ name: "flash-on", size: 48, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.whyIcon} />
                 <Text style={styles.whyCardTitle}>AI-Powered Speed</Text>
                 <Text style={styles.whyCardDescription}>
                   Leverage cutting-edge AI tools to build and deploy faster than traditional methods
@@ -119,7 +119,7 @@ const Services = () => {
             </Card>
             <Card style={styles.whyCard}>
               <CardContent style={styles.whyCardContent}>
-                <MaterialIcons name="security" size={48} color={Colors.brand.primary} style={styles.whyIcon} />
+                <IconContainer iconProps={{ name: "security", size: 48, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.whyIcon} />
                 <Text style={styles.whyCardTitle}>Quality Assurance</Text>
                 <Text style={styles.whyCardDescription}>
                   Rigorous testing and quality control ensure reliable, production-ready solutions
@@ -128,7 +128,7 @@ const Services = () => {
             </Card>
             <Card style={styles.whyCard}>
               <CardContent style={styles.whyCardContent}>
-                <MaterialIcons name="trending-up" size={48} color={Colors.brand.primary} style={styles.whyIcon} />
+                <IconContainer iconProps={{ name: "trending-up", size: 48, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.whyIcon} />
                 <Text style={styles.whyCardTitle}>Scalable Solutions</Text>
                 <Text style={styles.whyCardDescription}>
                   Built to grow with your business, from startup to enterprise scale

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ViewStyle, TextStyle } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { Colors, BorderRadius, Spacing, FontFamily, FontSize } from 'constants/theme';
+import IconContainer, { IconType } from 'components/utils/IconContainer';
 
 interface AccordionProps {
   children?: React.ReactNode;
@@ -111,10 +111,13 @@ export const AccordionTrigger: React.FC<AccordionTriggerProps> = ({
       <Text style={[styles.triggerText, textStyle]}>
         {children}
       </Text>
-      <MaterialIcons
-        name="keyboard-arrow-down"
-        size={24}
-        color={Colors.text.secondary}
+      <IconContainer
+        iconProps={{
+          name: "keyboard-arrow-down",
+          size: 24,
+          color: Colors.text.secondary,
+          type: IconType.MaterialIcons
+        }}
         style={[
           styles.icon,
           isOpen && styles.iconRotated,

@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, Linking } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Colors, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
+import IconContainer, { IconType } from 'components/utils/IconContainer';
 
 export function Footer() {
   const handleNavigate = (page: string) => {
@@ -83,16 +83,16 @@ export function Footer() {
             <Text style={styles.sectionTitle}>Connect</Text>
             <View style={styles.socialLinks}>
               <Pressable onPress={() => handleExternalLink('https://facebook.com')}>
-                <MaterialIcons name="facebook" size={20} color="#9ca3af" />
+                <IconContainer iconProps={{ name: "facebook", size: 20, color: "#9ca3af", type: IconType.MaterialIcons }} />
               </Pressable>
               <Pressable onPress={() => handleExternalLink('https://twitter.com')}>
-                <MaterialIcons name="flutter-dash" size={20} color="#9ca3af" />
+                <IconContainer iconProps={{ name: "flutter-dash", size: 20, color: "#9ca3af", type: IconType.MaterialIcons }} />
               </Pressable>
               <Pressable onPress={() => handleExternalLink('https://linkedin.com')}>
-                <MaterialIcons name="share" size={20} color="#9ca3af" />
+                <IconContainer iconProps={{ name: "share", size: 20, color: "#9ca3af", type: IconType.MaterialIcons }} />
               </Pressable>
               <Pressable onPress={() => handleExternalLink('https://github.com')}>
-                <MaterialIcons name="code" size={20} color="#9ca3af" />
+                <IconContainer iconProps={{ name: "code", size: 20, color: "#9ca3af", type: IconType.MaterialIcons }} />
               </Pressable>
             </View>
           </View>
