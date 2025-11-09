@@ -10,7 +10,6 @@ interface InputProps extends Omit<TextInputProps, 'style'> {
 
 export const Input: React.FC<InputProps> = ({
   style,
-  className,
   type,
   placeholderTextColor = Colors.text.secondary,
   ...props

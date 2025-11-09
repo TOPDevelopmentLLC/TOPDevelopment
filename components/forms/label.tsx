@@ -12,8 +12,6 @@ interface LabelProps {
 export const Label: React.FC<LabelProps> = ({
   children,
   style,
-  htmlFor,
-  className,
 }) => {
   return (
     <Text style={[styles.label, style]}>

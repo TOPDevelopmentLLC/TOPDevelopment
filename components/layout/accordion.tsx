@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     color: Colors.text.primary,
   },
   icon: {
-    transition: 'transform 0.2s',
+    // React Native doesn't support CSS transitions
   },
   iconRotated: {
     transform: [{ rotate: '180deg' }],

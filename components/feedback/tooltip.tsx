@@ -1,61 +1,103 @@
-"use client";
+import React, { useState, ReactNode } from 'react';
+import { View, Text, StyleSheet, Pressable, ViewStyle, TextStyle } from 'react-native';
+import { Colors, BorderRadius, Spacing, FontFamily } from '../../constants/theme';
+import { Typography } from '../../constants/globalStyles';
 
-import * as React from "react";
-import * as TooltipPrimitive from "@radix-ui/react-tooltip@1.1.8";
+interface TooltipProviderProps {
+  children: ReactNode;
+  delayDuration?: number;
+}
 
-import { cn } from "./utils";
+function TooltipProvider({ children }: TooltipProviderProps) {
+  return <>{children}</>;
+}
 
-function TooltipProvider({
-  delayDuration = 0,
-  ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Provider>) {
+interface TooltipProps {
+  children: ReactNode;
+}
+
+interface TooltipContextType {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+}
+
+const TooltipContext = React.createContext<TooltipContextType | null>(null);
+
+function Tooltip({ children }: TooltipProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <TooltipPrimitive.Provider
-      data-slot="tooltip-provider"
-      delayDuration={delayDuration}
-      {...props}
-    />
+    <TooltipContext.Provider value={{ isOpen, setIsOpen }}>
+      {children}
+    </TooltipContext.Provider>
   );
 }
 
-function Tooltip({
-  ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Root>) {
+interface TooltipTriggerProps {
+  children: ReactNode;
+  style?: ViewStyle;
+  asChild?: boolean;
+}
+
+function TooltipTrigger({ children, style }: TooltipTriggerProps) {
+  const context = React.useContext(TooltipContext);
+
+  if (!context) {
+    return <>{children}</>;
+  }
+
+  const { setIsOpen } = context;
+
   return (
-    <TooltipProvider>
-      <TooltipPrimitive.Root data-slot="tooltip" {...props} />
-    </TooltipProvider>
+    <Pressable
+      onPressIn={() => setIsOpen(true)}
+      onPressOut={() => setIsOpen(false)}
+      style={style}
+    >
+      {children}
+    </Pressable>
   );
 }
 
-function TooltipTrigger({
-  ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
+interface TooltipContentProps {
+  children: ReactNode;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+  sideOffset?: number;
 }
 
-function TooltipContent({
-  className,
-  sideOffset = 0,
-  children,
-  ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Content>) {
+function TooltipContent({ children, style, textStyle }: TooltipContentProps) {
+  const context = React.useContext(TooltipContext);
+
+  if (!context || !context.isOpen) {
+    return null;
+  }
+
   return (
-    <TooltipPrimitive.Portal>
-      <TooltipPrimitive.Content
-        data-slot="tooltip-content"
-        sideOffset={sideOffset}
-        className={cn(
-          "bg-primary text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit origin-(--radix-tooltip-content-transform-origin) rounded-md px-3 py-1.5 text-xs text-balance",
-          className,
-        )}
-        {...props}
-      >
+    <View style={[styles.tooltipContent, style]}>
+      <Text style={[styles.tooltipText, textStyle]}>
         {children}
-        <TooltipPrimitive.Arrow className="bg-primary fill-primary z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" />
-      </TooltipPrimitive.Content>
-    </TooltipPrimitive.Portal>
+      </Text>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  tooltipContent: {
+    position: 'absolute',
+    backgroundColor: Colors.brand.primary,
+    borderRadius: BorderRadius.sm,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs,
+    zIndex: 50,
+    maxWidth: 200,
+  },
+  tooltipText: {
+    fontSize: Typography.xs,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    textAlign: 'center',
+  },
+});
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };

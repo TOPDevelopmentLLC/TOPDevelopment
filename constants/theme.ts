@@ -20,6 +20,7 @@ export const Colors = {
   background: {
     dark: '#000000',
     gray: '#4D4D4D',
+    muted: '#1a1a1a',        // Muted background for skeleton loaders
     red: '#ea2320',
     redDark: '#8c1513',
   },
@@ -58,6 +59,7 @@ export const BorderRadius = {
   sm: 8,
   md: 16,
   lg: 32,
+  xl: 48,
 };
 
 // Legacy Fonts (for platform-specific needs)

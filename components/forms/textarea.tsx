@@ -10,7 +10,6 @@ interface TextareaProps extends Omit<TextInputProps, 'style'> {
 
 export const Textarea: React.FC<TextareaProps> = ({
   style,
-  className,
   rows = 4,
   placeholderTextColor = Colors.text.secondary,
   ...props
