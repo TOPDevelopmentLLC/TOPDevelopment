@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { CircuitBackground } from 'components/layout/CircuitBackground';
 import { BasePage } from 'components/layout/BasePage';
-import { Badge } from 'components/data/badge';
+import { HeroSection } from 'components/layout/HeroSection';
 import { Button } from 'components/buttons/button';
 import { Card, CardContent } from 'components/layout/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from 'components/navigation/tabs';
@@ -202,18 +202,13 @@ const Services = () => {
   return (
     <BasePage>
       {/* Hero Section */}
-      <View style={styles.heroSection}>
+      <HeroSection
+        badge="Services"
+        title="Comprehensive Development Solutions"
+        subtitle="From concept to deployment, we provide end-to-end software development services"
+      >
         <CircuitBackground />
-        <View style={styles.heroContent}>
-          <Badge style={styles.badge} textStyle={styles.badgeText}>
-            Services
-          </Badge>
-          <Text style={styles.heroTitle}>Comprehensive Development Solutions</Text>
-          <Text style={styles.heroSubtitle}>
-            From concept to deployment, we provide end-to-end software development services
-          </Text>
-        </View>
-      </View>
+      </HeroSection>
 
       {/* Service Tabs */}
       <View style={styles.tabsSection}>
@@ -339,43 +334,6 @@ const Services = () => {
 };
 
 const styles = StyleSheet.create({
-  heroSection: {
-    paddingVertical: Spacing.xl * 5,
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  heroContent: {
-    width: '100%',
-    maxWidth: 1200,
-    paddingHorizontal: Spacing.lg,
-    alignItems: 'center',
-    zIndex: 10,
-    alignSelf: 'center',
-  },
-  badge: {
-    backgroundColor: 'rgba(234, 35, 32, 0.1)',
-    borderColor: 'rgba(234, 35, 32, 0.3)',
-    borderWidth: 1,
-    marginBottom: Spacing.md,
-  },
-  badgeText: {
-    color: Colors.brand.primary,
-  },
-  heroTitle: {
-    fontSize: Typography['2xl'] * 2,
-    fontFamily: FontFamily.primary,
-    color: Colors.text.primary,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: Spacing.md,
-  },
-  heroSubtitle: {
-    fontSize: Typography.xl,
-    fontFamily: FontFamily.secondary,
-    color: Colors.text.secondary,
-    textAlign: 'center',
-    maxWidth: 672,
-  },
   tabsSection: {
     paddingVertical: Spacing.xl * 3,
   },

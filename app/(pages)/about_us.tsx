@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { CircuitBackground } from 'components/layout/CircuitBackground';
 import { BasePage } from 'components/layout/BasePage';
-import { Badge } from 'components/data/badge';
+import { HeroSection } from 'components/layout/HeroSection';
 import { Button } from 'components/buttons/button';
 import { Card, CardContent } from 'components/layout/card';
 import { router } from 'expo-router';
@@ -52,18 +52,11 @@ const AboutUs = () => {
   return (
     <BasePage>
       {/* Hero Section */}
-      <View style={styles.heroSection}>
-        <CircuitBackground />
-        <View style={styles.heroContent}>
-          <Badge style={styles.badge} textStyle={styles.badgeText}>
-            About Us
-          </Badge>
-          <Text style={styles.heroTitle}>Building Solutions That Matter</Text>
-          <Text style={styles.heroSubtitle}>
-            Founded in 2025, driven by passion, powered by innovation
-          </Text>
-        </View>
-      </View>
+      <HeroSection
+        badge="About Us"
+        title="Building Solutions That Matter"
+        subtitle="Founded in 2025, driven by passion, powered by innovation"
+      />
 
       {/* Our Story */}
       <View style={styles.section}>
@@ -185,43 +178,6 @@ const AboutUs = () => {
 };
 
 const styles = StyleSheet.create({
-  heroSection: {
-    paddingVertical: Spacing.xl * 5,
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  heroContent: {
-    width: '100%',
-    maxWidth: 1200,
-    paddingHorizontal: Spacing.lg,
-    alignItems: 'center',
-    zIndex: 10,
-    alignSelf: 'center',
-  },
-  badge: {
-    backgroundColor: 'rgba(234, 35, 32, 0.1)',
-    borderColor: 'rgba(234, 35, 32, 0.3)',
-    borderWidth: 1,
-    marginBottom: Spacing.md,
-  },
-  badgeText: {
-    color: Colors.brand.primary,
-  },
-  heroTitle: {
-    fontSize: Typography['2xl'] * 2,
-    fontFamily: FontFamily.primary,
-    color: Colors.text.primary,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: Spacing.md,
-  },
-  heroSubtitle: {
-    fontSize: Typography.xl,
-    fontFamily: FontFamily.secondary,
-    color: Colors.text.secondary,
-    textAlign: 'center',
-    maxWidth: 672,
-  },
   section: {
     paddingVertical: Spacing.xl * 5,
   },

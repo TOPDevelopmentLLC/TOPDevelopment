@@ -5,7 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { toast } from 'sonner';
 import { CircuitBackground } from 'components/layout/CircuitBackground';
 import { BasePage } from 'components/layout/BasePage';
-import { Badge } from 'components/data/badge';
+import { HeroSection } from 'components/layout/HeroSection';
 import { Button } from 'components/buttons/button';
 import { Card, CardContent } from 'components/layout/card';
 import { Input } from 'components/forms/input';
@@ -122,18 +122,13 @@ const ContactUs = () => {
   return (
     <BasePage>
       {/* Hero Section */}
-      <View style={styles.heroSection}>
+      <HeroSection
+        badge="Contact Us"
+        title="Let's Start a Conversation"
+        subtitle="Ready to bring your project to life? Get in touch and let's discuss how we can help."
+      >
         <CircuitBackground />
-        <View style={styles.heroContent}>
-          <Badge style={styles.badge} textStyle={styles.badgeText}>
-            Contact Us
-          </Badge>
-          <Text style={styles.heroTitle}>Let's Start a Conversation</Text>
-          <Text style={styles.heroSubtitle}>
-            Ready to bring your project to life? Get in touch and let's discuss how we can help.
-          </Text>
-        </View>
-      </View>
+      </HeroSection>
 
       {/* Contact Form & Info */}
       <View style={styles.formSection}>
@@ -315,43 +310,6 @@ const ContactUs = () => {
 };
 
 const styles = StyleSheet.create({
-  heroSection: {
-    paddingVertical: Spacing.xl * 5,
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  heroContent: {
-    width: '100%',
-    maxWidth: 1200,
-    paddingHorizontal: Spacing.lg,
-    alignItems: 'center',
-    zIndex: 10,
-    alignSelf: 'center',
-  },
-  badge: {
-    backgroundColor: 'rgba(234, 35, 32, 0.1)',
-    borderColor: 'rgba(234, 35, 32, 0.3)',
-    borderWidth: 1,
-    marginBottom: Spacing.md,
-  },
-  badgeText: {
-    color: Colors.brand.primary,
-  },
-  heroTitle: {
-    fontSize: Typography['2xl'] * 2,
-    fontFamily: FontFamily.primary,
-    color: Colors.text.primary,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: Spacing.md,
-  },
-  heroSubtitle: {
-    fontSize: Typography.xl,
-    fontFamily: FontFamily.secondary,
-    color: Colors.text.secondary,
-    textAlign: 'center',
-    maxWidth: 672,
-  },
   formSection: {
     paddingVertical: Spacing.xl * 3,
   },

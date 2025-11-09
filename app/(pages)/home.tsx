@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { CircuitBackground } from 'components/layout/CircuitBackground';
 import { BasePage } from 'components/layout/BasePage';
+import { HeroSection } from 'components/layout/HeroSection';
 import { Button } from 'components/buttons/button';
 import { Card, CardContent } from 'components/layout/card';
-import { Badge } from 'components/data/badge';
 import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
@@ -62,37 +61,27 @@ const HomePage = () => {
   return (
     <BasePage>
       {/* Hero Section */}
-      <View style={styles.heroSection}>
-        <CircuitBackground />
-        <View style={styles.heroContent}>
-          <View style={styles.heroInner}>
-            <Badge style={styles.badge} textStyle={styles.badgeText}>
-              Founded in 2025
-            </Badge>
-            <Text style={styles.heroTitle}>Redefining Software Development</Text>
-            <Text style={styles.heroSubtitle}>
-              Utilizing AI to create websites and mobile apps faster than our competitors,
-              with seamless UI interfaces and comprehensive infrastructure support.
-            </Text>
-            <View style={styles.heroButtons}>
-              <Button onPress={() => handleNavigate('contact')} style={styles.primaryButton}>
-                <Text style={styles.primaryButtonText}>Get Started</Text>
-              </Button>
-              <Button
-                onPress={() => handleNavigate('services')}
-                variant="outline"
-                style={styles.secondaryButton}
-              >
-                <Text style={styles.secondaryButtonText}>Learn More</Text>
-              </Button>
-            </View>
-          </View>
+      <HeroSection
+        badge="Founded in 2025"
+        title="Redefining Software Development"
+        subtitle="Utilizing AI to create websites and mobile apps faster than our competitors, with seamless UI interfaces and comprehensive infrastructure support."
+      >
+        <View style={styles.heroButtons}>
+          <Button onPress={() => handleNavigate('contact')} style={styles.primaryButton}>
+            <Text style={styles.primaryButtonText}>Get Started</Text>
+          </Button>
+          <Button
+            onPress={() => handleNavigate('services')}
+            variant="outline"
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Learn More</Text>
+          </Button>
         </View>
-      </View>
+      </HeroSection>
 
       {/* Services Section */}
       <View style={styles.servicesSection}>
-        <CircuitBackground />
         <View style={styles.servicesSectionContent}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Our Services</Text>
@@ -132,51 +121,6 @@ const HomePage = () => {
 };
 
 const styles = StyleSheet.create({
-  heroSection: {
-    minHeight: '90vh' as any,
-    position: 'relative',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-  },
-  heroContent: {
-    width: '100%',
-    maxWidth: 1200,
-    paddingHorizontal: Spacing.lg,
-    alignItems: 'center',
-    zIndex: 10,
-  },
-  heroInner: {
-    maxWidth: 896,
-    alignItems: 'center',
-    gap: Spacing.lg,
-  },
-  badge: {
-    backgroundColor: 'rgba(234, 35, 32, 0.1)',
-    borderColor: 'rgba(234, 35, 32, 0.3)',
-    borderWidth: 1,
-    borderRadius: 999,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.sm,
-    marginBottom: Spacing.md,
-  },
-  badgeText: {
-    color: Colors.brand.primary,
-  },
-  heroTitle: {
-    fontSize: Typography['2xl'] * 2,
-    fontFamily: FontFamily.primary,
-    color: Colors.text.primary,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  heroSubtitle: {
-    fontSize: Typography.xl,
-    fontFamily: FontFamily.secondary,
-    color: Colors.text.secondary,
-    textAlign: 'center',
-    maxWidth: 672,
-  },
   heroButtons: {
     flexDirection: 'row',
     gap: Spacing.lg,
