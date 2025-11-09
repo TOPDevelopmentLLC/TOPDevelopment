@@ -294,7 +294,7 @@ const ContactUs = () => {
 
 const styles = StyleSheet.create({
   formSection: {
-    paddingVertical: Spacing.xl * 3,
+    paddingVertical: Spacing.xl * 2,
   },
   formContainer: {
     width: '100%',
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   ctaSection: {
-    paddingVertical: Spacing.xl * 5,
+    paddingVertical: Spacing.xl * 3,
   },
   ctaContainer: {
     width: '100%',

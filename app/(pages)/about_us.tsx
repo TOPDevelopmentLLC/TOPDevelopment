@@ -124,10 +124,6 @@ const AboutUs = () => {
             <Text style={styles.statLabel}>Founded</Text>
           </View>
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>100%</Text>
-            <Text style={styles.statLabel}>Client Satisfaction</Text>
-          </View>
-          <View style={styles.statItem}>
             <Text style={styles.statNumber}>24/7</Text>
             <Text style={styles.statLabel}>Support Available</Text>
           </View>
@@ -154,7 +150,7 @@ const AboutUs = () => {
 
 const styles = StyleSheet.create({
   section: {
-    paddingVertical: Spacing.xl * 5,
+    paddingVertical: Spacing.xl * 3,
   },
   sectionInner: {
     width: '100%',

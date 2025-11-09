@@ -79,7 +79,7 @@ const FAQs = () => {
 
 const styles = StyleSheet.create({
   faqSection: {
-    paddingVertical: Spacing.xl * 3,
+    paddingVertical: Spacing.xl * 2,
   },
   faqContainer: {
     width: '100%',
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     lineHeight: Typography.base * 1.6,
   },
   ctaSection: {
-    paddingVertical: Spacing.xl * 5,
+    paddingVertical: Spacing.xl * 3,
   },
   ctaContainer: {
     width: '100%',

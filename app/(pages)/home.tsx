@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   servicesSection: {
-    paddingVertical: Spacing.xl * 5,
+    paddingVertical: Spacing.xl * 3,
     position: 'relative',
   },
   servicesSectionContent: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     color: Colors.text.secondary,
   },
   ctaSection: {
-    paddingVertical: Spacing.xl * 5,
+    paddingVertical: Spacing.xl * 3,
     paddingHorizontal: Spacing.lg,
   },
   ctaCard: {

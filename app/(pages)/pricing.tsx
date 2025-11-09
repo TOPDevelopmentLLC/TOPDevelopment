@@ -187,7 +187,7 @@ const Pricing = () => {
 
 const styles = StyleSheet.create({
   section: {
-    paddingVertical: Spacing.xl * 3,
+    paddingVertical: Spacing.xl * 2,
   },
   sectionContainer: {
     width: '100%',
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     marginLeft: Spacing.sm,
   },
   ctaSection: {
-    paddingVertical: Spacing.xl * 5,
+    paddingVertical: Spacing.xl * 3,
   },
   ctaContainer: {
     width: '100%',

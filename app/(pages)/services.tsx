@@ -161,7 +161,7 @@ const Services = () => {
 
 const styles = StyleSheet.create({
   tabsSection: {
-    paddingVertical: Spacing.xl * 3,
+    paddingVertical: Spacing.xl * 2,
   },
   tabsContainer: {
     width: '100%',
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     color: Colors.text.secondary,
   },
   whySection: {
-    paddingVertical: Spacing.xl * 5,
+    paddingVertical: Spacing.xl * 3,
     position: 'relative',
   },
   whyContainer: {
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   ctaSection: {
-    paddingVertical: Spacing.xl * 5,
+    paddingVertical: Spacing.xl * 3,
     paddingHorizontal: Spacing.lg,
   },
   ctaCard: {
