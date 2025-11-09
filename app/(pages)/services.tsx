@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { CircuitBackground } from 'components/layout/CircuitBackground';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
 import { Button } from 'components/buttons/button';
@@ -206,9 +205,7 @@ const Services = () => {
         badge="Services"
         title="Comprehensive Development Solutions"
         subtitle="From concept to deployment, we provide end-to-end software development services"
-      >
-        <CircuitBackground />
-      </HeroSection>
+      />
 
       {/* Service Tabs */}
       <View style={styles.tabsSection}>

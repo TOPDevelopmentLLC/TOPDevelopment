@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { CircuitBackground } from 'components/layout/CircuitBackground';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
 import { Button } from 'components/buttons/button';
@@ -90,7 +89,6 @@ const AboutUs = () => {
 
       {/* Our Mission */}
       <View style={styles.missionSection}>
-        <CircuitBackground />
         <View style={styles.missionContent}>
           <View style={styles.sectionInner}>
             <View style={styles.sectionHeader}>

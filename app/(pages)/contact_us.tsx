@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Pressable, Linking } from 'react-native';
 import axios from 'axios';
 import { MaterialIcons } from '@expo/vector-icons';
 import { toast } from 'sonner';
-import { CircuitBackground } from 'components/layout/CircuitBackground';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
 import { Button } from 'components/buttons/button';
@@ -126,9 +125,7 @@ const ContactUs = () => {
         badge="Contact Us"
         title="Let's Start a Conversation"
         subtitle="Ready to bring your project to life? Get in touch and let's discuss how we can help."
-      >
-        <CircuitBackground />
-      </HeroSection>
+      />
 
       {/* Contact Form & Info */}
       <View style={styles.formSection}>

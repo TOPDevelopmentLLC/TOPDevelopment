@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { CircuitBackground } from 'components/layout/CircuitBackground';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
 import {
@@ -120,9 +119,7 @@ const FAQs = () => {
         badge="FAQs"
         title="Frequently Asked Questions"
         subtitle="Everything you need to know about working with TOP Development LLC"
-      >
-        <CircuitBackground />
-      </HeroSection>
+      />
 
       {/* FAQs */}
       <View style={styles.faqSection}>

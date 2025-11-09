@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { CircuitBackground } from 'components/layout/CircuitBackground';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
 import { Badge } from 'components/data/badge';
@@ -210,9 +209,7 @@ const Pricing = () => {
         badge="Pricing"
         title="Transparent, Flexible Pricing"
         subtitle="Choose the package that fits your needs. All pricing is transparent with no hidden fees."
-      >
-        <CircuitBackground />
-      </HeroSection>
+      />
 
       {/* Website Builds */}
       <View style={styles.section}>
