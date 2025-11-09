@@ -4,6 +4,7 @@ import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
 import { PrimaryButton } from 'components/buttons/PrimaryButton';
 import { Card, CardContent } from 'components/layout/card';
+import { GiantCard } from 'components/layout/GiantCard';
 import { router } from 'expo-router';
 import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
@@ -43,26 +44,13 @@ const AboutUs = () => {
             <Text style={styles.sectionTitle}>Our Story</Text>
           </View>
 
-          <Card style={styles.storyCard}>
-            <CardContent style={styles.storyCardContent}>
-              <Text style={styles.storyText}>
-                TOP Development LLC was founded in September 2025 out of a passion for software
-                development and a drive to solve meaningful problems. What began as an unexpected
-                journey—starting in Pre-Law before realizing that path wasn't the right fit—turned
-                into a pursuit of creating solutions that truly matter.
-              </Text>
-              <Text style={styles.storyText}>
-                That realization led to a move to Florida, where I attended Full Sail University and
-                earned an Associate's Degree in Mobile Development. Over time, my skills expanded
-                beyond mobile into web, backend, and DevOps, allowing me to build across the full
-                stack of modern development.
-              </Text>
-              <Text style={[styles.storyText, { marginBottom: 0 }]}>
-                Today, TOP Development LLC is built on that same foundation of curiosity, adaptability,
-                and commitment to delivering impactful software.
-              </Text>
-            </CardContent>
-          </Card>
+          <GiantCard
+            values={[
+              "TOP Development LLC was founded in September 2025 out of a passion for software development and a drive to solve meaningful problems. What began as an unexpected journey—starting in Pre-Law before realizing that path wasn't the right fit—turned into a pursuit of creating solutions that truly matter.",
+              "That realization led to a move to Florida, where I attended Full Sail University and earned an Associate's Degree in Mobile Development. Over time, my skills expanded beyond mobile into web, backend, and DevOps, allowing me to build across the full stack of modern development.",
+              "Today, TOP Development LLC is built on that same foundation of curiosity, adaptability, and commitment to delivering impactful software."
+            ]}
+          />
         </View>
       </View>
 
@@ -74,20 +62,13 @@ const AboutUs = () => {
               <Text style={styles.sectionTitle}>Our Mission</Text>
             </View>
 
-            <Card style={styles.missionCard}>
-              <CardContent style={styles.missionCardContent}>
-                <Text style={styles.storyText}>
-                  At TOP Development LLC, our mission is simple: solve real problems with practical
-                  and lasting solutions. We take the time to analyze your unique needs, then design
-                  strategies that fit—not just for today, but for the future.
-                </Text>
-                <Text style={[styles.storyText, { marginBottom: 0 }]}>
-                  By modernizing infrastructure and leveraging modern frameworks, we create solutions
-                  that are efficient, scalable, and built to grow with you. Our goal is to deliver
-                  technology that empowers, streamlines, and makes a meaningful difference.
-                </Text>
-              </CardContent>
-            </Card>
+            <GiantCard
+              values={[
+                "At TOP Development LLC, our mission is simple: solve real problems with practical and lasting solutions. We take the time to analyze your unique needs, then design strategies that fit—not just for today, but for the future.",
+                "By modernizing infrastructure and leveraging modern frameworks, we create solutions that are efficient, scalable, and built to grow with you. Our goal is to deliver technology that empowers, streamlines, and makes a meaningful difference."
+              ]}
+              cardStyle={styles.missionCard}
+            />
           </View>
         </View>
       </View>
@@ -177,21 +158,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     maxWidth: 672,
   },
-  storyCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    borderWidth: 1,
-  },
-  storyCardContent: {
-    padding: Spacing.xl * 3,
-  },
-  storyText: {
-    fontSize: Typography.lg,
-    fontFamily: FontFamily.secondary,
-    color: Colors.text.secondary,
-    lineHeight: Typography.lg * 1.6,
-    marginBottom: Spacing.lg,
-  },
   missionSection: {
     paddingVertical: Spacing.xl * 5,
     position: 'relative',
@@ -203,9 +169,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(234, 35, 32, 0.1)',
     borderColor: 'rgba(234, 35, 32, 0.3)',
     borderWidth: 1,
-  },
-  missionCardContent: {
-    padding: Spacing.xl * 3,
   },
   valuesGrid: {
     flexDirection: 'row',
