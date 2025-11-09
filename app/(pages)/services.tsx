@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import {
   CheckCircle2,
   Cloud,
@@ -9,25 +11,26 @@ import {
   Smartphone,
   TrendingUp,
   Zap,
-} from "lucide-react";
-import { useState } from "react";
-import { CircuitBackground } from "../../components/layout/CircuitBackground";
-import { Badge } from "../../components/data/badge";
-import { Button } from "../../components/buttons/button";
-import { Card } from "../../components/layout/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/navigation/tabs";
-import { router } from "expo-router";
+} from 'lucide-react';
+import { CircuitBackground } from '../../components/layout/CircuitBackground';
+import { Badge } from '../../components/data/badge';
+import { Button } from '../../components/buttons/button';
+import { Card, CardContent } from '../../components/layout/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/navigation/tabs';
+import { router } from 'expo-router';
+import { Colors, BorderRadius, Spacing, FontFamily } from '../../constants/theme';
+import { Typography } from '../../constants/globalStyles';
 
 const Services = () => {
-  const [activeTab, setActiveTab] = useState("web");
+  const [activeTab, setActiveTab] = useState('web');
 
   const serviceCategories = [
-    { value: "web", label: "Web Development", icon: Code },
-    { value: "mobile", label: "Mobile Apps", icon: Smartphone },
-    { value: "backend", label: "Backend", icon: Database },
-    { value: "seo", label: "SEO", icon: Search },
-    { value: "infrastructure", label: "Infrastructure", icon: Cloud },
-    { value: "consultation", label: "Consultation", icon: MessageSquare },
+    { value: 'web', label: 'Web Development', icon: Code },
+    { value: 'mobile', label: 'Mobile Apps', icon: Smartphone },
+    { value: 'backend', label: 'Backend', icon: Database },
+    { value: 'seo', label: 'SEO', icon: Search },
+    { value: 'infrastructure', label: 'Infrastructure', icon: Cloud },
+    { value: 'consultation', label: 'Consultation', icon: MessageSquare },
   ];
 
   const serviceDetails = {
@@ -193,11 +196,11 @@ const Services = () => {
 
   const handleNavigate = (page: string) => {
     const pageMap: { [key: string]: string } = {
-      'contact': '/contact_us',
-      'services': '/services',
-      'about': '/about_us',
-      'pricing': '/pricing',
-      'faq': '/faq',
+      contact: '/contact_us',
+      services: '/services',
+      about: '/about_us',
+      pricing: '/pricing',
+      faq: '/faq',
     };
 
     const route = pageMap[page];
@@ -207,145 +210,422 @@ const Services = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pt-20">
+    <ScrollView style={styles.container}>
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
+      <View style={styles.heroSection}>
         <CircuitBackground />
-        <div className="container mx-auto px-4 text-center z-10 relative">
-          <Badge className="mb-4 bg-[#ea2320]/10 border-[#ea2320]/30 text-[#ea2320]">
+        <View style={styles.heroContent}>
+          <Badge style={styles.badge} textStyle={styles.badgeText}>
             Services
           </Badge>
-          <h1 className="text-4xl md:text-6xl text-white mb-4">
-            Comprehensive Development Solutions
-          </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <Text style={styles.heroTitle}>Comprehensive Development Solutions</Text>
+          <Text style={styles.heroSubtitle}>
             From concept to deployment, we provide end-to-end software development services
-          </p>
-        </div>
-      </section>
+          </Text>
+        </View>
+      </View>
 
       {/* Service Tabs */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 bg-transparent h-auto mb-12">
+      <View style={styles.tabsSection}>
+        <View style={styles.tabsContainer}>
+          <Tabs value={activeTab} onValueChange={setActiveTab} style={styles.tabs}>
+            <TabsList style={styles.tabsList}>
               {serviceCategories.map((category) => (
                 <TabsTrigger
                   key={category.value}
                   value={category.value}
-                  className="data-[state=active]:bg-[#ea2320] data-[state=active]:text-white bg-white/5 border border-white/10 py-3"
+                  style={styles.tabTrigger}
                 >
-                  <category.icon className="h-4 w-4 mr-2" />
-                  <span className="hidden sm:inline">{category.label}</span>
+                  <View style={styles.tabTriggerContent}>
+                    <category.icon size={16} color={Colors.text.primary} />
+                    <Text style={styles.tabLabel}>{category.label}</Text>
+                  </View>
                 </TabsTrigger>
               ))}
             </TabsList>
 
             {Object.entries(serviceDetails).map(([key, service]) => (
-              <TabsContent key={key} value={key} className="space-y-12">
+              <TabsContent key={key} value={key} style={styles.tabContent}>
                 {/* Service Header */}
-                <div className="text-center">
-                  <h2 className="text-3xl md:text-4xl text-white mb-4">{service.title}</h2>
-                  <p className="text-xl text-gray-400">{service.subtitle}</p>
-                </div>
+                <View style={styles.serviceHeader}>
+                  <Text style={styles.serviceTitle}>{service.title}</Text>
+                  <Text style={styles.serviceSubtitle}>{service.subtitle}</Text>
+                </View>
 
                 {/* Features Grid */}
-                <div>
-                  <h3 className="text-2xl text-white mb-6 text-center">Key Features</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <View style={styles.featuresSection}>
+                  <Text style={styles.sectionTitle}>Key Features</Text>
+                  <View style={styles.featuresGrid}>
                     {service.features.map((feature, index) => (
-                      <Card
-                        key={index}
-                        className="bg-white/5 border-white/10 p-4 flex items-center gap-3"
-                      >
-                        <CheckCircle2 className="h-5 w-5 text-[#ea2320] flex-shrink-0" />
-                        <span className="text-white">{feature}</span>
+                      <Card key={index} style={styles.featureCard}>
+                        <CardContent style={styles.featureCardContent}>
+                          <CheckCircle2 size={20} color={Colors.brand.primary} />
+                          <Text style={styles.featureText}>{feature}</Text>
+                        </CardContent>
                       </Card>
                     ))}
-                  </div>
-                </div>
+                  </View>
+                </View>
 
                 {/* Use Cases */}
-                <div>
-                  <h3 className="text-2xl text-white mb-6 text-center">Use Cases</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <View style={styles.useCasesSection}>
+                  <Text style={styles.sectionTitle}>Use Cases</Text>
+                  <View style={styles.useCasesGrid}>
                     {service.useCases.map((useCase, index) => (
-                      <Card
-                        key={index}
-                        className="bg-gradient-to-br from-white/5 to-white/0 border-white/10 hover:border-[#ea2320]/50 transition-all p-6"
-                      >
-                        <h4 className="text-xl text-white mb-3">{useCase.title}</h4>
-                        <p className="text-gray-400">{useCase.description}</p>
+                      <Card key={index} style={styles.useCaseCard}>
+                        <CardContent style={styles.useCaseCardContent}>
+                          <Text style={styles.useCaseTitle}>{useCase.title}</Text>
+                          <Text style={styles.useCaseDescription}>{useCase.description}</Text>
+                        </CardContent>
                       </Card>
                     ))}
-                  </div>
-                </div>
+                  </View>
+                </View>
               </TabsContent>
             ))}
           </Tabs>
-        </div>
-      </section>
+        </View>
+      </View>
 
       {/* Why Choose Us */}
-      <section className="py-20 relative">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl text-white mb-12 text-center">Why Choose TOP Development</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="bg-white/5 border-white/10 p-8 text-center">
-              <Zap className="h-12 w-12 text-[#ea2320] mx-auto mb-4" />
-              <h3 className="text-xl text-white mb-3">AI-Powered Speed</h3>
-              <p className="text-gray-400">
-                Leverage cutting-edge AI tools to build and deploy faster than traditional methods
-              </p>
+      <View style={styles.whySection}>
+        <View style={styles.whyContainer}>
+          <Text style={styles.whyTitle}>Why Choose TOP Development</Text>
+          <View style={styles.whyGrid}>
+            <Card style={styles.whyCard}>
+              <CardContent style={styles.whyCardContent}>
+                <Zap size={48} color={Colors.brand.primary} style={styles.whyIcon} />
+                <Text style={styles.whyCardTitle}>AI-Powered Speed</Text>
+                <Text style={styles.whyCardDescription}>
+                  Leverage cutting-edge AI tools to build and deploy faster than traditional methods
+                </Text>
+              </CardContent>
             </Card>
-            <Card className="bg-white/5 border-white/10 p-8 text-center">
-              <Shield className="h-12 w-12 text-[#ea2320] mx-auto mb-4" />
-              <h3 className="text-xl text-white mb-3">Quality Assurance</h3>
-              <p className="text-gray-400">
-                Rigorous testing and quality control ensure reliable, production-ready solutions
-              </p>
+            <Card style={styles.whyCard}>
+              <CardContent style={styles.whyCardContent}>
+                <Shield size={48} color={Colors.brand.primary} style={styles.whyIcon} />
+                <Text style={styles.whyCardTitle}>Quality Assurance</Text>
+                <Text style={styles.whyCardDescription}>
+                  Rigorous testing and quality control ensure reliable, production-ready solutions
+                </Text>
+              </CardContent>
             </Card>
-            <Card className="bg-white/5 border-white/10 p-8 text-center">
-              <TrendingUp className="h-12 w-12 text-[#ea2320] mx-auto mb-4" />
-              <h3 className="text-xl text-white mb-3">Scalable Solutions</h3>
-              <p className="text-gray-400">
-                Built to grow with your business, from startup to enterprise scale
-              </p>
+            <Card style={styles.whyCard}>
+              <CardContent style={styles.whyCardContent}>
+                <TrendingUp size={48} color={Colors.brand.primary} style={styles.whyIcon} />
+                <Text style={styles.whyCardTitle}>Scalable Solutions</Text>
+                <Text style={styles.whyCardDescription}>
+                  Built to grow with your business, from startup to enterprise scale
+                </Text>
+              </CardContent>
             </Card>
-          </div>
-        </div>
-      </section>
+          </View>
+        </View>
+      </View>
 
       {/* CTA */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-r from-[#ea2320]/20 to-transparent border border-[#ea2320]/30 rounded-2xl p-12 text-center">
-            <h2 className="text-3xl md:text-4xl text-white mb-4">
-              Ready to Start Your Project?
-            </h2>
-            <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-              Get in touch to discuss your requirements and receive a detailed proposal
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                onClick={() => handleNavigate("contact")}
-                className="bg-[#ea2320] hover:bg-[#c91e1b] text-white px-8 py-6"
-              >
-                Contact Us
-              </Button>
-              <Button
-                onClick={() => handleNavigate("pricing")}
-                variant="outline"
-                className="border-white/20 hover:bg-white/5 text-white px-8 py-6"
-              >
-                View Pricing
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      <View style={styles.ctaSection}>
+        <View style={styles.ctaCard}>
+          <Text style={styles.ctaTitle}>Ready to Start Your Project?</Text>
+          <Text style={styles.ctaSubtitle}>
+            Get in touch to discuss your requirements and receive a detailed proposal
+          </Text>
+          <View style={styles.ctaButtons}>
+            <Button onPress={() => handleNavigate('contact')} style={styles.ctaButton}>
+              <Text style={styles.ctaButtonText}>Contact Us</Text>
+            </Button>
+            <Button
+              onPress={() => handleNavigate('pricing')}
+              variant="outline"
+              style={styles.ctaButtonSecondary}
+            >
+              <Text style={styles.ctaButtonSecondaryText}>View Pricing</Text>
+            </Button>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background.dark,
+  },
+  heroSection: {
+    paddingVertical: Spacing.xl * 5,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  heroContent: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignItems: 'center',
+    zIndex: 10,
+    alignSelf: 'center',
+  },
+  badge: {
+    backgroundColor: 'rgba(234, 35, 32, 0.1)',
+    borderColor: 'rgba(234, 35, 32, 0.3)',
+    borderWidth: 1,
+    marginBottom: Spacing.md,
+  },
+  badgeText: {
+    color: Colors.brand.primary,
+  },
+  heroTitle: {
+    fontSize: Typography['2xl'] * 2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: Spacing.md,
+  },
+  heroSubtitle: {
+    fontSize: Typography.xl,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    textAlign: 'center',
+    maxWidth: 672,
+  },
+  tabsSection: {
+    paddingVertical: Spacing.xl * 3,
+  },
+  tabsContainer: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignSelf: 'center',
+  },
+  tabs: {
+    width: '100%',
+  },
+  tabsList: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.sm,
+    marginBottom: Spacing.xl * 3,
+    justifyContent: 'center',
+  },
+  tabTrigger: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    paddingVertical: Spacing.sm * 1.5,
+    paddingHorizontal: Spacing.md,
+    borderRadius: BorderRadius.sm,
+  },
+  tabTriggerContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  tabLabel: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+  },
+  tabContent: {
+    gap: Spacing.xl * 3,
+  },
+  serviceHeader: {
+    alignItems: 'center',
+    marginBottom: Spacing.xl,
+  },
+  serviceTitle: {
+    fontSize: Typography['2xl'] * 1.2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    marginBottom: Spacing.md,
+    textAlign: 'center',
+  },
+  serviceSubtitle: {
+    fontSize: Typography.xl,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    textAlign: 'center',
+  },
+  featuresSection: {
+    marginBottom: Spacing.xl,
+  },
+  sectionTitle: {
+    fontSize: Typography['2xl'],
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: '500',
+    textAlign: 'center',
+    marginBottom: Spacing.lg,
+  },
+  featuresGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.md,
+  },
+  featureCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    flex: 1,
+    minWidth: 280,
+  },
+  featureCardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+    padding: Spacing.md,
+  },
+  featureText: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    flex: 1,
+  },
+  useCasesSection: {
+    marginBottom: Spacing.xl,
+  },
+  useCasesGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.lg,
+    justifyContent: 'center',
+  },
+  useCaseCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    width: '100%',
+    maxWidth: 350,
+    minWidth: 280,
+  },
+  useCaseCardContent: {
+    padding: Spacing.lg,
+  },
+  useCaseTitle: {
+    fontSize: Typography.xl,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: '500',
+    marginBottom: Spacing.sm,
+  },
+  useCaseDescription: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+  },
+  whySection: {
+    paddingVertical: Spacing.xl * 5,
+    position: 'relative',
+  },
+  whyContainer: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignSelf: 'center',
+  },
+  whyTitle: {
+    fontSize: Typography['2xl'] * 1.2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: Spacing.xl * 3,
+  },
+  whyGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.lg,
+    justifyContent: 'center',
+  },
+  whyCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    width: '100%',
+    maxWidth: 350,
+    minWidth: 280,
+  },
+  whyCardContent: {
+    padding: Spacing.xl * 2,
+    alignItems: 'center',
+  },
+  whyIcon: {
+    marginBottom: Spacing.md,
+  },
+  whyCardTitle: {
+    fontSize: Typography.xl,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: '500',
+    marginBottom: Spacing.sm,
+    textAlign: 'center',
+  },
+  whyCardDescription: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    textAlign: 'center',
+  },
+  ctaSection: {
+    paddingVertical: Spacing.xl * 5,
+    paddingHorizontal: Spacing.lg,
+  },
+  ctaCard: {
+    maxWidth: 1200,
+    alignSelf: 'center',
+    backgroundColor: 'rgba(234, 35, 32, 0.2)',
+    borderColor: 'rgba(234, 35, 32, 0.3)',
+    borderWidth: 1,
+    borderRadius: BorderRadius.xl,
+    padding: Spacing.xl * 3,
+    alignItems: 'center',
+  },
+  ctaTitle: {
+    fontSize: Typography['2xl'] * 1.2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    marginBottom: Spacing.md,
+    textAlign: 'center',
+  },
+  ctaSubtitle: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    marginBottom: Spacing.xl * 2,
+    textAlign: 'center',
+    maxWidth: 672,
+  },
+  ctaButtons: {
+    flexDirection: 'row',
+    gap: Spacing.lg,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  ctaButton: {
+    backgroundColor: Colors.brand.primary,
+    paddingHorizontal: Spacing.xl * 2,
+    paddingVertical: Spacing.lg * 1.5,
+  },
+  ctaButtonText: {
+    color: Colors.text.primary,
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    fontWeight: '500',
+  },
+  ctaButtonSecondary: {
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    paddingHorizontal: Spacing.xl * 2,
+    paddingVertical: Spacing.lg * 1.5,
+  },
+  ctaButtonSecondaryText: {
+    color: Colors.text.primary,
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    fontWeight: '500',
+  },
+});
 
 export default Services;

@@ -1,9 +1,13 @@
-import { CheckCircle2 } from "lucide-react";
-import { CircuitBackground } from "../../components/layout/CircuitBackground";
-import { Badge } from "../../components/data/badge";
-import { Button } from "../../components/buttons/button";
-import { Card } from "../../components/layout/card";
-import { router } from "expo-router";
+import React from 'react';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { CheckCircle2 } from 'lucide-react';
+import { CircuitBackground } from '../../components/layout/CircuitBackground';
+import { Badge } from '../../components/data/badge';
+import { Button } from '../../components/buttons/button';
+import { Card, CardContent } from '../../components/layout/card';
+import { router } from 'expo-router';
+import { Colors, BorderRadius, Spacing, FontFamily } from '../../constants/theme';
+import { Typography } from '../../constants/globalStyles';
 
 const Pricing = () => {
   const websiteBuilds = [
@@ -184,11 +188,11 @@ const Pricing = () => {
 
   const handleNavigate = (page: string) => {
     const pageMap: { [key: string]: string } = {
-      'contact': '/contact_us',
-      'services': '/services',
-      'about': '/about_us',
-      'pricing': '/pricing',
-      'faq': '/faq',
+      contact: '/contact_us',
+      services: '/services',
+      about: '/about_us',
+      pricing: '/pricing',
+      faq: '/faq',
     };
 
     const route = pageMap[page];
@@ -198,168 +202,417 @@ const Pricing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pt-20">
+    <ScrollView style={styles.container}>
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
+      <View style={styles.heroSection}>
         <CircuitBackground />
-        <div className="container mx-auto px-4 text-center z-10 relative">
-          <Badge className="mb-4 bg-[#ea2320]/10 border-[#ea2320]/30 text-[#ea2320]">
+        <View style={styles.heroContent}>
+          <Badge style={styles.badge} textStyle={styles.badgeText}>
             Pricing
           </Badge>
-          <h1 className="text-4xl md:text-6xl text-white mb-4">
-            Transparent, Flexible Pricing
-          </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <Text style={styles.heroTitle}>Transparent, Flexible Pricing</Text>
+          <Text style={styles.heroSubtitle}>
             Choose the package that fits your needs. All pricing is transparent with no hidden fees.
-          </p>
-        </div>
-      </section>
+          </Text>
+        </View>
+      </View>
 
       {/* Website Builds */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl text-white mb-4">Website Development</h2>
-            <p className="text-gray-400">Complete website solutions from landing pages to enterprise platforms</p>
-          </div>
+      <View style={styles.section}>
+        <View style={styles.sectionContainer}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Website Development</Text>
+            <Text style={styles.sectionSubtitle}>
+              Complete website solutions from landing pages to enterprise platforms
+            </Text>
+          </View>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <View style={styles.grid}>
             {websiteBuilds.map((tier, index) => (
               <Card
                 key={index}
-                className={`bg-white/5 border-white/10 p-6 flex flex-col ${
-                  tier.popular ? "border-[#ea2320] relative" : ""
-                }`}
+                style={StyleSheet.flatten([styles.pricingCard, tier.popular && styles.popularCard])}
               >
                 {tier.popular && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#ea2320] text-white">
+                  <Badge style={styles.popularBadge} textStyle={styles.popularBadgeText}>
                     Most Popular
                   </Badge>
                 )}
-                <div className="mb-6">
-                  <h3 className="text-2xl text-white mb-2">{tier.name}</h3>
-                  <p className="text-gray-400 text-sm mb-4">{tier.description}</p>
-                  <div className="text-3xl text-[#ea2320]">{tier.price}</div>
-                </div>
-                <ul className="space-y-3 mb-6 flex-grow">
-                  {tier.features.map((feature, fIndex) => (
-                    <li key={fIndex} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="h-4 w-4 text-[#ea2320] flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  onClick={() => handleNavigate("contact")}
-                  className={`w-full ${
-                    tier.popular
-                      ? "bg-[#ea2320] hover:bg-[#c91e1b] text-white"
-                      : "bg-white/10 hover:bg-white/20 text-white"
-                  }`}
-                >
-                  Get Started
-                </Button>
+                <CardContent style={styles.pricingCardContent}>
+                  <View style={styles.pricingHeader}>
+                    <Text style={styles.pricingName}>{tier.name}</Text>
+                    <Text style={styles.pricingDescription}>{tier.description}</Text>
+                    <Text style={styles.pricingPrice}>{tier.price}</Text>
+                  </View>
+                  <View style={styles.featureList}>
+                    {tier.features.map((feature, fIndex) => (
+                      <View key={fIndex} style={styles.featureItem}>
+                        <CheckCircle2
+                          size={16}
+                          color={Colors.brand.primary}
+                          style={styles.featureIcon}
+                        />
+                        <Text style={styles.featureText}>{feature}</Text>
+                      </View>
+                    ))}
+                  </View>
+                  <Button
+                    onPress={() => handleNavigate('contact')}
+                    style={StyleSheet.flatten([styles.pricingButton, tier.popular && styles.popularButton])}
+                  >
+                    <Text
+                      style={StyleSheet.flatten([styles.pricingButtonText, tier.popular && styles.popularButtonText])}
+                    >
+                      Get Started
+                    </Text>
+                  </Button>
+                </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
-      </section>
+          </View>
+        </View>
+      </View>
 
       {/* Add-ons */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl text-white mb-4">Simple Add-ons</h2>
-            <p className="text-gray-400">Enhance your website with additional features</p>
-          </div>
+      <View style={styles.section}>
+        <View style={styles.sectionContainer}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Simple Add-ons</Text>
+            <Text style={styles.sectionSubtitle}>Enhance your website with additional features</Text>
+          </View>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <View style={styles.addOnGrid}>
             {addOns.map((addon, index) => (
-              <Card
-                key={index}
-                className="bg-white/5 border-white/10 hover:border-[#ea2320]/50 transition-all p-4"
-              >
-                <div className="flex justify-between items-center">
-                  <span className="text-white">{addon.name}</span>
-                  <span className="text-[#ea2320]">{addon.price}</span>
-                </div>
+              <Card key={index} style={styles.addOnCard}>
+                <CardContent style={styles.addOnCardContent}>
+                  <Text style={styles.addOnName}>{addon.name}</Text>
+                  <Text style={styles.addOnPrice}>{addon.price}</Text>
+                </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
-      </section>
+          </View>
+        </View>
+      </View>
 
       {/* Maintenance & Support */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl text-white mb-4">Maintenance & Support</h2>
-            <p className="text-gray-400">Keep your website secure, updated, and performing at its best</p>
-          </div>
+      <View style={styles.section}>
+        <View style={styles.sectionContainer}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Maintenance & Support</Text>
+            <Text style={styles.sectionSubtitle}>
+              Keep your website secure, updated, and performing at its best
+            </Text>
+          </View>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <View style={styles.grid}>
             {maintenancePlans.map((plan, index) => (
               <Card
                 key={index}
-                className={`bg-white/5 border-white/10 p-6 flex flex-col ${
-                  plan.popular ? "border-[#ea2320] relative" : ""
-                }`}
+                style={StyleSheet.flatten([styles.pricingCard, plan.popular && styles.popularCard])}
               >
                 {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#ea2320] text-white">
+                  <Badge style={styles.popularBadge} textStyle={styles.popularBadgeText}>
                     Most Popular
                   </Badge>
                 )}
-                <div className="mb-6">
-                  <h3 className="text-2xl text-white mb-2">{plan.name}</h3>
-                  <div className="text-2xl text-[#ea2320] mb-1">{plan.price}</div>
-                  <div className="text-sm text-gray-400">{plan.annualPrice}</div>
-                </div>
-                <ul className="space-y-3 mb-6 flex-grow">
-                  {plan.features.map((feature, fIndex) => (
-                    <li key={fIndex} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="h-4 w-4 text-[#ea2320] flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  onClick={() => handleNavigate("contact")}
-                  className={`w-full ${
-                    plan.popular
-                      ? "bg-[#ea2320] hover:bg-[#c91e1b] text-white"
-                      : "bg-white/10 hover:bg-white/20 text-white"
-                  }`}
-                >
-                  Choose Plan
-                </Button>
+                <CardContent style={styles.pricingCardContent}>
+                  <View style={styles.pricingHeader}>
+                    <Text style={styles.pricingName}>{plan.name}</Text>
+                    <Text style={styles.maintenancePrice}>{plan.price}</Text>
+                    <Text style={styles.maintenanceAnnualPrice}>{plan.annualPrice}</Text>
+                  </View>
+                  <View style={styles.featureList}>
+                    {plan.features.map((feature, fIndex) => (
+                      <View key={fIndex} style={styles.featureItem}>
+                        <CheckCircle2
+                          size={16}
+                          color={Colors.brand.primary}
+                          style={styles.featureIcon}
+                        />
+                        <Text style={styles.featureText}>{feature}</Text>
+                      </View>
+                    ))}
+                  </View>
+                  <Button
+                    onPress={() => handleNavigate('contact')}
+                    style={StyleSheet.flatten([styles.pricingButton, plan.popular && styles.popularButton])}
+                  >
+                    <Text
+                      style={StyleSheet.flatten([styles.pricingButtonText, plan.popular && styles.popularButtonText])}
+                    >
+                      Choose Plan
+                    </Text>
+                  </Button>
+                </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
-      </section>
+          </View>
+        </View>
+      </View>
 
       {/* CTA */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-r from-[#ea2320]/20 to-transparent border border-[#ea2320]/30 rounded-2xl p-12 text-center">
-            <h2 className="text-3xl md:text-4xl text-white mb-4">
-              Need a Custom Quote?
-            </h2>
-            <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+      <View style={styles.ctaSection}>
+        <View style={styles.ctaContainer}>
+          <View style={styles.ctaCard}>
+            <Text style={styles.ctaTitle}>Need a Custom Quote?</Text>
+            <Text style={styles.ctaSubtitle}>
               Every project is unique. Contact us for a personalized quote tailored to your specific requirements.
-            </p>
-            <Button
-              onClick={() => handleNavigate("contact")}
-              className="bg-[#ea2320] hover:bg-[#c91e1b] text-white px-8 py-6"
-            >
-              Request Custom Quote
+            </Text>
+            <Button onPress={() => handleNavigate('contact')} style={styles.ctaButton}>
+              <Text style={styles.ctaButtonText}>Request Custom Quote</Text>
             </Button>
-          </div>
-        </div>
-      </section>
-    </div>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background.dark,
+  },
+  heroSection: {
+    paddingVertical: Spacing.xl * 5,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  heroContent: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignItems: 'center',
+    zIndex: 10,
+    alignSelf: 'center',
+  },
+  badge: {
+    backgroundColor: 'rgba(234, 35, 32, 0.1)',
+    borderColor: 'rgba(234, 35, 32, 0.3)',
+    borderWidth: 1,
+    marginBottom: Spacing.md,
+  },
+  badgeText: {
+    color: Colors.brand.primary,
+  },
+  heroTitle: {
+    fontSize: Typography['2xl'] * 2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: Spacing.md,
+  },
+  heroSubtitle: {
+    fontSize: Typography.xl,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    textAlign: 'center',
+    maxWidth: 672,
+  },
+  section: {
+    paddingVertical: Spacing.xl * 3,
+  },
+  sectionContainer: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignSelf: 'center',
+  },
+  sectionHeader: {
+    alignItems: 'center',
+    marginBottom: Spacing.xl * 3,
+  },
+  sectionTitle: {
+    fontSize: Typography['2xl'] * 1.2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    marginBottom: Spacing.md,
+    textAlign: 'center',
+  },
+  sectionSubtitle: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    textAlign: 'center',
+  },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.lg,
+    justifyContent: 'center',
+  },
+  pricingCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    width: '100%',
+    maxWidth: 350,
+    minWidth: 280,
+    position: 'relative',
+  },
+  popularCard: {
+    borderColor: Colors.brand.primary,
+  },
+  popularBadge: {
+    position: 'absolute',
+    top: -12,
+    left: '50%',
+    transform: [{ translateX: -50 }],
+    backgroundColor: Colors.brand.primary,
+    zIndex: 10,
+  },
+  popularBadgeText: {
+    color: Colors.text.primary,
+  },
+  pricingCardContent: {
+    padding: Spacing.lg,
+  },
+  pricingHeader: {
+    marginBottom: Spacing.lg,
+  },
+  pricingName: {
+    fontSize: Typography['2xl'],
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    marginBottom: Spacing.sm,
+  },
+  pricingDescription: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    marginBottom: Spacing.md,
+  },
+  pricingPrice: {
+    fontSize: Typography['2xl'] * 1.2,
+    fontFamily: FontFamily.primary,
+    color: Colors.brand.primary,
+  },
+  maintenancePrice: {
+    fontSize: Typography['2xl'],
+    fontFamily: FontFamily.primary,
+    color: Colors.brand.primary,
+    marginBottom: Spacing.xs,
+  },
+  maintenanceAnnualPrice: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+  },
+  featureList: {
+    gap: Spacing.sm * 1.5,
+    marginBottom: Spacing.lg,
+    flex: 1,
+  },
+  featureItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: Spacing.sm,
+  },
+  featureIcon: {
+    flexShrink: 0,
+    marginTop: 2,
+  },
+  featureText: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    flex: 1,
+  },
+  pricingButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: '100%',
+    paddingVertical: Spacing.md,
+  },
+  popularButton: {
+    backgroundColor: Colors.brand.primary,
+  },
+  pricingButtonText: {
+    color: Colors.text.primary,
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    fontWeight: '500',
+  },
+  popularButtonText: {
+    color: Colors.text.primary,
+  },
+  addOnGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.md,
+    justifyContent: 'center',
+  },
+  addOnCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    width: '100%',
+    maxWidth: 280,
+    minWidth: 200,
+  },
+  addOnCardContent: {
+    padding: Spacing.md,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  addOnName: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    flex: 1,
+  },
+  addOnPrice: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.brand.primary,
+    marginLeft: Spacing.sm,
+  },
+  ctaSection: {
+    paddingVertical: Spacing.xl * 5,
+  },
+  ctaContainer: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignSelf: 'center',
+  },
+  ctaCard: {
+    backgroundColor: 'rgba(234, 35, 32, 0.2)',
+    borderColor: 'rgba(234, 35, 32, 0.3)',
+    borderWidth: 1,
+    borderRadius: BorderRadius.xl,
+    padding: Spacing.xl * 3,
+    alignItems: 'center',
+  },
+  ctaTitle: {
+    fontSize: Typography['2xl'] * 1.2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    marginBottom: Spacing.md,
+    textAlign: 'center',
+  },
+  ctaSubtitle: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    marginBottom: Spacing.xl * 2,
+    textAlign: 'center',
+    maxWidth: 672,
+  },
+  ctaButton: {
+    backgroundColor: Colors.brand.primary,
+    paddingHorizontal: Spacing.xl * 2,
+    paddingVertical: Spacing.lg * 1.5,
+  },
+  ctaButtonText: {
+    color: Colors.text.primary,
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    fontWeight: '500',
+  },
+});
 
 export default Pricing;

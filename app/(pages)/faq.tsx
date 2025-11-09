@@ -1,13 +1,17 @@
-import { CircuitBackground } from "../../components/layout/CircuitBackground";
+import React from 'react';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { CircuitBackground } from '../../components/layout/CircuitBackground';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../../components/layout/accordion";
-import { Badge } from "../../components/data/badge";
-import { Button } from "../../components/buttons/button";
-import { router } from "expo-router";
+} from '../../components/layout/accordion';
+import { Badge } from '../../components/data/badge';
+import { Button } from '../../components/buttons/button';
+import { router } from 'expo-router';
+import { Colors, BorderRadius, Spacing, FontFamily } from '../../constants/theme';
+import { Typography } from '../../constants/globalStyles';
 
 const FAQs = () => {
   const faqs = [
@@ -95,11 +99,11 @@ const FAQs = () => {
 
   const handleNavigate = (page: string) => {
     const pageMap: { [key: string]: string } = {
-      'contact': '/contact_us',
-      'services': '/services',
-      'about': '/about_us',
-      'pricing': '/pricing',
-      'faq': '/faq',
+      contact: '/contact_us',
+      services: '/services',
+      about: '/about_us',
+      pricing: '/pricing',
+      faq: '/faq',
     };
 
     const route = pageMap[page];
@@ -109,68 +113,184 @@ const FAQs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pt-20">
+    <ScrollView style={styles.container}>
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
+      <View style={styles.heroSection}>
         <CircuitBackground />
-        <div className="container mx-auto px-4 text-center z-10 relative">
-          <Badge className="mb-4 bg-[#ea2320]/10 border-[#ea2320]/30 text-[#ea2320]">
+        <View style={styles.heroContent}>
+          <Badge style={styles.badge} textStyle={styles.badgeText}>
             FAQs
           </Badge>
-          <h1 className="text-4xl md:text-6xl text-white mb-4">
-            Frequently Asked Questions
-          </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <Text style={styles.heroTitle}>Frequently Asked Questions</Text>
+          <Text style={styles.heroSubtitle}>
             Everything you need to know about working with TOP Development LLC
-          </p>
-        </div>
-      </section>
+          </Text>
+        </View>
+      </View>
 
       {/* FAQs */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="bg-white/5 border border-white/10 rounded-lg px-6 data-[state=open]:border-[#ea2320]/50"
-                >
-                  <AccordionTrigger className="text-left text-white hover:text-[#ea2320] hover:no-underline py-6">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-gray-400 pb-6">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </section>
+      <View style={styles.faqSection}>
+        <View style={styles.faqContainer}>
+          <Accordion type="single" collapsible style={styles.accordion}>
+            {faqs.map((faq, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                style={styles.accordionItem}
+              >
+                <AccordionTrigger style={styles.accordionTrigger}>
+                  <Text style={styles.accordionTriggerText}>{faq.question}</Text>
+                </AccordionTrigger>
+                <AccordionContent style={styles.accordionContent}>
+                  <Text style={styles.accordionContentText}>{faq.answer}</Text>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </View>
+      </View>
 
       {/* Still Have Questions */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-r from-[#ea2320]/20 to-transparent border border-[#ea2320]/30 rounded-2xl p-12 text-center">
-            <h2 className="text-3xl md:text-4xl text-white mb-4">
-              Still Have Questions?
-            </h2>
-            <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+      <View style={styles.ctaSection}>
+        <View style={styles.ctaContainer}>
+          <View style={styles.ctaCard}>
+            <Text style={styles.ctaTitle}>Still Have Questions?</Text>
+            <Text style={styles.ctaSubtitle}>
               Can't find the answer you're looking for? Get in touch with our team and we'll be happy to help.
-            </p>
-            <Button
-              onClick={() => handleNavigate("contact")}
-              className="bg-[#ea2320] hover:bg-[#c91e1b] text-white px-8 py-6"
-            >
-              Contact Us
+            </Text>
+            <Button onPress={() => handleNavigate('contact')} style={styles.ctaButton}>
+              <Text style={styles.ctaButtonText}>Contact Us</Text>
             </Button>
-          </div>
-        </div>
-      </section>
-    </div>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background.dark,
+  },
+  heroSection: {
+    paddingVertical: Spacing.xl * 5,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  heroContent: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignItems: 'center',
+    zIndex: 10,
+    alignSelf: 'center',
+  },
+  badge: {
+    backgroundColor: 'rgba(234, 35, 32, 0.1)',
+    borderColor: 'rgba(234, 35, 32, 0.3)',
+    borderWidth: 1,
+    marginBottom: Spacing.md,
+  },
+  badgeText: {
+    color: Colors.brand.primary,
+  },
+  heroTitle: {
+    fontSize: Typography['2xl'] * 2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: Spacing.md,
+  },
+  heroSubtitle: {
+    fontSize: Typography.xl,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    textAlign: 'center',
+    maxWidth: 672,
+  },
+  faqSection: {
+    paddingVertical: Spacing.xl * 3,
+  },
+  faqContainer: {
+    width: '100%',
+    maxWidth: 896,
+    paddingHorizontal: Spacing.lg,
+    alignSelf: 'center',
+  },
+  accordion: {
+    gap: Spacing.md,
+  },
+  accordionItem: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    borderRadius: BorderRadius.md,
+    paddingHorizontal: Spacing.lg,
+  },
+  accordionTrigger: {
+    paddingVertical: Spacing.lg,
+  },
+  accordionTriggerText: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    textAlign: 'left',
+  },
+  accordionContent: {
+    paddingBottom: Spacing.lg,
+  },
+  accordionContentText: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    lineHeight: Typography.base * 1.6,
+  },
+  ctaSection: {
+    paddingVertical: Spacing.xl * 5,
+  },
+  ctaContainer: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignSelf: 'center',
+  },
+  ctaCard: {
+    backgroundColor: 'rgba(234, 35, 32, 0.2)',
+    borderColor: 'rgba(234, 35, 32, 0.3)',
+    borderWidth: 1,
+    borderRadius: BorderRadius.xl,
+    padding: Spacing.xl * 3,
+    alignItems: 'center',
+  },
+  ctaTitle: {
+    fontSize: Typography['2xl'] * 1.2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    marginBottom: Spacing.md,
+    textAlign: 'center',
+  },
+  ctaSubtitle: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    marginBottom: Spacing.xl * 2,
+    textAlign: 'center',
+    maxWidth: 672,
+  },
+  ctaButton: {
+    backgroundColor: Colors.brand.primary,
+    paddingHorizontal: Spacing.xl * 2,
+    paddingVertical: Spacing.lg * 1.5,
+  },
+  ctaButtonText: {
+    color: Colors.text.primary,
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    fontWeight: '500',
+  },
+});
 
 export default FAQs;
