@@ -144,8 +144,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   tabsTrigger: {
-    flex: 1,
-    paddingHorizontal: Spacing.md,
+    paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.sm,
     borderRadius: BorderRadius.md,
     alignItems: 'center',
@@ -153,6 +152,7 @@ const styles = StyleSheet.create({
     minHeight: 40,
     borderWidth: 1,
     borderColor: 'transparent',
+    minWidth: 100,
   },
   tabsTriggerActive: {
     backgroundColor: Colors.brand.primary,
@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.secondary,
     color: Colors.text.secondary,
     textAlign: 'center',
+    flexWrap: 'wrap',
   },
   tabsTriggerTextActive: {
     color: Colors.text.primary,

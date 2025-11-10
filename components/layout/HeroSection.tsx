@@ -66,17 +66,21 @@ const styles = StyleSheet.create({
     color: Colors.brand.primary,
   },
   heroTitle: {
-    fontSize: Typography['2xl'] * 2,
+    fontSize: Typography['2xl'] * 1.5,
     fontFamily: FontFamily.primary,
     color: Colors.text.primary,
     fontWeight: 'bold',
     textAlign: 'center',
+    paddingHorizontal: Spacing.md,
+    flexShrink: 1,
   },
   heroSubtitle: {
-    fontSize: Typography.xl,
+    fontSize: Typography.lg,
     fontFamily: FontFamily.secondary,
     color: Colors.text.secondary,
     textAlign: 'center',
     maxWidth: 672,
+    paddingHorizontal: Spacing.md,
+    flexShrink: 1,
   },
 });
