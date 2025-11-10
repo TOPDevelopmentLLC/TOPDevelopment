@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Linking } from 'react-native';
 import axios from 'axios';
-import { toast } from 'sonner';
-import { BasePage } from 'components/layout/BasePage';
-import { HeroSection } from 'components/layout/HeroSection';
 import { PrimaryButton } from 'components/buttons/PrimaryButton';
 import { SecondaryButton } from 'components/buttons/SecondaryButton';
-import { Card, CardContent } from 'components/layout/card';
 import { Input } from 'components/forms/input';
 import { Label } from 'components/forms/label';
 import { Textarea } from 'components/forms/textarea';
-import { router } from 'expo-router';
-import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
-import { Typography } from 'constants/globalStyles';
+import { BasePage } from 'components/layout/BasePage';
+import { Card, CardContent } from 'components/layout/card';
+import { HeroSection } from 'components/layout/HeroSection';
 import IconContainer, { IconType } from 'components/utils/IconContainer';
+import { Typography } from 'constants/globalStyles';
+import { Colors, FontFamily, Spacing } from 'constants/theme';
+import { router } from 'expo-router';
+import React, { useState } from 'react';
+import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
+import { toast } from 'sonner';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -138,13 +138,13 @@ const ContactUs = () => {
                 <CardContent style={styles.infoCardContent}>
                   <IconContainer iconProps={{ name: "email", size: 32, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.infoIcon} />
                   <Text style={styles.infoTitle}>Email</Text>
-                  <Pressable onPress={() => Linking.openURL('mailto:contact@topdevelopment.com')}>
-                    <Text style={styles.infoLink}>contact@topdevelopment.com</Text>
+                  <Pressable onPress={() => Linking.openURL('mailto:austinalex@thatoneprogrammer.dev')}>
+                    <Text style={styles.infoLink}>austinalex@thatoneprogrammer.dev</Text>
                   </Pressable>
                 </CardContent>
               </Card>
 
-              <Card style={styles.infoCard}>
+              {/* <Card style={styles.infoCard}>
                 <CardContent style={styles.infoCardContent}>
                   <IconContainer iconProps={{ name: "phone", size: 32, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.infoIcon} />
                   <Text style={styles.infoTitle}>Phone</Text>
@@ -152,13 +152,13 @@ const ContactUs = () => {
                     <Text style={styles.infoLink}>+1 (234) 567-890</Text>
                   </Pressable>
                 </CardContent>
-              </Card>
+              </Card> */}
 
               <Card style={styles.infoCard}>
                 <CardContent style={styles.infoCardContent}>
                   <IconContainer iconProps={{ name: "place", size: 32, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.infoIcon} />
                   <Text style={styles.infoTitle}>Location</Text>
-                  <Text style={styles.infoText}>Florida, United States</Text>
+                  <Text style={styles.infoText}>Pittsburgh, PA, United States</Text>
                 </CardContent>
               </Card>
 
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
   contactInfoColumn: {
     flex: 1,
     minWidth: 280,
-    maxWidth: 350,
+    maxWidth: 400,
     gap: Spacing.lg,
   },
   infoCard: {
