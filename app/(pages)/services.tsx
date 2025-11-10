@@ -15,8 +15,6 @@ import IconContainer, { IconType } from 'components/utils/IconContainer';
 const Services = () => {
   const [activeTab, setActiveTab] = useState('web');
 
-  const currentService = serviceDetails[activeTab as keyof typeof serviceDetails];
-
   const handleNavigate = (page: string) => {
     const pageMap: { [key: string]: string } = {
       contact: '/contact_us',
@@ -175,18 +173,19 @@ const styles = StyleSheet.create({
   tabsList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: Spacing.sm,
+    gap: Spacing.md,
     marginBottom: Spacing.xl * 3,
     justifyContent: 'center',
-    paddingHorizontal: Spacing.md,
+    paddingHorizontal: Spacing.xs,
   },
   tabTrigger: {
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
     borderColor: 'rgba(255, 255, 255, 0.1)',
     borderWidth: 1,
-    paddingVertical: Spacing.sm * 1.5,
-    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.lg,
     borderRadius: BorderRadius.sm,
+    minWidth: 120,
   },
   tabTriggerActive: {
     backgroundColor: Colors.brand.primary,
@@ -201,6 +200,7 @@ const styles = StyleSheet.create({
     fontSize: Typography.sm,
     fontFamily: FontFamily.secondary,
     color: Colors.text.primary,
+    flexShrink: 1,
   },
   tabContent: {
     gap: Spacing.xl * 3,
@@ -210,29 +210,35 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl,
   },
   serviceTitle: {
-    fontSize: Typography['2xl'] * 1.2,
+    fontSize: Typography['2xl'],
     fontFamily: FontFamily.primary,
     color: Colors.text.primary,
     fontWeight: 'bold',
     marginBottom: Spacing.md,
     textAlign: 'center',
+    paddingHorizontal: Spacing.md,
+    flexShrink: 1,
   },
   serviceSubtitle: {
-    fontSize: Typography.xl,
+    fontSize: Typography.lg,
     fontFamily: FontFamily.secondary,
     color: Colors.text.secondary,
     textAlign: 'center',
+    paddingHorizontal: Spacing.md,
+    flexShrink: 1,
   },
   featuresSection: {
     marginBottom: Spacing.xl,
   },
   sectionTitle: {
-    fontSize: Typography['2xl'],
+    fontSize: Typography.xl,
     fontFamily: FontFamily.primary,
     color: Colors.text.primary,
     fontWeight: '500',
     textAlign: 'center',
     marginBottom: Spacing.lg,
+    paddingHorizontal: Spacing.md,
+    flexShrink: 1,
   },
   featuresGrid: {
     flexDirection: 'row',
@@ -301,12 +307,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   whyTitle: {
-    fontSize: Typography['2xl'] * 1.2,
+    fontSize: Typography['2xl'],
     fontFamily: FontFamily.primary,
     color: Colors.text.primary,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: Spacing.xl * 3,
+    paddingHorizontal: Spacing.md,
+    flexShrink: 1,
   },
   whyGrid: {
     flexDirection: 'row',
@@ -358,12 +366,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ctaTitle: {
-    fontSize: Typography['2xl'] * 1.2,
+    fontSize: Typography['2xl'],
     fontFamily: FontFamily.primary,
     color: Colors.text.primary,
     fontWeight: 'bold',
     marginBottom: Spacing.md,
     textAlign: 'center',
+    paddingHorizontal: Spacing.md,
+    flexShrink: 1,
   },
   ctaSubtitle: {
     fontSize: Typography.base,
