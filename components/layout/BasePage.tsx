@@ -14,7 +14,11 @@ export function BasePage({ children, style }: BasePageProps) {
   return (
     <>
       <Navigation />
-      <ScrollView style={[styles.container, style]}>
+      <ScrollView
+        style={[styles.container, style]}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
         <View style={styles.contentWrapper}>
           <CircuitBackground />
           {children}
