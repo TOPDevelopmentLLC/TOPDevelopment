@@ -1,408 +1,372 @@
-import BaseButton from "components/BaseButton";
-import BasePage from "components/BasePage";
-import { BorderRadius, Colors, FontFamily, FontSize, Spacing } from "constants/theme";
-import { router } from "expo-router";
-import { useResponsive } from "hooks/useResponsive";
-import { useScreenDimensions } from "hooks/useScreenDimensions";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { BasePage } from 'components/layout/BasePage';
+import { HeroSection } from 'components/layout/HeroSection';
+import { Badge } from 'components/data/badge';
+import { PrimaryButton } from 'components/buttons/PrimaryButton';
+import { Card, CardContent } from 'components/layout/card';
+import { router } from 'expo-router';
+import { Colors, BorderRadius, Spacing, FontFamily } from 'constants/theme';
+import { Typography } from 'constants/globalStyles';
+import { websiteBuilds, addOns, maintenancePlans } from 'lib/data/pricing';
+import IconContainer, { IconType } from 'components/utils/IconContainer';
 
 const Pricing = () => {
-    const { pageWidth, pageHeight } = useScreenDimensions();
-    const { isMobile, contentWidth } = useResponsive();
-    const defaultMargin = pageHeight * 0.025;
-    const contactUsButtonPressed = () => {
-        router.push('/contact_us');
+  const handleNavigate = (page: string) => {
+    const pageMap: { [key: string]: string } = {
+      contact: '/contact_us',
+      services: '/services',
+      about: '/about_us',
+      pricing: '/pricing',
+      faq: '/faq',
+    };
+
+    const route = pageMap[page];
+    if (route) {
+      router.push(route as any);
     }
+  };
 
-    return (
-        <BasePage>
-            <Text style={[styles.title, { marginTop: pageHeight * 0.05 }]}>Pricing</Text>
-            <ScrollView
-                contentContainerStyle={[styles.container, { paddingBottom: pageHeight * 0.1 }]}
-                style={{ height: pageHeight * 0.9, width: pageWidth }}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-            >
-                {/* Build Pricing Section */}
-                <View style={[styles.sectionContainer, { width: contentWidth, marginTop: defaultMargin }]}>
-                    <Text style={styles.sectionTitle}>Website Builds</Text>
+  return (
+    <BasePage>
+      {/* Hero Section */}
+      <HeroSection
+        badge="Pricing"
+        title="Transparent, Flexible Pricing"
+        subtitle="Choose the package that fits your needs. All pricing is transparent with no hidden fees."
+      />
 
-                    <View style={[styles.pricingGrid, { maxWidth: contentWidth }]}>
-                        {/* Simple Landing Page */}
-                        <View style={styles.pricingCard}>
-                            <Text style={styles.tierTitle}>Simple Landing Page</Text>
-                            <Text style={styles.price}>$1,000 - $1,500</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.feature}>• 1-3 pages (Home, About, Contact)</Text>
-                                <Text style={styles.feature}>• Responsive Design</Text>
-                                <Text style={styles.feature}>• Contact Form with Email Notifications</Text>
-                                <Text style={styles.feature}>• Optimized Images</Text>
-                                <Text style={styles.feature}>• {`< 3 second load times`}</Text>
-                                <Text style={styles.feature}>• SEO Basics</Text>
-                                <Text style={styles.feature}>• Hosting Setup</Text>
-                                <Text style={styles.feature}>• Domain Setup</Text>
-                                <Text style={styles.feature}>• Design Revisions (3 rounds)</Text>
-                            </View>
-                        </View>
+      {/* Website Builds */}
+      <View style={styles.section}>
+        <View style={styles.sectionContainer}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Website Development</Text>
+            <Text style={styles.sectionSubtitle}>
+              Complete website solutions from landing pages to enterprise platforms
+            </Text>
+          </View>
 
-                        {/* Small Business Site */}
-                        <View style={styles.pricingCard}>
-                            <Text style={styles.tierTitle}>Small Business Site</Text>
-                            <Text style={styles.price}>$3,000 - $4,000</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything from Simple Landing Page</Text>
-                                <Text style={styles.feature}>• 5-10 pages</Text>
-                                <Text style={styles.feature}>• Dynamic Drawer Menu</Text>
-                                <Text style={styles.feature}>• Contact Us Forms</Text>
-                                <Text style={styles.feature}>• Service Inquiry Forms</Text>
-                                <Text style={styles.feature}>• Newsletter Signup Forms</Text>
-                                <Text style={styles.feature}>• CMS Plugin</Text>
-                                <Text style={styles.feature}>• Custom CMS</Text>
-                                <Text style={styles.feature}>• Google Maps Integration</Text>
-                                <Text style={styles.feature}>• Design Revisions (5 rounds)</Text>
-                            </View>
-                        </View>
+          <View style={styles.grid}>
+            {websiteBuilds.map((tier, index) => (
+              <Card
+                key={index}
+                style={StyleSheet.flatten([styles.pricingCard, tier.popular && styles.popularCard])}
+              >
+                {tier.popular && (
+                  <Badge style={styles.popularBadge} textStyle={styles.popularBadgeText}>
+                    Most Popular
+                  </Badge>
+                )}
+                <CardContent style={styles.pricingCardContent}>
+                  <View style={styles.pricingHeader}>
+                    <Text style={styles.pricingName}>{tier.name}</Text>
+                    <Text style={styles.pricingDescription}>{tier.description}</Text>
+                    <Text style={styles.pricingPrice}>{tier.price}</Text>
+                  </View>
+                  <View style={styles.featureList}>
+                    {tier.features.map((feature, fIndex) => (
+                      <View key={fIndex} style={styles.featureItem}>
+                        <IconContainer
+                          iconProps={{
+                            name: "check-circle",
+                            size: 16,
+                            color: Colors.brand.primary,
+                            type: IconType.MaterialIcons
+                          }}
+                          style={styles.featureIcon}
+                        />
+                        <Text style={styles.featureText}>{feature}</Text>
+                      </View>
+                    ))}
+                  </View>
+                  <PrimaryButton
+                    onPress={() => handleNavigate('contact')}
+                    style={StyleSheet.flatten([styles.pricingButton, tier.popular && styles.popularButton])}
+                  >
+                    Get Started
+                  </PrimaryButton>
+                </CardContent>
+              </Card>
+            ))}
+          </View>
+        </View>
+      </View>
 
-                        {/* Advanced/Custom Site */}
-                        <View style={[styles.pricingCard, styles.highlightedCard]}>
-                            <Text style={styles.tierTitle}>Advanced/Custom Site</Text>
-                            <Text style={styles.price}>$5,000 - $15,000</Text>
-                            <Text style={styles.price}>{`(Recommended)`}</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything from Small Business Website</Text>
-                                <Text style={styles.feature}>• 10-25 pages with complex architecture</Text>
-                                <Text style={styles.feature}>• User Authentication</Text>
-                                <Text style={styles.feature}>• User Dashboards/Profiles</Text>
-                                <Text style={styles.feature}>• Advanced Search/Filtering</Text>
-                                <Text style={styles.feature}>• API Integrations</Text>
-                                <Text style={styles.feature}>• Document Management System</Text>
-                                <Text style={styles.feature}>• Unlimited Custom forms</Text>
-                                <Text style={styles.feature}>• CRM Integration (HubSpot, Salesforce, etc)</Text>
-                                <Text style={styles.feature}>• Payment Processing (Stripe/PayPal)</Text>
-                                <Text style={styles.feature}>• Social Media API Integrations</Text>
-                            </View>
-                        </View>
+      {/* Add-ons */}
+      <View style={styles.section}>
+        <View style={styles.sectionContainer}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Simple Add-ons</Text>
+            <Text style={styles.sectionSubtitle}>Enhance your website with additional features</Text>
+          </View>
 
-                        {/* Enterprise Site */}
-                        <View style={styles.pricingCard}>
-                            <Text style={styles.tierTitle}>Enterprise Site</Text>
-                            <Text style={styles.price}>$15,000 - $75,000</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything from Advanced/Custom Website</Text>
-                                <Text style={styles.feature}>• Multi-Site architecture or site network</Text>
-                                <Text style={styles.feature}>• Complex database architecture</Text>
-                                <Text style={styles.feature}>• Advanced API development</Text>
-                                <Text style={styles.feature}>• Real-time features (notifications/live updates)</Text>
-                                <Text style={styles.feature}>• Data visualization and custom reporting</Text>
-                                <Text style={styles.feature}>• Document generation (invoices, contracts, reports)</Text>
-                                <Text style={styles.feature}>• ERP systems (SAP, Oracle, NetSuite)</Text>
-                                <Text style={styles.feature}>• CRM (Salesforce, Microsoft Dynamics)</Text>
-                                <Text style={styles.feature}>• Custom legacy system integrations</Text>
-                                <Text style={styles.feature}>• HR systems integration</Text>
-                                <Text style={styles.feature}>• Microservices architecture</Text>
-                                <Text style={styles.feature}>• Auto-scaling infrastructure</Text>
-                                <Text style={styles.feature}>• Load balancing</Text>
-                                <Text style={styles.feature}>• Staging/prod environments</Text>
-                                <Text style={styles.feature}>• Monthly strategy calls</Text>
-                            </View>
-                        </View>
+          <View style={styles.addOnGrid}>
+            {addOns.map((addon, index) => (
+              <Card key={index} style={styles.addOnCard}>
+                <CardContent style={styles.addOnCardContent}>
+                  <Text style={styles.addOnName}>{addon.name}</Text>
+                  <Text style={styles.addOnPrice}>{addon.price}</Text>
+                </CardContent>
+              </Card>
+            ))}
+          </View>
+        </View>
+      </View>
 
-                        {/* E-Commerce Site */}
-                        <View style={styles.pricingCard}>
-                            <Text style={styles.tierTitle}>E-Commerce Site</Text>
-                            <Text style={styles.price}>$7,500 - $20,000</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.feature}>• Up to 500 SKUs</Text>
-                                <Text style={styles.featureNote}>  (+$500 for every 100 SKUs after 500)</Text>
-                                <Text style={styles.feature}>• Product Category/Details Pages</Text>
-                                <Text style={styles.feature}>• Cart/Checkout Pages</Text>
-                                <Text style={styles.feature}>• Shipping/Returns Policy Pages</Text>
-                                <Text style={styles.feature}>• Blog Pages</Text>
-                                <Text style={styles.feature}>• Real-time inventory tracking</Text>
-                                <Text style={styles.feature}>• Low stock alerts</Text>
-                                <Text style={styles.feature}>• Order processing and status updates</Text>
-                                <Text style={styles.feature}>• Order history</Text>
-                                <Text style={styles.feature}>• Wishlists</Text>
-                                <Text style={styles.feature}>• Email notifications</Text>
-                                <Text style={styles.feature}>• Customer reviews and ratings</Text>
-                                <Text style={styles.feature}>• Newsletter signup</Text>
-                                <Text style={styles.feature}>• Gift card functionality</Text>
-                                <Text style={styles.feature}>• Stripe/PayPal Integration</Text>
-                                <Text style={styles.feature}>• Tax Calculation (TaxJar Integration)</Text>
-                                <Text style={styles.feature}>• Shipping Calculator</Text>
-                                <Text style={styles.feature}>• International Shipping Support</Text>
-                                <Text style={styles.feature}>• Guest Checkout</Text>
-                                <Text style={styles.feature}>• Design Revisions (5 rounds)</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
+      {/* Maintenance & Support */}
+      <View style={styles.section}>
+        <View style={styles.sectionContainer}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Maintenance & Support</Text>
+            <Text style={styles.sectionSubtitle}>
+              Keep your website secure, updated, and performing at its best
+            </Text>
+          </View>
 
-                {/* Simple Add-ons Section */}
-                <View style={[styles.sectionContainer, { width: contentWidth, marginTop: defaultMargin * 2 }]}>
-                    <Text style={styles.sectionTitle}>Simple Add-Ons</Text>
-                    <View style={[styles.addonsGrid, { maxWidth: contentWidth }]}>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Additional Support Hours</Text>
-                            <Text style={styles.addonPrice}>$125/hour</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Live-chat Integration</Text>
-                            <Text style={styles.addonPrice}>$500</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Advanced Animations</Text>
-                            <Text style={styles.addonPrice}>$500</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Appointment Booking</Text>
-                            <Text style={styles.addonPrice}>$1,000</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Member Portal</Text>
-                            <Text style={styles.addonPrice}>$2,000</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Custom Admin Panel</Text>
-                            <Text style={styles.addonPrice}>$2,000</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Loyalty/Rewards Program</Text>
-                            <Text style={styles.addonPrice}>$2,000</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Mobile Application</Text>
-                            <Text style={styles.addonPrice}>$2,000+</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Multi-Currency Support</Text>
-                            <Text style={styles.addonPrice}>$2,500</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Subscriptions/Recurring Payments</Text>
-                            <Text style={styles.addonPrice}>$2,500</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Third-Party API Development</Text>
-                            <Text style={styles.addonPrice}>$4,000</Text>
-                        </View>
-                        <View style={styles.addonCard}>
-                            <Text style={styles.addonName}>Multi-Vendor Marketplace</Text>
-                            <Text style={styles.addonPrice}>$7,500</Text>
-                        </View>
-                    </View>
-                </View>
+          <View style={styles.grid}>
+            {maintenancePlans.map((plan, index) => (
+              <Card
+                key={index}
+                style={StyleSheet.flatten([styles.pricingCard, plan.popular && styles.popularCard])}
+              >
+                {plan.popular && (
+                  <Badge style={styles.popularBadge} textStyle={styles.popularBadgeText}>
+                    Most Popular
+                  </Badge>
+                )}
+                <CardContent style={styles.pricingCardContent}>
+                  <View style={styles.pricingHeader}>
+                    <Text style={styles.pricingName}>{plan.name}</Text>
+                    <Text style={styles.maintenancePrice}>{plan.price}</Text>
+                    <Text style={styles.maintenanceAnnualPrice}>{plan.annualPrice}</Text>
+                  </View>
+                  <View style={styles.featureList}>
+                    {plan.features.map((feature, fIndex) => (
+                      <View key={fIndex} style={styles.featureItem}>
+                        <IconContainer
+                          iconProps={{
+                            name: "check-circle",
+                            size: 16,
+                            color: Colors.brand.primary,
+                            type: IconType.MaterialIcons
+                          }}
+                          style={styles.featureIcon}
+                        />
+                        <Text style={styles.featureText}>{feature}</Text>
+                      </View>
+                    ))}
+                  </View>
+                  <PrimaryButton
+                    onPress={() => handleNavigate('contact')}
+                    style={StyleSheet.flatten([styles.pricingButton, plan.popular && styles.popularButton])}
+                  >
+                    Choose Plan
+                  </PrimaryButton>
+                </CardContent>
+              </Card>
+            ))}
+          </View>
+        </View>
+      </View>
 
-                {/* Maintenance Pricing Section */}
-                <View style={[styles.sectionContainer, { width: contentWidth, marginTop: defaultMargin * 2, marginBottom: defaultMargin * 2 }]}>
-                    <Text style={styles.sectionTitle}>Maintenance & Support</Text>
-
-                    <View style={[styles.maintenanceGrid, { maxWidth: contentWidth }]}>
-                        {/* Essentials Only */}
-                        <View style={styles.maintenanceCard}>
-                            <Text style={styles.tierTitle}>Essentials Only</Text>
-                            <Text style={styles.price}>$50/month</Text>
-                            <Text style={styles.annualPrice}>$510/annually</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.feature}>• AWS Hosting</Text>
-                                <Text style={styles.feature}>• Security Monitoring</Text>
-                                <Text style={styles.feature}>• Monthly Uptime Reports</Text>
-                                <Text style={styles.feature}>• 2 Hours of Minor Updates/Support per month</Text>
-                                <Text style={styles.feature}>• SSL Certificate Management</Text>
-                            </View>
-                        </View>
-
-                        {/* Basic */}
-                        <View style={styles.maintenanceCard}>
-                            <Text style={styles.tierTitle}>Basic</Text>
-                            <Text style={styles.price}>$100/month</Text>
-                            <Text style={styles.annualPrice}>$1,080/annually</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything in Essentials Only</Text>
-                                <Text style={styles.feature}>• 5 Hours of Minor Updates/Support per month</Text>
-                                <Text style={styles.feature}>• Plugin/Dependency Updates</Text>
-                                <Text style={styles.feature}>• Monthly Security Scans</Text>
-                                <Text style={styles.feature}>• Monthly Performance Optimization</Text>
-                                <Text style={styles.feature}>• Google Analytics</Text>
-                            </View>
-                        </View>
-
-                        {/* Professional */}
-                        <View style={[styles.maintenanceCard, styles.highlightedCard]}>
-                            <Text style={styles.tierTitle}>Professional</Text>
-                            <Text style={styles.price}>$300/month</Text>
-                            <Text style={styles.annualPrice}>$3,240/annually</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything in Basic</Text>
-                                <Text style={styles.feature}>• 10 Hours of Minor Updates/Support per month</Text>
-                                <Text style={styles.feature}>• Priority Email Support</Text>
-                                <Text style={styles.feature}>• Quarterly Strategy Consulting</Text>
-                                <Text style={styles.feature}>• Bi-Weekly Security Scans</Text>
-                                <Text style={styles.feature}>• Bi-Weekly Performance Optimization</Text>
-                            </View>
-                        </View>
-
-                        {/* Enterprise */}
-                        <View style={styles.maintenanceCard}>
-                            <Text style={styles.tierTitle}>Enterprise</Text>
-                            <Text style={styles.price}>$600 - $2,500/month</Text>
-                            <Text style={styles.annualPrice}>$6,120 - $25,500/annually</Text>
-                            <View style={styles.featuresList}>
-                                <Text style={styles.featureHighlight}>Everything in Professional</Text>
-                                <Text style={styles.feature}>• 24/7 Security Monitoring</Text>
-                                <Text style={styles.feature}>• 25+ Hours of Development Support per month</Text>
-                                <Text style={styles.feature}>• A/B Testing Implementation</Text>
-                                <Text style={styles.feature}>• Scalability Planning</Text>
-                                <Text style={styles.feature}>• Infrastructure Optimization</Text>
-                                <Text style={styles.feature}>• Disaster Recovery Planning</Text>
-                                <Text style={styles.feature}>• Monthly Strategy Consulting</Text>
-                                <Text style={styles.featureNote}>  Optional: Dedicated Account Manager</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                <Text style={[styles.subTitle, { marginTop: defaultMargin }]}>Interested to learn more?</Text>
-                <BaseButton
-                    style={{ marginTop: defaultMargin }}
-                    text={"Contact Us"}
-                    onPress={contactUsButtonPressed}
-                />
-            </ScrollView>
-        </BasePage>
-    )
-}
+      {/* CTA */}
+      <View style={styles.ctaSection}>
+        <View style={styles.ctaContainer}>
+          <View style={styles.ctaCard}>
+            <Text style={styles.ctaTitle}>Need a Custom Quote?</Text>
+            <Text style={styles.ctaSubtitle}>
+              Every project is unique. Contact us for a personalized quote tailored to your specific requirements.
+            </Text>
+            <PrimaryButton onPress={() => handleNavigate('contact')}>Request Custom Quote</PrimaryButton>
+          </View>
+        </View>
+      </View>
+    </BasePage>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center'
-    },
-    title: {
-        fontFamily: FontFamily.primary,
-        fontSize: FontSize.xl,
-        color: Colors.text.primary,
-    },
-    subTitle: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.lg,
-        color: Colors.text.primary,
-        alignSelf: 'center',
-    },
-    sectionContainer: {
-        alignItems: 'center',
-    },
-    sectionTitle: {
-        fontFamily: FontFamily.primary,
-        fontSize: FontSize.lg,
-        color: Colors.brand.primary,
-        marginBottom: Spacing.lg,
-    },
-    pricingGrid: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: Spacing.lg,
-        justifyContent: 'center',
-    },
-    pricingCard: {
-        backgroundColor: Colors.background.gray,
-        borderRadius: BorderRadius.md,
-        padding: Spacing.lg,
-        width: '100%',
-        maxWidth: 450,
-        flex: 1,
-        minWidth: 280,
-    },
-    highlightedCard: {
-        backgroundColor: Colors.background.redDark,
-        borderWidth: 2,
-        borderColor: Colors.brand.primary,
-    },
-    tierTitle: {
-        fontFamily: FontFamily.primary,
-        fontSize: FontSize.md,
-        color: Colors.text.primary,
-        marginBottom: Spacing.sm,
-        textAlign: 'center',
-    },
-    price: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.lg,
-        color: Colors.brand.primary,
-        marginBottom: Spacing.md,
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    featuresList: {
-        gap: Spacing.xs,
-    },
-    feature: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.sm,
-        color: Colors.text.primary,
-    },
-    featureHighlight: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.sm,
-        color: Colors.brand.primary,
-        fontWeight: 'bold',
-        marginBottom: Spacing.xs,
-    },
-    featureNote: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.xs,
-        color: Colors.text.secondary,
-        fontStyle: 'italic',
-    },
-    addonsGrid: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: Spacing.md,
-        justifyContent: 'center',
-    },
-    addonCard: {
-        backgroundColor: Colors.background.gray,
-        borderRadius: BorderRadius.md,
-        padding: Spacing.md,
-        minWidth: 160,
-        flex: 1,
-        maxWidth: 220,
-        alignItems: 'center',
-    },
-    addonName: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.sm,
-        color: Colors.text.primary,
-        marginBottom: Spacing.xs,
-        textAlign: 'center',
-    },
-    addonPrice: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.md,
-        color: Colors.brand.primary,
-        fontWeight: 'bold',
-    },
-    maintenanceGrid: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: Spacing.lg,
-        justifyContent: 'center',
-    },
-    maintenanceCard: {
-        backgroundColor: Colors.background.gray,
-        borderRadius: BorderRadius.md,
-        padding: Spacing.lg,
-        width: '100%',
-        maxWidth: 450,
-        flex: 1,
-        minWidth: 280,
-    },
-    annualPrice: {
-        fontFamily: FontFamily.secondary,
-        fontSize: FontSize.sm,
-        color: Colors.text.secondary,
-        marginBottom: Spacing.md,
-        textAlign: 'center',
-    },
+  section: {
+    paddingVertical: Spacing.xl * 2,
+  },
+  sectionContainer: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignSelf: 'center',
+  },
+  sectionHeader: {
+    alignItems: 'center',
+    marginBottom: Spacing.xl * 3,
+  },
+  sectionTitle: {
+    fontSize: Typography['2xl'] * 1.2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    marginBottom: Spacing.md,
+    textAlign: 'center',
+  },
+  sectionSubtitle: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    textAlign: 'center',
+  },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.lg,
+    justifyContent: 'center',
+  },
+  pricingCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    width: '100%',
+    maxWidth: 350,
+    minWidth: 280,
+    position: 'relative',
+  },
+  popularCard: {
+    borderColor: Colors.brand.primary,
+  },
+  popularBadge: {
+    position: 'absolute',
+    top: -12,
+    left: '50%',
+    transform: [{ translateX: -50 }],
+    backgroundColor: Colors.brand.primary,
+    zIndex: 10,
+  },
+  popularBadgeText: {
+    color: Colors.text.primary,
+  },
+  pricingCardContent: {
+    padding: Spacing.lg,
+  },
+  pricingHeader: {
+    marginBottom: Spacing.lg,
+  },
+  pricingName: {
+    fontSize: Typography['2xl'],
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    marginBottom: Spacing.sm,
+  },
+  pricingDescription: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    marginBottom: Spacing.md,
+  },
+  pricingPrice: {
+    fontSize: Typography['2xl'] * 1.2,
+    fontFamily: FontFamily.primary,
+    color: Colors.brand.primary,
+  },
+  maintenancePrice: {
+    fontSize: Typography['2xl'],
+    fontFamily: FontFamily.primary,
+    color: Colors.brand.primary,
+    marginBottom: Spacing.xs,
+  },
+  maintenanceAnnualPrice: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+  },
+  featureList: {
+    gap: Spacing.sm * 1.5,
+    marginBottom: Spacing.lg,
+    flex: 1,
+  },
+  featureItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: Spacing.sm,
+  },
+  featureIcon: {
+    flexShrink: 0,
+    marginTop: 2,
+  },
+  featureText: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    flex: 1,
+  },
+  pricingButton: {
+    width: '100%',
+  },
+  popularButton: {
+    // Override handled by PrimaryButton
+  },
+  addOnGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.md,
+    justifyContent: 'center',
+  },
+  addOnCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    width: '100%',
+    maxWidth: 280,
+    minWidth: 200,
+  },
+  addOnCardContent: {
+    padding: Spacing.md,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  addOnName: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    flex: 1,
+  },
+  addOnPrice: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.brand.primary,
+    marginLeft: Spacing.sm,
+  },
+  ctaSection: {
+    paddingVertical: Spacing.xl * 3,
+  },
+  ctaContainer: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignSelf: 'center',
+  },
+  ctaCard: {
+    backgroundColor: 'rgba(234, 35, 32, 0.2)',
+    borderColor: 'rgba(234, 35, 32, 0.3)',
+    borderWidth: 1,
+    borderRadius: BorderRadius.xl,
+    padding: Spacing.xl * 3,
+    alignItems: 'center',
+  },
+  ctaTitle: {
+    fontSize: Typography['2xl'] * 1.2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    marginBottom: Spacing.md,
+    textAlign: 'center',
+  },
+  ctaSubtitle: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    marginBottom: Spacing.xl * 2,
+    textAlign: 'center',
+    maxWidth: 672,
+  },
 });
 
 export default Pricing;

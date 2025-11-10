@@ -9,7 +9,8 @@
       "components/*": [ "./components/*" ],
       "lib/*": [ "./lib/*" ],
       "hooks/*": [ "./hooks/*" ],
-      "modals/*": [ "./modals/*" ],
+      "constants/*": [ "./constants/*" ],
+      "assets/*": [ "./assets/*" ],
     }
   },
   "include": [

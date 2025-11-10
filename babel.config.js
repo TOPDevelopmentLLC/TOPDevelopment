@@ -23,6 +23,8 @@ module.exports = function (api) {
                     'components': './components',
                     'lib': './lib',
                     'hooks': './hooks',
+                    'constants': './constants',
+                    'assets': './assets',
                 },
             },
         ],
@@ -31,7 +33,6 @@ module.exports = function (api) {
     env: {
         production: {
             plugins: [
-                'react-native-paper/babel',
                 'react-native-worklets/plugin'
             ],
         },

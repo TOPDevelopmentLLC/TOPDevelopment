@@ -1,173 +1,482 @@
 import axios from 'axios';
-import BaseButton from "components/BaseButton";
-import BasePage from "components/BasePage";
-import { IconType } from "components/IconContainer";
-import WUCheckbox, { WUCheckboxColor } from "components/WUCheckbox";
-import WUModal from "components/WUModal";
-import WUPaperTextInput from "components/WUPaperTextInput";
-import { Colors, FontFamily, FontSize, Spacing } from "constants/theme";
-import { useScreenDimensions } from "hooks/useScreenDimensions";
-import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-
+import { PrimaryButton } from 'components/buttons/PrimaryButton';
+import { SecondaryButton } from 'components/buttons/SecondaryButton';
+import { Input } from 'components/forms/input';
+import { Label } from 'components/forms/label';
+import { Textarea } from 'components/forms/textarea';
+import { BasePage } from 'components/layout/BasePage';
+import { Card, CardContent } from 'components/layout/card';
+import { HeroSection } from 'components/layout/HeroSection';
+import IconContainer, { IconType } from 'components/utils/IconContainer';
+import { Typography } from 'constants/globalStyles';
+import { Colors, FontFamily, Spacing } from 'constants/theme';
+import { router } from 'expo-router';
+import React, { useState } from 'react';
+import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
+import { toast } from 'sonner';
 
 const ContactUs = () => {
-    const { pageWidth, pageHeight } = useScreenDimensions();
-    const [name,setName] = useState('');
-    const [email,setEmail] = useState('');
-    const [phone,setPhone] = useState('');
-    const [company,setCompany] = useState('');
-    const [message,setMessage] = useState('');
-    const [contactAgreement,setContactAgreement] = useState(false);
-    const [modalTitle,setModalTitle] = useState('');
-    const [isModalVisible,setIsModalVisible] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const submitButtonClicked = async () => {
-        if (name.length === 0) {
-            setModalTitle('Insert Valid Name');
-            setIsModalVisible(true);
-            return;
-        }
-        if (email.length === 0) {
-            setModalTitle('Insert Valid Email');
-            setIsModalVisible(true);
-            return;
-        }
-        if (message.length === 0) {
-            setModalTitle('Insert a Message to Send');
-            setIsModalVisible(true);
-            return;
-        }
+  const handleNavigate = (page: string) => {
+    const pageMap: { [key: string]: string } = {
+      contact: '/contact_us',
+      services: '/services',
+      about: '/about_us',
+      pricing: '/pricing',
+      faq: '/faq',
+    };
 
-        try {
-            const response = await axios.post(
-                'https://api.thatoneprogrammer.dev/api/v1/email/send',
-                {
-                    to: email,
-                    textBody: message,
-                    customerName: name,
-                    customerPhone: phone,
-                    customerCompany: company
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-API-KEY': 'ThatOneProgrammerDevelopment.AppAPIKey'
-                    },
-                    timeout: 10000 // 10 second timeout
-                }
-            );
+    const route = pageMap[page];
+    if (route) {
+      router.push(route as any);
+    }
+  };
 
-            if (response.status === 200 || response.status === 202) {
-                setModalTitle('Email Sent Successfully!');
-                setIsModalVisible(true);
-                // Clear form
-                setName('');
-                setEmail('');
-                setPhone('');
-                setCompany('');
-                setMessage('');
-                setContactAgreement(false);
-            }
-        } catch (error: any) {
-            if (error.code === 'ECONNABORTED') {
-                setModalTitle('Request Timeout - Please Try Again');
-            } else if (error.response) {
-                setModalTitle(`Failed to Send Email: ${error.response.status}`);
-                console.error('Error response:', error.response.data);
-            } else if (error.request) {
-                setModalTitle('No Response from Server');
-                console.error('No response received:', error.request);
-            } else {
-                setModalTitle(`Error: ${error.message || 'Cannot Connect'}`);
-            }
-            setIsModalVisible(true);
-            console.error('Request error:', error);
-        }
+  const handleSubmit = async () => {
+    // Validation
+    if (formData.name.length === 0) {
+      toast.error('Insert Valid Name');
+      return;
+    }
+    if (formData.email.length === 0) {
+      toast.error('Insert Valid Email');
+      return;
+    }
+    if (formData.message.length === 0) {
+      toast.error('Insert a Message to Send');
+      return;
     }
 
-    return (
-        <BasePage>
-            <View style={{ width: pageWidth * 0.5, marginTop: pageHeight * 0.1 }}>
-                <Text style={styles.subTitle}>Get in Touch</Text>
-                <Text style={styles.title}>Reach out to Us</Text>
-                <Text style={styles.subTitle}>{`Please feel free to contact us and we\nwill get back to you as soon as we can.`}</Text>
+    setIsSubmitting(true);
+
+    try {
+      const response = await axios.post(
+        'https://api.thatoneprogrammer.dev/api/v1/email/send',
+        {
+          to: formData.email,
+          textBody: formData.message,
+          customerName: formData.name,
+          customerPhone: formData.phone,
+          customerCompany: formData.company,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-API-KEY': 'ThatOneProgrammerDevelopment.AppAPIKey',
+          },
+          timeout: 10000, // 10 second timeout
+        }
+      );
+
+      if (response.status === 200 || response.status === 202) {
+        toast.success("Message sent successfully!", {
+          description: "We'll get back to you within 24 hours.",
+        });
+
+        // Clear form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          message: '',
+        });
+      }
+    } catch (error: any) {
+      let errorMessage = 'Failed to send message';
+
+      if (error.code === 'ECONNABORTED') {
+        errorMessage = 'Request Timeout - Please Try Again';
+      } else if (error.response) {
+        errorMessage = `Failed to Send Email: ${error.response.status}`;
+        console.error('Error response:', error.response.data);
+      } else if (error.request) {
+        errorMessage = 'No Response from Server';
+        console.error('No response received:', error.request);
+      } else {
+        errorMessage = `Error: ${error.message || 'Cannot Connect'}`;
+      }
+
+      toast.error(errorMessage);
+      console.error('Request error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (name: string, value: string) => {
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  return (
+    <BasePage>
+      {/* Hero Section */}
+      <HeroSection
+        badge="Contact Us"
+        title="Let's Start a Conversation"
+        subtitle="Ready to bring your project to life? Get in touch and let's discuss how we can help."
+      />
+
+      {/* Contact Form & Info */}
+      <View style={styles.formSection}>
+        <View style={styles.formContainer}>
+          <View style={styles.contentGrid}>
+            {/* Contact Info */}
+            <View style={styles.contactInfoColumn}>
+              <Card style={styles.infoCard}>
+                <CardContent style={styles.infoCardContent}>
+                  <IconContainer iconProps={{ name: "email", size: 32, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.infoIcon} />
+                  <Text style={styles.infoTitle}>Email</Text>
+                  <Pressable onPress={() => Linking.openURL('mailto:austinalex@thatoneprogrammer.dev')}>
+                    <Text style={styles.infoLink}>austinalex@thatoneprogrammer.dev</Text>
+                  </Pressable>
+                </CardContent>
+              </Card>
+
+              {/* <Card style={styles.infoCard}>
+                <CardContent style={styles.infoCardContent}>
+                  <IconContainer iconProps={{ name: "phone", size: 32, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.infoIcon} />
+                  <Text style={styles.infoTitle}>Phone</Text>
+                  <Pressable onPress={() => Linking.openURL('tel:+1234567890')}>
+                    <Text style={styles.infoLink}>+1 (234) 567-890</Text>
+                  </Pressable>
+                </CardContent>
+              </Card> */}
+
+              <Card style={styles.infoCard}>
+                <CardContent style={styles.infoCardContent}>
+                  <IconContainer iconProps={{ name: "place", size: 32, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.infoIcon} />
+                  <Text style={styles.infoTitle}>Location</Text>
+                  <Text style={styles.infoText}>Pittsburgh, PA, United States</Text>
+                </CardContent>
+              </Card>
+
+              <Card style={styles.expectCard}>
+                <CardContent style={styles.expectCardContent}>
+                  <Text style={styles.expectTitle}>What to Expect</Text>
+                  <View style={styles.expectList}>
+                    <View style={styles.expectItem}>
+                      <IconContainer iconProps={{ name: "check-circle", size: 16, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.expectIcon} />
+                      <Text style={styles.expectText}>Response within 24 hours</Text>
+                    </View>
+                    <View style={styles.expectItem}>
+                      <IconContainer iconProps={{ name: "check-circle", size: 16, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.expectIcon} />
+                      <Text style={styles.expectText}>Free consultation call</Text>
+                    </View>
+                    <View style={styles.expectItem}>
+                      <IconContainer iconProps={{ name: "check-circle", size: 16, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.expectIcon} />
+                      <Text style={styles.expectText}>Detailed proposal & timeline</Text>
+                    </View>
+                    <View style={styles.expectItem}>
+                      <IconContainer iconProps={{ name: "check-circle", size: 16, color: Colors.brand.primary, type: IconType.MaterialIcons }} style={styles.expectIcon} />
+                      <Text style={styles.expectText}>No obligation to proceed</Text>
+                    </View>
+                  </View>
+                </CardContent>
+              </Card>
             </View>
-            <View style={styles.formContainer}>
-                <WUPaperTextInput 
-                    style={{ width: pageWidth * 0.5 }}
-                    placeholder={"Name"} 
-                    onTextChange={(newName) => setName(newName)} 
-                />
-                <WUPaperTextInput
-                    style={{ width: pageWidth * 0.5 }}
-                    placeholder={"Email"}
-                    onTextChange={(newEmail) => setEmail(newEmail)}
-                />
-                <WUPaperTextInput
-                    style={{ width: pageWidth * 0.5 }}
-                    placeholder={"Phone Number"}
-                    onTextChange={(newPhone) => setPhone(newPhone)}
-                />
-                <WUPaperTextInput
-                    style={{ width: pageWidth * 0.5 }}
-                    placeholder={"Company"}
-                    onTextChange={(newCompany) => setCompany(newCompany)}
-                />
-                <WUPaperTextInput
-                    style={{ width: pageWidth * 0.5 }}
-                    placeholder={"Message"}
-                    multiline={true}
-                    onTextChange={(newMessage) => setMessage(newMessage)}
-                />
-                <WUCheckbox 
-                    style={{ width: pageWidth * 0.5 }}
-                    checked={contactAgreement} 
-                    onToggle={() => setContactAgreement(!contactAgreement)} 
-                    label="I agree to be contacted and terms of the Privacy Policy"
-                    color={WUCheckboxColor.White}
-                />
-                <BaseButton
-                    style={{ width: pageWidth * 0.5 }}
-                    text={"Submit"} 
-                    onPress={submitButtonClicked} 
-                />
+
+            {/* Contact Form */}
+            <View style={styles.formColumn}>
+              <Card style={styles.formCard}>
+                <CardContent style={styles.formCardContent}>
+                  <Text style={styles.formTitle}>Send us a message</Text>
+                  <View style={styles.form}>
+                    <View style={styles.formRow}>
+                      <View style={styles.formField}>
+                        <Label style={styles.label}>Name *</Label>
+                        <Input
+                          value={formData.name}
+                          onChangeText={(value) => handleChange('name', value)}
+                          placeholder="John Doe"
+                          style={styles.input}
+                        />
+                      </View>
+
+                      <View style={styles.formField}>
+                        <Label style={styles.label}>Email *</Label>
+                        <Input
+                          value={formData.email}
+                          onChangeText={(value) => handleChange('email', value)}
+                          placeholder="john@example.com"
+                          type="email"
+                          style={styles.input}
+                        />
+                      </View>
+                    </View>
+
+                    <View style={styles.formRow}>
+                      <View style={styles.formField}>
+                        <Label style={styles.label}>Phone Number</Label>
+                        <Input
+                          value={formData.phone}
+                          onChangeText={(value) => handleChange('phone', value)}
+                          placeholder="+1 (234) 567-890"
+                          type="tel"
+                          style={styles.input}
+                        />
+                      </View>
+
+                      <View style={styles.formField}>
+                        <Label style={styles.label}>Company</Label>
+                        <Input
+                          value={formData.company}
+                          onChangeText={(value) => handleChange('company', value)}
+                          placeholder="Your Company"
+                          style={styles.input}
+                        />
+                      </View>
+                    </View>
+
+                    <View style={styles.formFieldFull}>
+                      <Label style={styles.label}>Message *</Label>
+                      <Textarea
+                        value={formData.message}
+                        onChangeText={(value) => handleChange('message', value)}
+                        placeholder="Tell us about your project..."
+                        rows={6}
+                        style={styles.textarea}
+                      />
+                    </View>
+
+                    <View style={styles.privacyText}>
+                      <Text style={styles.privacyTextContent}>
+                        By submitting this form, you agree to our{' '}
+                      </Text>
+                      <Pressable onPress={() => handleNavigate('contact')}>
+                        <Text style={styles.privacyLink}>Privacy Policy</Text>
+                      </Pressable>
+                    </View>
+
+                    <PrimaryButton
+                      onPress={handleSubmit}
+                      style={styles.submitButton}
+                    >
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                    </PrimaryButton>
+                  </View>
+                </CardContent>
+              </Card>
             </View>
-            <WUModal 
-                headerProps={{
-                    title: modalTitle,
-                    icon: {
-                        name:'exclamation-circle',
-                        size: FontSize.xl,
-                        color: Colors.brand.black,
-                        type: IconType.AntDesign
-                    }
-                }} 
-                isVisible={isModalVisible} 
-                onDismiss={() => setIsModalVisible(false)}
-            />
-        </BasePage>
-    )
-}
+          </View>
+        </View>
+      </View>
+
+      {/* Additional CTA */}
+      <View style={styles.ctaSection}>
+        <View style={styles.ctaContainer}>
+          <View style={styles.ctaContent}>
+            <Text style={styles.ctaTitle}>Prefer to explore first?</Text>
+            <Text style={styles.ctaSubtitle}>
+              Check out our services and pricing to learn more about what we offer
+            </Text>
+            <View style={styles.ctaButtons}>
+              <SecondaryButton onPress={() => handleNavigate('services')}>View Services</SecondaryButton>
+              <SecondaryButton onPress={() => handleNavigate('pricing')}>See Pricing</SecondaryButton>
+            </View>
+          </View>
+        </View>
+      </View>
+    </BasePage>
+  );
+};
 
 const styles = StyleSheet.create({
-    title: {
-        fontSize: FontSize.xl,
-        fontWeight: 'bold',
-        color: Colors.text.primary,
-        fontFamily: FontFamily.primary,
-    },
-    subTitle: {
-        fontSize: FontSize.md,
-        color: Colors.text.primary,
-        fontFamily: FontFamily.primary,
-    },
-    formContainer: {
-        gap: Spacing.lg,
-        alignSelf: 'center',
-        alignItems: 'center',
-        marginTop: Spacing.xxl,
-    },
+  formSection: {
+    paddingVertical: Spacing.xl * 2,
+  },
+  formContainer: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignSelf: 'center',
+  },
+  contentGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.xl * 2,
+  },
+  contactInfoColumn: {
+    flex: 1,
+    minWidth: 280,
+    maxWidth: 400,
+    gap: Spacing.lg,
+  },
+  infoCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+  },
+  infoCardContent: {
+    padding: Spacing.lg,
+  },
+  infoIcon: {
+    marginBottom: Spacing.md,
+  },
+  infoTitle: {
+    fontSize: Typography.xl,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: '500',
+    marginBottom: Spacing.sm,
+  },
+  infoLink: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+  },
+  infoText: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+  },
+  expectCard: {
+    backgroundColor: 'rgba(234, 35, 32, 0.1)',
+    borderColor: 'rgba(234, 35, 32, 0.3)',
+    borderWidth: 1,
+  },
+  expectCardContent: {
+    padding: Spacing.lg,
+  },
+  expectTitle: {
+    fontSize: Typography.xl,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: '500',
+    marginBottom: Spacing.md,
+  },
+  expectList: {
+    gap: Spacing.sm * 1.5,
+  },
+  expectItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: Spacing.sm,
+  },
+  expectIcon: {
+    flexShrink: 0,
+    marginTop: 2,
+  },
+  expectText: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    flex: 1,
+  },
+  formColumn: {
+    flex: 2,
+    minWidth: 320,
+  },
+  formCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+  },
+  formCardContent: {
+    padding: Spacing.xl * 2,
+  },
+  formTitle: {
+    fontSize: Typography['2xl'],
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: '500',
+    marginBottom: Spacing.lg,
+  },
+  form: {
+    gap: Spacing.lg,
+  },
+  formRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.lg,
+  },
+  formField: {
+    flex: 1,
+    minWidth: 200,
+    gap: Spacing.sm,
+  },
+  formFieldFull: {
+    gap: Spacing.sm,
+  },
+  label: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    fontWeight: '500',
+  },
+  input: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    color: Colors.text.primary,
+  },
+  textarea: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    color: Colors.text.primary,
+  },
+  privacyText: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+  },
+  privacyTextContent: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+  },
+  privacyLink: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.brand.primary,
+    textDecorationLine: 'underline',
+  },
+  submitButton: {
+    width: '100%',
+  },
+  ctaSection: {
+    paddingVertical: Spacing.xl * 3,
+  },
+  ctaContainer: {
+    width: '100%',
+    maxWidth: 1200,
+    paddingHorizontal: Spacing.lg,
+    alignSelf: 'center',
+  },
+  ctaContent: {
+    alignItems: 'center',
+  },
+  ctaTitle: {
+    fontSize: Typography['2xl'] * 1.2,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    marginBottom: Spacing.md,
+    textAlign: 'center',
+  },
+  ctaSubtitle: {
+    fontSize: Typography.base,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    marginBottom: Spacing.xl * 2,
+    textAlign: 'center',
+  },
+  ctaButtons: {
+    flexDirection: 'row',
+    gap: Spacing.lg,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
 });
 
 export default ContactUs;
