@@ -6,7 +6,7 @@ import { Colors, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
 import IconContainer, { IconType } from 'components/utils/IconContainer';
 
-const topLogo = require('assets/images/TOP_Development_Logo.png');
+const topLogo = require('assets/images/top_development_logo.png');
 
 export function Navigation() {
   const [open, setOpen] = useState(false);
