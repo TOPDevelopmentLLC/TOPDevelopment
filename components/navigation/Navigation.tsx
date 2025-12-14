@@ -6,7 +6,7 @@ import { Colors, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
 import IconContainer, { IconType } from 'components/utils/IconContainer';
 
-const topLogo = require('assets/images/top_development_logo.png');
+const topLogo = require('assets/images/TOP_Development_Logo.png');
 
 export function Navigation() {
   const [open, setOpen] = useState(false);
@@ -42,10 +42,6 @@ export function Navigation() {
             style={styles.logoImage}
             resizeMode="contain"
           />
-          <View style={styles.logoText}>
-            <Text style={styles.logoTextTop}>TOP</Text>
-            <Text style={styles.logoTextBottom}>Development</Text>
-          </View>
         </Pressable>
 
         {/* Hamburger Menu */}
@@ -100,11 +96,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background.dark,
   },
   container: {
-    maxWidth: 1200,
-    alignSelf: 'center',
     width: '100%',
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.lg,
+    paddingLeft: Spacing.md,
+    paddingRight: Spacing.xl * 2,
+    paddingVertical: 0,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -118,25 +113,8 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   logoImage: {
-    height: 48,
-    width: 48,
-  },
-  logoText: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-  logoTextTop: {
-    color: Colors.brand.primary,
-    fontFamily: FontFamily.primary,
-    fontSize: 20,
-    lineHeight: 24,
-    fontWeight: 'bold',
-  },
-  logoTextBottom: {
-    color: Colors.text.primary,
-    fontFamily: FontFamily.primary,
-    fontSize: 14,
-    lineHeight: 17,
+    height: 120,
+    width: 420,
   },
   menuButton: {
     padding: Spacing.sm,
