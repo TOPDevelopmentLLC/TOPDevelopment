@@ -15,6 +15,7 @@ export function Navigation() {
   const menuItems = [
     { label: "Home", value: "home", route: "/home" },
     { label: "Services", value: "services", route: "/services" },
+    { label: "Products", value: "products", route: "/products" },
     { label: "Pricing", value: "pricing", route: "/pricing" },
     { label: "About Us", value: "about", route: "/about_us" },
     { label: "FAQs", value: "faqs", route: "/faq" },
