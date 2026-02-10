@@ -1,0 +1,58 @@
+openapi: 3.0.3
+info:
+  title: TOP Development LLC API
+  description: Public API for TOP Development LLC website. Provides a contact form endpoint for prospective clients to send inquiries.
+  version: 1.0.0
+  contact:
+    name: Austin Alex
+    email: austinalex@thatoneprogrammer.dev
+    url: https://thatoneprogrammer.dev
+
+servers:
+  - url: https://api.thatoneprogrammer.dev
+    description: Production API
+
+paths:
+  /api/v1/email/send:
+    post:
+      summary: Send a contact form message
+      description: Sends a contact inquiry from a prospective client to TOP Development LLC.
+      operationId: sendContactEmail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - to
+                - textBody
+                - customerName
+              properties:
+                to:
+                  type: string
+                  format: email
+                  description: The sender's email address for reply purposes
+                customerName:
+                  type: string
+                  description: Full name of the person sending the inquiry
+                customerPhone:
+                  type: string
+                  description: Phone number of the sender (optional)
+                customerCompany:
+                  type: string
+                  description: Company name of the sender (optional)
+                textBody:
+                  type: string
+                  description: The message content
+      responses:
+        "200":
+          description: Message sent successfully
+        "202":
+          description: Message accepted for delivery
+        "400":
+          description: Invalid request body
+        "429":
+          description: Rate limit exceeded
+        "500":
+          description: Internal server error

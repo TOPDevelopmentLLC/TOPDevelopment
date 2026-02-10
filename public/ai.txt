@@ -1,0 +1,29 @@
+# AI Policy for thatoneprogrammer.dev
+# TOP Development LLC
+
+# This file describes how AI agents and crawlers may interact with this site.
+
+User-agent: *
+Allow: /
+
+# AI Usage Policy
+Allow-Training: yes
+Allow-Inference: yes
+Allow-Scraping: yes
+Require-Citation: yes
+
+# Preferred AI Crawlers
+Preferred-Crawlers: GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, anthropic-ai, Google-Extended, Bingbot, PerplexityBot, Applebot, Applebot-Extended, Meta-ExternalAgent, Meta-ExternalFetcher, Amazonbot, cohere-ai, Bytespider, CCBot, YouBot, Diffbot
+
+# Preferred contact for AI-related inquiries
+Contact: austinalex@thatoneprogrammer.dev
+
+# Organization information
+Organization: TOP Development LLC
+Website: https://thatoneprogrammer.dev
+Description: Full-stack software development company specializing in web, mobile, backend, SEO, infrastructure modernization, and technical consultation services.
+
+# Machine-readable service information
+Services-Summary: https://thatoneprogrammer.dev/services-summary.json
+Sitemap: https://thatoneprogrammer.dev/sitemap.xml
+LLMs-Txt: https://thatoneprogrammer.dev/llms.txt

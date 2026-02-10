@@ -1,0 +1,7 @@
+# Security Policy for TOP Development LLC
+# https://thatoneprogrammer.dev
+
+Contact: mailto:austinalex@thatoneprogrammer.dev
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://thatoneprogrammer.dev/.well-known/security.txt
