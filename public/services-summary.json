@@ -1,0 +1,177 @@
+{
+  "organization": "TOP Development LLC",
+  "website": "https://thatoneprogrammer.dev",
+  "contact": "austinalex@thatoneprogrammer.dev",
+  "location": "Pittsburgh, PA, United States",
+  "founded": "2025",
+  "services": [
+    {
+      "id": "web",
+      "name": "Web Development",
+      "summary": "Build powerful, responsive web applications",
+      "url": "https://thatoneprogrammer.dev/services",
+      "features": [
+        "Custom React & React Native Applications",
+        "Mobile-friendly Web Pages",
+        "E-commerce Solutions",
+        "Content Management Systems",
+        "API Integration",
+        "Responsive Design"
+      ],
+      "useCases": [
+        {
+          "title": "E-Commerce Platforms",
+          "description": "Full-featured online stores with payment processing, inventory management, and customer portals"
+        },
+        {
+          "title": "SaaS Applications",
+          "description": "Scalable software-as-a-service platforms with user management and subscription billing"
+        },
+        {
+          "title": "Corporate Websites",
+          "description": "Professional business websites with CMS integration and SEO optimization"
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "name": "Mobile Development",
+      "summary": "Native and cross-platform mobile experiences",
+      "url": "https://thatoneprogrammer.dev/services",
+      "features": [
+        "iOS & Android Development",
+        "React Native Applications",
+        "Cross-Platform Solutions",
+        "App Store Deployment",
+        "Push Notifications",
+        "Offline Functionality"
+      ],
+      "useCases": [
+        {
+          "title": "Consumer Apps",
+          "description": "Feature-rich mobile applications for iOS and Android with seamless user experiences"
+        },
+        {
+          "title": "Enterprise Mobility",
+          "description": "Internal business apps for field operations, inventory, and workforce management"
+        },
+        {
+          "title": "Companion Apps",
+          "description": "Mobile extensions of your web platform for on-the-go access"
+        }
+      ]
+    },
+    {
+      "id": "backend",
+      "name": "Backend Development",
+      "summary": "Robust and scalable server-side solutions",
+      "url": "https://thatoneprogrammer.dev/services",
+      "features": [
+        "RESTful API Development",
+        "Spring Boot Framework",
+        "Database Design & Optimization",
+        "Microservices Architecture",
+        "Real-time Data Processing",
+        "Authentication & Authorization"
+      ],
+      "useCases": [
+        {
+          "title": "API Development",
+          "description": "Secure, scalable APIs for mobile apps, web platforms, and third-party integrations"
+        },
+        {
+          "title": "Data Processing",
+          "description": "Complex data pipelines and real-time processing systems"
+        },
+        {
+          "title": "Integration Services",
+          "description": "Connect multiple systems and services with custom middleware solutions"
+        }
+      ]
+    },
+    {
+      "id": "seo",
+      "name": "SEO Services",
+      "summary": "Increase visibility and drive organic traffic",
+      "url": "https://thatoneprogrammer.dev/services",
+      "features": [
+        "Technical SEO Audit",
+        "Keyword Research & Strategy",
+        "On-Page Optimization",
+        "Performance Optimization",
+        "Schema Markup Implementation",
+        "Analytics & Reporting"
+      ],
+      "useCases": [
+        {
+          "title": "Local SEO",
+          "description": "Optimize your presence for local search results and Google Maps"
+        },
+        {
+          "title": "E-commerce SEO",
+          "description": "Product page optimization and structured data for better product visibility"
+        },
+        {
+          "title": "Technical SEO",
+          "description": "Core Web Vitals optimization, site speed, and crawlability improvements"
+        }
+      ]
+    },
+    {
+      "id": "infrastructure",
+      "name": "Infrastructure Modernization",
+      "summary": "Upgrade and optimize your technology stack",
+      "url": "https://thatoneprogrammer.dev/services",
+      "features": [
+        "AWS Supported Infrastructure",
+        "DevOps & CI/CD Pipeline",
+        "Auto-scaling Infrastructure",
+        "Load Balancing & CDN",
+        "Security & Compliance",
+        "Disaster Recovery Planning"
+      ],
+      "useCases": [
+        {
+          "title": "Cloud Migration",
+          "description": "Move legacy applications to modern cloud infrastructure with minimal downtime"
+        },
+        {
+          "title": "Performance Optimization",
+          "description": "Improve application speed and reliability with infrastructure upgrades"
+        },
+        {
+          "title": "Cost Optimization",
+          "description": "Reduce infrastructure costs while maintaining or improving performance"
+        }
+      ]
+    },
+    {
+      "id": "consultation",
+      "name": "Consultation Services",
+      "summary": "Expert guidance for your technology decisions",
+      "url": "https://thatoneprogrammer.dev/services",
+      "features": [
+        "Technology Stack Selection",
+        "Architecture Design Review",
+        "Code Quality Assessment",
+        "Scalability Planning",
+        "Security Audit",
+        "Strategic Roadmap Planning"
+      ],
+      "useCases": [
+        {
+          "title": "Project Planning",
+          "description": "Define scope, timeline, and technology choices for your next project"
+        },
+        {
+          "title": "Code Review",
+          "description": "Expert analysis of your codebase with actionable recommendations"
+        },
+        {
+          "title": "Strategy Sessions",
+          "description": "Monthly consulting to guide your technology decisions and roadmap"
+        }
+      ]
+    }
+  ]
+}

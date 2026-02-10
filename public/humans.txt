@@ -1,0 +1,16 @@
+/* TEAM */
+Name: Austin Alex
+Role: Founder & Senior Solutions Architect
+Location: Pittsburgh, PA, United States
+Contact: austinalex@thatoneprogrammer.dev
+
+/* COMPANY */
+Name: TOP Development LLC
+Founded: September 2025
+Website: https://thatoneprogrammer.dev
+
+/* TECHNOLOGY */
+Framework: React Native (Expo)
+Language: TypeScript
+Backend: Spring Boot
+Infrastructure: AWS

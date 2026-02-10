@@ -1,0 +1,27 @@
+{
+  "organization": "TOP Development LLC",
+  "website": "https://thatoneprogrammer.dev",
+  "contact": "austinalex@thatoneprogrammer.dev",
+  "description": "Full-stack software development company specializing in web, mobile, backend, SEO, infrastructure modernization, and technical consultation services.",
+  "location": "Pittsburgh, PA, United States",
+  "founded": "2025",
+  "services": [
+    "Web Development",
+    "Mobile Development",
+    "Backend Development",
+    "SEO Services",
+    "Infrastructure Modernization",
+    "Consultation Services"
+  ],
+  "technology_stack": [
+    "React",
+    "React Native",
+    "Expo",
+    "TypeScript",
+    "Spring Boot",
+    "AWS"
+  ],
+  "sitemap": "https://thatoneprogrammer.dev/sitemap.xml",
+  "llms_txt": "https://thatoneprogrammer.dev/llms.txt",
+  "services_summary": "https://thatoneprogrammer.dev/services-summary.json"
+}

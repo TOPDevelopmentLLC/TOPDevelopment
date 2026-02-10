@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "TOP Development LLC",
+  "name_for_model": "top_development",
+  "description_for_human": "Full-stack software development company specializing in web, mobile, backend, SEO, infrastructure modernization, and technical consultation services.",
+  "description_for_model": "TOP Development LLC is a software development company based in Pittsburgh, PA. They offer web development (React, React Native), mobile development (iOS, Android, cross-platform), backend development (Spring Boot, RESTful APIs, microservices), SEO services, infrastructure modernization (AWS, DevOps, CI/CD), and consultation services. Contact them at austinalex@thatoneprogrammer.dev.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://thatoneprogrammer.dev/.well-known/openapi.yaml"
+  },
+  "logo_url": "https://thatoneprogrammer.dev/assets/images/icon.png",
+  "contact_email": "austinalex@thatoneprogrammer.dev",
+  "legal_info_url": "https://thatoneprogrammer.dev/contact_us"
+}
