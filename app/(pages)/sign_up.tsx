@@ -8,11 +8,13 @@ import { HeroSection } from 'components/layout/HeroSection';
 import { Typography } from 'constants/globalStyles';
 import { Colors, FontFamily, Spacing } from 'constants/theme';
 import { router } from 'expo-router';
+import { useAuth } from 'lib/context/AuthContext';
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { toast } from 'sonner';
 
 const SignUp = () => {
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -52,10 +54,9 @@ const SignUp = () => {
       );
 
       if (response.status === 200 || response.status === 201) {
-        toast.success('Account created successfully!', {
-          description: 'You can now sign in with your credentials.',
-        });
-        router.push('/login' as any);
+        login(response.data.token, response.data.email, response.data.role);
+        toast.success('Account created successfully!');
+        router.push('/dashboard' as any);
       }
     } catch (error: any) {
       let errorMessage = 'Failed to create account';
