@@ -5,12 +5,14 @@ import { Sheet, SheetContent, SheetTrigger } from 'components/layout/sheet';
 import { Colors, Spacing, FontFamily } from 'constants/theme';
 import { Typography } from 'constants/globalStyles';
 import IconContainer, { IconType } from 'components/utils/IconContainer';
+import { useAuth } from 'lib/context/AuthContext';
 
 const topLogo = require('assets/images/top_development_logo.png');
 
 export function Navigation() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { isAuthenticated } = useAuth();
 
   const menuItems = [
     { label: "Home", value: "home", route: "/home" },
@@ -20,7 +22,9 @@ export function Navigation() {
     { label: "About Us", value: "about", route: "/about_us" },
     { label: "FAQs", value: "faqs", route: "/faq" },
     { label: "Contact", value: "contact", route: "/contact_us" },
-    { label: "Login or Sign Up", value: "login", route: "/login" },
+    isAuthenticated
+      ? { label: "Dashboard", value: "dashboard", route: "/dashboard" }
+      : { label: "Login or Sign Up", value: "login", route: "/login" },
   ];
 
   const handleNavigation = (route: string) => {
