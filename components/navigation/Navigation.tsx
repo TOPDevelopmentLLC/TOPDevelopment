@@ -20,6 +20,7 @@ export function Navigation() {
     { label: "About Us", value: "about", route: "/about_us" },
     { label: "FAQs", value: "faqs", route: "/faq" },
     { label: "Contact", value: "contact", route: "/contact_us" },
+    { label: "Login or Sign Up", value: "login", route: "/login" },
   ];
 
   const handleNavigation = (route: string) => {
