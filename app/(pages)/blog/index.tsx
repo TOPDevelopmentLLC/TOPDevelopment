@@ -17,7 +17,10 @@ const Blog = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isAuthenticated || !wwApiToken) return;
+    if (!isAuthenticated || !wwApiToken) {
+      setIsLoading(false);
+      return;
+    }
 
     const fetchPosts = async () => {
       try {
