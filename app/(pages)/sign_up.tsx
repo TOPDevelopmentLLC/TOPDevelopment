@@ -54,7 +54,7 @@ const SignUp = () => {
       );
 
       if (response.status === 200 || response.status === 201) {
-        login(response.data.token, response.data.userId, response.data.email, response.data.role);
+        login(response.data.token, response.data.userId, response.data.email, response.data.role, response.data.wwApiToken ?? null);
         toast.success('Account created successfully!');
         router.push('/dashboard' as any);
       }
