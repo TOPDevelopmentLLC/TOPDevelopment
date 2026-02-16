@@ -11,20 +11,23 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 const Blog = () => {
-  const { isAuthenticated, userId } = useAuth();
+  const { isAuthenticated, wwApiToken } = useAuth();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isAuthenticated || !userId) return;
+    if (!isAuthenticated || !wwApiToken) return;
 
     const fetchPosts = async () => {
       try {
         const response = await axios.get(
-          `https://api.thatoneprogrammer.dev/api/v1/blogs/user/${userId}`,
+          'https://api.thatoneprogrammer.dev/api/v1/blogs',
           {
             params: { page: 0, size: 10 },
+            headers: {
+              'WW-API-TOKEN': wwApiToken,
+            },
             timeout: 10000,
           }
         );
@@ -38,7 +41,7 @@ const Blog = () => {
     };
 
     fetchPosts();
-  }, [isAuthenticated, userId]);
+  }, [isAuthenticated, wwApiToken]);
 
   if (!isAuthenticated) {
     return <Redirect href="/login" />;
