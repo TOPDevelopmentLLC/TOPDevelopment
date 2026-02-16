@@ -11,7 +11,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 const Dashboard = () => {
-  const { userId, email, role, isAuthenticated, logout } = useAuth();
+  const { email, isAuthenticated, logout } = useAuth();
 
   if (!isAuthenticated) {
     return <Redirect href="/login" />;
@@ -33,31 +33,11 @@ const Dashboard = () => {
 
               <View style={styles.infoRow}>
                 <IconContainer
-                  iconProps={{ name: 'badge', size: 24, color: Colors.brand.primary, type: IconType.MaterialIcons }}
-                />
-                <View style={styles.infoTextContainer}>
-                  <Text style={styles.infoLabel}>User ID</Text>
-                  <Text style={styles.infoValue}>{userId}</Text>
-                </View>
-              </View>
-
-              <View style={styles.infoRow}>
-                <IconContainer
                   iconProps={{ name: 'email', size: 24, color: Colors.brand.primary, type: IconType.MaterialIcons }}
                 />
                 <View style={styles.infoTextContainer}>
                   <Text style={styles.infoLabel}>Email</Text>
                   <Text style={styles.infoValue}>{email}</Text>
-                </View>
-              </View>
-
-              <View style={styles.infoRow}>
-                <IconContainer
-                  iconProps={{ name: 'shield', size: 24, color: Colors.brand.primary, type: IconType.MaterialIcons }}
-                />
-                <View style={styles.infoTextContainer}>
-                  <Text style={styles.infoLabel}>Role</Text>
-                  <Text style={styles.infoValue}>{role}</Text>
                 </View>
               </View>
             </CardContent>
