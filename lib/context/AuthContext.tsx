@@ -6,13 +6,14 @@ type Role = 'ADMIN' | 'USER';
 
 interface AuthState {
   token: string | null;
+  userId: string | null;
   email: string | null;
   role: Role | null;
   isAuthenticated: boolean;
 }
 
 interface AuthContextType extends AuthState {
-  login: (token: string, email: string, role: Role) => void;
+  login: (token: string, userId: string, email: string, role: Role) => void;
   logout: () => void;
 }
 
@@ -20,6 +21,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
   token: 'auth_token',
+  userId: 'auth_user_id',
   email: 'auth_email',
   role: 'auth_role',
 };
@@ -46,6 +48,7 @@ function removeStoredValue(key: string): void {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [authState, setAuthState] = useState<AuthState>({
     token: null,
+    userId: null,
     email: null,
     role: null,
     isAuthenticated: false,
@@ -53,12 +56,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const token = getStoredValue(STORAGE_KEYS.token);
+    const userId = getStoredValue(STORAGE_KEYS.userId);
     const email = getStoredValue(STORAGE_KEYS.email);
     const role = getStoredValue(STORAGE_KEYS.role) as Role | null;
 
-    if (token && email && role) {
+    if (token && userId && email && role) {
       setAuthState({
         token,
+        userId,
         email,
         role,
         isAuthenticated: true,
@@ -66,13 +71,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const login = (token: string, email: string, role: Role) => {
+  const login = (token: string, userId: string, email: string, role: Role) => {
     setStoredValue(STORAGE_KEYS.token, token);
+    setStoredValue(STORAGE_KEYS.userId, userId);
     setStoredValue(STORAGE_KEYS.email, email);
     setStoredValue(STORAGE_KEYS.role, role);
 
     setAuthState({
       token,
+      userId,
       email,
       role,
       isAuthenticated: true,
@@ -81,11 +88,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     removeStoredValue(STORAGE_KEYS.token);
+    removeStoredValue(STORAGE_KEYS.userId);
     removeStoredValue(STORAGE_KEYS.email);
     removeStoredValue(STORAGE_KEYS.role);
 
     setAuthState({
       token: null,
+      userId: null,
       email: null,
       role: null,
       isAuthenticated: false,

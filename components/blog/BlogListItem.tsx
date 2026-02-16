@@ -19,24 +19,14 @@ export function BlogListItem({ post, onPress }: BlogListItemProps) {
     >
       <Card style={styles.card}>
         <CardContent style={styles.cardContent}>
-          <View style={styles.categoryBadge}>
-            <Text style={styles.categoryText}>{post.category}</Text>
-          </View>
           <Text style={styles.title}>{post.title}</Text>
-          <Text style={styles.excerpt}>{post.excerpt}</Text>
           <View style={styles.meta}>
-            <View style={styles.metaItem}>
-              <IconContainer
-                iconProps={{ name: 'person', size: 14, color: Colors.text.secondary, type: IconType.MaterialIcons }}
-              />
-              <Text style={styles.metaText}>{post.author}</Text>
-            </View>
             <View style={styles.metaItem}>
               <IconContainer
                 iconProps={{ name: 'calendar-today', size: 14, color: Colors.text.secondary, type: IconType.MaterialIcons }}
               />
               <Text style={styles.metaText}>
-                {new Date(post.date).toLocaleDateString('en-US', {
+                {new Date(post.createdAt).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'short',
                   day: 'numeric',
@@ -71,32 +61,12 @@ const styles = StyleSheet.create({
   cardContent: {
     padding: Spacing.xl * 2,
   },
-  categoryBadge: {
-    alignSelf: 'flex-start',
-    backgroundColor: 'rgba(234, 35, 32, 0.15)',
-    borderRadius: 20,
-    paddingVertical: Spacing.xs,
-    paddingHorizontal: Spacing.md,
-    marginBottom: Spacing.md,
-  },
-  categoryText: {
-    fontSize: Typography.xs,
-    fontFamily: FontFamily.secondary,
-    color: Colors.brand.primary,
-    fontWeight: '500',
-  },
   title: {
     fontSize: Typography.xl,
     fontFamily: FontFamily.primary,
     color: Colors.text.primary,
     fontWeight: '500',
     marginBottom: Spacing.sm,
-  },
-  excerpt: {
-    fontSize: Typography.base,
-    fontFamily: FontFamily.secondary,
-    color: Colors.text.secondary,
-    marginBottom: Spacing.lg,
   },
   meta: {
     flexDirection: 'row',

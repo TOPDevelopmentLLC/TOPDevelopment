@@ -49,7 +49,7 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        login(response.data.token, response.data.email, response.data.role);
+        login(response.data.token, response.data.userId, response.data.email, response.data.role);
         toast.success('Logged in successfully!');
         router.push('/dashboard' as any);
       }

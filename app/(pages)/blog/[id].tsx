@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { PrimaryButton } from 'components/buttons/PrimaryButton';
 import { BasePage } from 'components/layout/BasePage';
 import { HeroSection } from 'components/layout/HeroSection';
@@ -6,20 +7,53 @@ import { Typography } from 'constants/globalStyles';
 import { Colors, FontFamily, Spacing } from 'constants/theme';
 import { Redirect, router, useLocalSearchParams } from 'expo-router';
 import { useAuth } from 'lib/context/AuthContext';
-import { blogPosts } from 'lib/data/blog';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { BlogPostDetail } from 'lib/data/blog';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import Markdown from 'react-native-markdown-display';
 
-const BlogDetail = () => {
+const BlogDetailPage = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { isAuthenticated } = useAuth();
+  const [post, setPost] = useState<BlogPostDetail | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!isAuthenticated || !id) return;
+
+    const fetchPost = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.thatoneprogrammer.dev/api/v1/blogs/${id}`,
+          { timeout: 10000 }
+        );
+        setPost(response.data);
+      } catch (err: any) {
+        console.error('Failed to fetch blog post:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [isAuthenticated, id]);
 
   if (!isAuthenticated) {
     return <Redirect href="/login" />;
   }
 
-  const post = blogPosts.find((p) => p.id === id);
+  if (isLoading) {
+    return (
+      <BasePage>
+        <HeroSection badge="Blog" title="Loading..." subtitle="" />
+        <View style={styles.contentSection}>
+          <View style={styles.centered}>
+            <ActivityIndicator size="large" color={Colors.brand.primary} />
+          </View>
+        </View>
+      </BasePage>
+    );
+  }
 
   if (!post) {
     return (
@@ -40,7 +74,7 @@ const BlogDetail = () => {
     );
   }
 
-  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+  const formattedDate = new Date(post.createdAt).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -49,9 +83,9 @@ const BlogDetail = () => {
   return (
     <BasePage>
       <HeroSection
-        badge={post.category}
+        badge="Blog"
         title={post.title}
-        subtitle={`By ${post.author} · ${formattedDate}`}
+        subtitle={`By ${post.authorEmail} · ${formattedDate}`}
       />
 
       <View style={styles.contentSection}>
@@ -61,7 +95,7 @@ const BlogDetail = () => {
               <IconContainer
                 iconProps={{ name: 'person', size: 16, color: Colors.text.secondary, type: IconType.MaterialIcons }}
               />
-              <Text style={styles.metaText}>{post.author}</Text>
+              <Text style={styles.metaText}>{post.authorEmail}</Text>
             </View>
             <View style={styles.metaItem}>
               <IconContainer
@@ -223,6 +257,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
     alignSelf: 'center',
   },
+  centered: {
+    alignItems: 'center',
+    paddingVertical: Spacing.xl * 2,
+  },
   metaRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -248,4 +286,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BlogDetail;
+export default BlogDetailPage;
