@@ -5,8 +5,7 @@ import { HeroSection } from 'components/layout/HeroSection';
 import IconContainer, { IconType } from 'components/utils/IconContainer';
 import { Typography } from 'constants/globalStyles';
 import { Colors, FontFamily, Spacing } from 'constants/theme';
-import { Redirect, router, useLocalSearchParams } from 'expo-router';
-import { useAuth } from 'lib/context/AuthContext';
+import { router, useLocalSearchParams } from 'expo-router';
 import { BlogPostDetail } from 'lib/data/blog';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
@@ -14,12 +13,11 @@ import Markdown from 'react-native-markdown-display';
 
 const BlogDetailPage = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { isAuthenticated } = useAuth();
   const [post, setPost] = useState<BlogPostDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!isAuthenticated || !id) return;
+    if (!id) return;
 
     const fetchPost = async () => {
       try {
@@ -36,11 +34,7 @@ const BlogDetailPage = () => {
     };
 
     fetchPost();
-  }, [isAuthenticated, id]);
-
-  if (!isAuthenticated) {
-    return <Redirect href="/login" />;
-  }
+  }, [id]);
 
   if (isLoading) {
     return (
