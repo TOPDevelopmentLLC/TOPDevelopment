@@ -9,7 +9,6 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { BlogPostDetail } from 'lib/data/blog';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import Markdown from 'react-native-markdown-display';
 
 const BlogDetailPage = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -99,9 +98,11 @@ const BlogDetailPage = () => {
             </View>
           </View>
 
-          <Markdown style={markdownStyles}>
-            {post.content}
-          </Markdown>
+          <style dangerouslySetInnerHTML={{ __html: blogContentStyles }} />
+          <div
+            className="blog-content"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
 
           <View style={styles.backButton}>
             <PrimaryButton onPress={() => router.push('/blog' as any)}>
@@ -114,132 +115,132 @@ const BlogDetailPage = () => {
   );
 };
 
-const markdownStyles = StyleSheet.create({
-  body: {
-    color: Colors.text.primary,
-    fontFamily: FontFamily.secondary,
-    fontSize: Typography.base,
-    lineHeight: 28,
-  },
-  heading1: {
-    color: Colors.text.primary,
-    fontFamily: FontFamily.primary,
-    fontSize: Typography['2xl'],
-    fontWeight: 'bold',
-    marginTop: Spacing.xl * 2,
-    marginBottom: Spacing.lg,
-  },
-  heading2: {
-    color: Colors.text.primary,
-    fontFamily: FontFamily.primary,
-    fontSize: Typography.xl,
-    fontWeight: 'bold',
-    marginTop: Spacing.xl * 1.5,
-    marginBottom: Spacing.md,
-  },
-  heading3: {
-    color: Colors.text.primary,
-    fontFamily: FontFamily.primary,
-    fontSize: Typography.lg,
-    fontWeight: '500',
-    marginTop: Spacing.xl,
-    marginBottom: Spacing.sm,
-  },
-  paragraph: {
-    color: Colors.text.primary,
-    fontFamily: FontFamily.secondary,
-    fontSize: Typography.base,
-    lineHeight: 28,
-    marginBottom: Spacing.md,
-  },
-  strong: {
-    fontWeight: 'bold',
-    color: Colors.text.primary,
-  },
-  em: {
-    fontStyle: 'italic',
-    color: Colors.text.secondary,
-  },
-  link: {
-    color: Colors.brand.primary,
-    textDecorationLine: 'underline',
-  },
-  blockquote: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    borderLeftWidth: 4,
-    borderLeftColor: Colors.brand.primary,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
-    marginVertical: Spacing.md,
-  },
-  code_inline: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    color: Colors.brand.primary,
-    fontFamily: 'monospace',
-    paddingHorizontal: Spacing.xs,
-    borderRadius: 4,
-  },
-  code_block: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: Spacing.md,
-    fontFamily: 'monospace',
-    fontSize: Typography.sm,
-    color: Colors.text.primary,
-  },
-  fence: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: Spacing.md,
-    fontFamily: 'monospace',
-    fontSize: Typography.sm,
-    color: Colors.text.primary,
-    marginVertical: Spacing.md,
-  },
-  bullet_list: {
-    marginBottom: Spacing.md,
-  },
-  ordered_list: {
-    marginBottom: Spacing.md,
-  },
-  list_item: {
-    color: Colors.text.primary,
-    fontFamily: FontFamily.secondary,
-    fontSize: Typography.base,
-    marginBottom: Spacing.xs,
-  },
-  hr: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    height: 1,
-    marginVertical: Spacing.xl,
-  },
-  table: {
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginVertical: Spacing.md,
-  },
-  thead: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-  },
-  th: {
-    color: Colors.text.primary,
-    fontFamily: FontFamily.secondary,
-    fontWeight: 'bold',
-    padding: Spacing.sm,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-  },
-  td: {
-    color: Colors.text.secondary,
-    fontFamily: FontFamily.secondary,
-    padding: Spacing.sm,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-  },
-});
+const blogContentStyles = `
+  .blog-content {
+    color: ${Colors.text.primary};
+    font-family: ${FontFamily.secondary};
+    font-size: ${Typography.base}px;
+    line-height: 1.75;
+  }
+  .blog-content h1 {
+    color: ${Colors.text.primary};
+    font-family: ${FontFamily.primary};
+    font-size: ${Typography['2xl']}px;
+    font-weight: bold;
+    margin-top: ${Spacing.xl * 2}px;
+    margin-bottom: ${Spacing.lg}px;
+  }
+  .blog-content h2 {
+    color: ${Colors.text.primary};
+    font-family: ${FontFamily.primary};
+    font-size: ${Typography.xl}px;
+    font-weight: bold;
+    margin-top: ${Spacing.xl * 1.5}px;
+    margin-bottom: ${Spacing.md}px;
+  }
+  .blog-content h3 {
+    color: ${Colors.text.primary};
+    font-family: ${FontFamily.primary};
+    font-size: ${Typography.lg}px;
+    font-weight: 500;
+    margin-top: ${Spacing.xl}px;
+    margin-bottom: ${Spacing.sm}px;
+  }
+  .blog-content p {
+    color: ${Colors.text.primary};
+    font-family: ${FontFamily.secondary};
+    font-size: ${Typography.base}px;
+    line-height: 1.75;
+    margin-bottom: ${Spacing.md}px;
+  }
+  .blog-content strong {
+    font-weight: bold;
+    color: ${Colors.text.primary};
+  }
+  .blog-content em {
+    font-style: italic;
+    color: ${Colors.text.secondary};
+  }
+  .blog-content a {
+    color: ${Colors.brand.primary};
+    text-decoration: underline;
+  }
+  .blog-content blockquote {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left: 4px solid ${Colors.brand.primary};
+    padding: ${Spacing.md}px ${Spacing.lg}px;
+    margin: ${Spacing.md}px 0;
+  }
+  .blog-content code {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: ${Colors.brand.primary};
+    font-family: monospace;
+    padding: 2px ${Spacing.xs}px;
+    border-radius: 4px;
+  }
+  .blog-content pre {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: ${Spacing.md}px;
+    font-family: monospace;
+    font-size: ${Typography.sm}px;
+    color: ${Colors.text.primary};
+    margin: ${Spacing.md}px 0;
+    overflow-x: auto;
+  }
+  .blog-content pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
+  }
+  .blog-content ul, .blog-content ol {
+    margin-bottom: ${Spacing.md}px;
+    padding-left: ${Spacing.xl}px;
+  }
+  .blog-content li {
+    color: ${Colors.text.primary};
+    font-family: ${FontFamily.secondary};
+    font-size: ${Typography.base}px;
+    margin-bottom: ${Spacing.xs}px;
+  }
+  .blog-content hr {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    height: 1px;
+    margin: ${Spacing.xl}px 0;
+  }
+  .blog-content table {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin: ${Spacing.md}px 0;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .blog-content thead {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  .blog-content th {
+    color: ${Colors.text.primary};
+    font-family: ${FontFamily.secondary};
+    font-weight: bold;
+    padding: ${Spacing.sm}px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .blog-content td {
+    color: ${Colors.text.secondary};
+    font-family: ${FontFamily.secondary};
+    padding: ${Spacing.sm}px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .blog-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: ${Spacing.md}px 0;
+  }
+`;
 
 const styles = StyleSheet.create({
   contentSection: {
