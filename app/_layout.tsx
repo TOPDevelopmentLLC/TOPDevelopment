@@ -3,6 +3,7 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { Toaster } from 'components/feedback/sonner';
+import { AuthProvider } from 'lib/context/AuthContext';
 import 'react-native-reanimated';
 
 export default function RootLayout() {
@@ -18,12 +19,14 @@ export default function RootLayout() {
   if (!loaded && !error) return null;
 
   return (
-    <ThemeProvider value={DefaultTheme}>
-      <Stack screenOptions={{
-          headerShown: false
-        }}/>
-      <Toaster position="top-center" theme="dark" />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider value={DefaultTheme}>
+        <Stack screenOptions={{
+            headerShown: false
+          }}/>
+        <Toaster position="top-center" theme="dark" />
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

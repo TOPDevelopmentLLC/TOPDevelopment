@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
-import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
-import { router, usePathname } from 'expo-router';
 import { Sheet, SheetContent, SheetTrigger } from 'components/layout/sheet';
-import { Colors, Spacing, FontFamily } from 'constants/theme';
-import { Typography } from 'constants/globalStyles';
 import IconContainer, { IconType } from 'components/utils/IconContainer';
+import { Typography } from 'constants/globalStyles';
+import { Colors, FontFamily, Spacing } from 'constants/theme';
+import { router, usePathname } from 'expo-router';
+import { useAuth } from 'lib/context/AuthContext';
+import React, { useState } from 'react';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 const topLogo = require('assets/images/top_development_logo.png');
 
 export function Navigation() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { isAuthenticated } = useAuth();
 
   const menuItems = [
-    { label: "Home", value: "home", route: "/home" },
-    { label: "Services", value: "services", route: "/services" },
-    { label: "Products", value: "products", route: "/products" },
-    { label: "Pricing", value: "pricing", route: "/pricing" },
-    { label: "About Us", value: "about", route: "/about_us" },
-    { label: "FAQs", value: "faqs", route: "/faq" },
-    { label: "Contact", value: "contact", route: "/contact_us" },
+    ...(!isAuthenticated
+      ? [
+        { label: "Login or Sign Up", value: "login", route: "/login" },
+        { label: "Home", value: "home", route: "/home" },
+        { label: "Services", value: "services", route: "/services" },
+        { label: "Products", value: "products", route: "/products" },
+        { label: "Pricing", value: "pricing", route: "/pricing" },
+        { label: "About Us", value: "about", route: "/about_us" },
+        { label: "FAQs", value: "faqs", route: "/faq" },
+      ]
+      : [
+        { label: "Dashboard", value: "dashboard", route: "/dashboard" },
+        { label: "Blog", value: "blog", route: "/blog" },
+      ]),
+      { label: "Contact", value: "contact", route: "/contact_us" },
   ];
 
   const handleNavigation = (route: string) => {
