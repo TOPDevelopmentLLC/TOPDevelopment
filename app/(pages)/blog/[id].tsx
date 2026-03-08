@@ -91,7 +91,7 @@ const BlogDetailPage = () => {
   if (isLoading) {
     return (
       <BasePage>
-        <HeroSection badge="Blog" title="Loading..." subtitle="" />
+        <HeroSection badge={undefined} title="Loading..." subtitle="" />
         <View style={styles.contentSection}>
           <View style={styles.centered}>
             <ActivityIndicator size="large" color={Colors.brand.primary} />
@@ -105,7 +105,7 @@ const BlogDetailPage = () => {
     return (
       <BasePage>
         <HeroSection
-          badge="Blog"
+          badge={undefined}
           title="Post Not Found"
           subtitle="The blog post you're looking for doesn't exist"
         />
@@ -129,7 +129,7 @@ const BlogDetailPage = () => {
   return (
     <BasePage>
       <HeroSection
-        badge="Blog"
+        badge={undefined}
         title={isEditing ? '' : post.title}
         subtitle={isEditing ? '' : `By ${post.authorEmail} · ${formattedDate}`}
       />
