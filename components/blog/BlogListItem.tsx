@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.1)',
     borderWidth: 1,
     width: '100%',
-    maxWidth: 350,
-    minWidth: 280,
+    maxWidth: 450,
+    minWidth: 350,
   },
   cardPressed: {
     opacity: 0.8,
