@@ -10,11 +10,12 @@ interface AuthState {
   email: string | null;
   role: Role | null;
   wwApiToken: string | null;
+  topDevWebsiteUrl: string | null;
   isAuthenticated: boolean;
 }
 
 interface AuthContextType extends AuthState {
-  login: (token: string, userId: string, email: string, role: Role, wwApiToken: string | null) => void;
+  login: (token: string, userId: string, email: string, role: Role, wwApiToken: string | null, topDevWebsiteUrl: string | null) => void;
   setWwApiToken: (wwApiToken: string) => void;
   logout: () => void;
 }
@@ -27,6 +28,7 @@ const STORAGE_KEYS = {
   email: 'auth_email',
   role: 'auth_role',
   wwApiToken: 'auth_ww_api_token',
+  topDevWebsiteUrl: 'auth_top_dev_website_url',
 };
 
 function getStoredValue(key: string): string | null {
@@ -55,6 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     email: null,
     role: null,
     wwApiToken: null,
+    topDevWebsiteUrl: null,
     isAuthenticated: false,
   });
 
@@ -64,6 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const email = getStoredValue(STORAGE_KEYS.email);
     const role = getStoredValue(STORAGE_KEYS.role) as Role | null;
     const wwApiToken = getStoredValue(STORAGE_KEYS.wwApiToken);
+    const topDevWebsiteUrl = getStoredValue(STORAGE_KEYS.topDevWebsiteUrl);
 
     if (token && userId && email && role) {
       setAuthState({
@@ -72,12 +76,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         email,
         role,
         wwApiToken,
+        topDevWebsiteUrl,
         isAuthenticated: true,
       });
     }
   }, []);
 
-  const login = (token: string, userId: string, email: string, role: Role, wwApiToken: string | null) => {
+  const login = (token: string, userId: string, email: string, role: Role, wwApiToken: string | null, topDevWebsiteUrl: string | null) => {
     setStoredValue(STORAGE_KEYS.token, token);
     setStoredValue(STORAGE_KEYS.userId, userId);
     setStoredValue(STORAGE_KEYS.email, email);
@@ -87,6 +92,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } else {
       removeStoredValue(STORAGE_KEYS.wwApiToken);
     }
+    if (topDevWebsiteUrl) {
+      setStoredValue(STORAGE_KEYS.topDevWebsiteUrl, topDevWebsiteUrl);
+    } else {
+      removeStoredValue(STORAGE_KEYS.topDevWebsiteUrl);
+    }
 
     setAuthState({
       token,
@@ -94,6 +104,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       email,
       role,
       wwApiToken,
+      topDevWebsiteUrl,
       isAuthenticated: true,
     });
   };
@@ -109,6 +120,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     removeStoredValue(STORAGE_KEYS.email);
     removeStoredValue(STORAGE_KEYS.role);
     removeStoredValue(STORAGE_KEYS.wwApiToken);
+    removeStoredValue(STORAGE_KEYS.topDevWebsiteUrl);
 
     setAuthState({
       token: null,
@@ -116,6 +128,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       email: null,
       role: null,
       wwApiToken: null,
+      topDevWebsiteUrl: null,
       isAuthenticated: false,
     });
 

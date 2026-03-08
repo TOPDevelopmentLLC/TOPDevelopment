@@ -13,7 +13,7 @@ import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { toast } from 'sonner';
 
 const AccountDetails = () => {
-  const { email, token, wwApiToken, isAuthenticated, setWwApiToken } = useAuth();
+  const { email, token, wwApiToken, topDevWebsiteUrl, isAuthenticated, setWwApiToken } = useAuth();
   const [isGenerating, setIsGenerating] = useState(false);
   const [showToken, setShowToken] = useState(false);
 
@@ -85,6 +85,16 @@ const AccountDetails = () => {
                 <View style={styles.infoTextContainer}>
                   <Text style={styles.infoLabel}>Email</Text>
                   <Text style={styles.infoValue}>{email}</Text>
+                </View>
+              </View>
+
+              <View style={styles.infoRow}>
+                <IconContainer
+                  iconProps={{ name: 'language', size: 24, color: Colors.brand.primary, type: IconType.MaterialIcons }}
+                />
+                <View style={styles.infoTextContainer}>
+                  <Text style={styles.infoLabel}>Domain</Text>
+                  <Text style={styles.infoValue}>{topDevWebsiteUrl ?? 'Not set'}</Text>
                 </View>
               </View>
             </CardContent>
