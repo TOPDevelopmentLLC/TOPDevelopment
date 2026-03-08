@@ -76,6 +76,22 @@ const AccountDetails = () => {
         <View style={styles.contentContainer}>
           <Card style={styles.infoCard}>
             <CardContent style={styles.infoCardContent}>
+              <Text style={styles.cardTitle}>Account Information</Text>
+
+              <View style={styles.infoRow}>
+                <IconContainer
+                  iconProps={{ name: 'email', size: 24, color: Colors.brand.primary, type: IconType.MaterialIcons }}
+                />
+                <View style={styles.infoTextContainer}>
+                  <Text style={styles.infoLabel}>Email</Text>
+                  <Text style={styles.infoValue}>{email}</Text>
+                </View>
+              </View>
+            </CardContent>
+          </Card>
+
+          <Card style={styles.infoCard}>
+            <CardContent style={styles.infoCardContent}>
               <Text style={styles.cardTitle}>Integrations</Text>
 
               <View style={styles.integrationRow}>
@@ -150,6 +166,25 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: Spacing.sm,
     textAlign: 'center',
+  },
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.md,
+  },
+  infoTextContainer: {
+    flex: 1,
+  },
+  infoLabel: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+  },
+  infoValue: {
+    fontSize: Typography.lg,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    fontWeight: '500',
   },
   integrationRow: {
     flexDirection: 'row',
