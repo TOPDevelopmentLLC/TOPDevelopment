@@ -17,6 +17,7 @@ interface AuthState {
 interface AuthContextType extends AuthState {
   login: (token: string, userId: string, email: string, role: Role, wwApiToken: string | null, topDevWebsiteUrl: string | null) => void;
   setWwApiToken: (wwApiToken: string) => void;
+  setTopDevWebsiteUrl: (topDevWebsiteUrl: string) => void;
   logout: () => void;
 }
 
@@ -114,6 +115,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setAuthState((prev) => ({ ...prev, wwApiToken }));
   };
 
+  const setTopDevWebsiteUrl = (topDevWebsiteUrl: string) => {
+    setStoredValue(STORAGE_KEYS.topDevWebsiteUrl, topDevWebsiteUrl);
+    setAuthState((prev) => ({ ...prev, topDevWebsiteUrl }));
+  };
+
   const logout = () => {
     removeStoredValue(STORAGE_KEYS.token);
     removeStoredValue(STORAGE_KEYS.userId);
@@ -136,7 +142,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ ...authState, login, setWwApiToken, logout }}>
+    <AuthContext.Provider value={{ ...authState, login, setWwApiToken, setTopDevWebsiteUrl, logout }}>
       {children}
     </AuthContext.Provider>
   );

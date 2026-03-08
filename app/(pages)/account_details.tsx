@@ -9,13 +9,16 @@ import { Colors, FontFamily, Spacing } from 'constants/theme';
 import { Redirect } from 'expo-router';
 import { useAuth } from 'lib/context/AuthContext';
 import React, { useState } from 'react';
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { toast } from 'sonner';
 
 const AccountDetails = () => {
-  const { email, token, wwApiToken, topDevWebsiteUrl, isAuthenticated, setWwApiToken } = useAuth();
+  const { email, token, wwApiToken, topDevWebsiteUrl, isAuthenticated, setWwApiToken, setTopDevWebsiteUrl } = useAuth();
   const [isGenerating, setIsGenerating] = useState(false);
   const [showToken, setShowToken] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editDomain, setEditDomain] = useState(topDevWebsiteUrl ?? '');
+  const [isSaving, setIsSaving] = useState(false);
 
   if (!isAuthenticated) {
     return <Redirect href="/login" />;
@@ -62,6 +65,43 @@ const AccountDetails = () => {
     }
   };
 
+  const handleEditToggle = () => {
+    if (isEditing) {
+      setEditDomain(topDevWebsiteUrl ?? '');
+    }
+    setIsEditing(!isEditing);
+  };
+
+  const handleSaveDomain = async () => {
+    setIsSaving(true);
+    try {
+      await axios.put(
+        'https://api.thatoneprogrammer.dev/api/v1/auth/update',
+        { topDevWebsiteUrl: editDomain },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          timeout: 10000,
+        }
+      );
+      setTopDevWebsiteUrl(editDomain);
+      setIsEditing(false);
+      toast.success('Domain updated successfully!');
+    } catch (error: any) {
+      let errorMessage = 'Failed to update domain';
+      if (error.code === 'ECONNABORTED') {
+        errorMessage = 'Request Timeout - Please Try Again';
+      } else if (error.response) {
+        errorMessage = `Error: ${error.response.status}`;
+      }
+      toast.error(errorMessage);
+      console.error('Domain update error:', error);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   const maskedToken = wwApiToken ? '•'.repeat(wwApiToken.length) : '';
 
   return (
@@ -76,7 +116,26 @@ const AccountDetails = () => {
         <View style={styles.contentContainer}>
           <Card style={styles.infoCard}>
             <CardContent style={styles.infoCardContent}>
-              <Text style={styles.cardTitle}>Account Information</Text>
+              <View style={styles.cardTitleRow}>
+                <Text style={styles.cardTitle}>Account Information</Text>
+                {!isEditing ? (
+                  <Pressable onPress={handleEditToggle} style={styles.editButton}>
+                    <IconContainer
+                      iconProps={{ name: 'edit', size: 18, color: Colors.brand.primary, type: IconType.MaterialIcons }}
+                    />
+                    <Text style={styles.editButtonText}>Edit</Text>
+                  </Pressable>
+                ) : (
+                  <View style={styles.editActions}>
+                    <Pressable onPress={handleEditToggle} style={styles.cancelButton}>
+                      <Text style={styles.cancelButtonText}>Cancel</Text>
+                    </Pressable>
+                    <Pressable onPress={handleSaveDomain} style={styles.saveButton} disabled={isSaving}>
+                      <Text style={styles.saveButtonText}>{isSaving ? 'Saving...' : 'Save'}</Text>
+                    </Pressable>
+                  </View>
+                )}
+              </View>
 
               <View style={styles.infoRow}>
                 <IconContainer
@@ -94,7 +153,17 @@ const AccountDetails = () => {
                 />
                 <View style={styles.infoTextContainer}>
                   <Text style={styles.infoLabel}>Domain</Text>
-                  <Text style={styles.infoValue}>{topDevWebsiteUrl ?? 'Not set'}</Text>
+                  {isEditing ? (
+                    <TextInput
+                      style={styles.domainInput}
+                      value={editDomain}
+                      onChangeText={setEditDomain}
+                      placeholder="Enter domain"
+                      placeholderTextColor={Colors.text.secondary}
+                    />
+                  ) : (
+                    <Text style={styles.infoValue}>{topDevWebsiteUrl ?? 'Not set'}</Text>
+                  )}
                 </View>
               </View>
             </CardContent>
@@ -169,13 +238,78 @@ const styles = StyleSheet.create({
     padding: Spacing.xl * 2,
     gap: Spacing.xl,
   },
+  cardTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: Spacing.sm,
+  },
   cardTitle: {
     fontSize: Typography['2xl'],
     fontFamily: FontFamily.primary,
     color: Colors.text.primary,
     fontWeight: '500',
-    marginBottom: Spacing.sm,
+    flex: 1,
     textAlign: 'center',
+  },
+  editButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.xs,
+    paddingVertical: Spacing.xs,
+    paddingHorizontal: Spacing.md,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Colors.brand.primary,
+  },
+  editButtonText: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.brand.primary,
+    fontWeight: '500',
+  },
+  editActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  cancelButton: {
+    paddingVertical: Spacing.xs,
+    paddingHorizontal: Spacing.md,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  cancelButtonText: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    fontWeight: '500',
+  },
+  saveButton: {
+    paddingVertical: Spacing.xs,
+    paddingHorizontal: Spacing.md,
+    borderRadius: 8,
+    backgroundColor: Colors.brand.primary,
+  },
+  saveButtonText: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    fontWeight: '500',
+  },
+  domainInput: {
+    fontSize: Typography.lg,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    fontWeight: '500',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.md,
+    marginTop: Spacing.xs,
   },
   infoRow: {
     flexDirection: 'row',
