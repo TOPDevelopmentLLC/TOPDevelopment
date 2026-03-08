@@ -15,6 +15,7 @@ import { toast } from 'sonner';
 const AccountDetails = () => {
   const { email, token, wwApiToken, isAuthenticated, setWwApiToken } = useAuth();
   const [isGenerating, setIsGenerating] = useState(false);
+  const [showToken, setShowToken] = useState(false);
 
   if (!isAuthenticated) {
     return <Redirect href="/login" />;
@@ -61,6 +62,8 @@ const AccountDetails = () => {
     }
   };
 
+  const maskedToken = wwApiToken ? '•'.repeat(wwApiToken.length) : '';
+
   return (
     <BasePage>
       <HeroSection
@@ -75,27 +78,43 @@ const AccountDetails = () => {
             <CardContent style={styles.infoCardContent}>
               <Text style={styles.cardTitle}>Integrations</Text>
 
-              <Text style={styles.integrationSubtitle}>Word Wolf</Text>
-              <Text style={styles.integrationDescription}>
-                Generate an API token to connect your TOP Development account with Word Wolf. Copy the token below and paste it into your Word Wolf account integrations.
-              </Text>
-
-              {wwApiToken ? (
-                <View style={styles.tokenSection}>
-                  <Text style={styles.infoLabel}>Your API Token</Text>
-                  <Pressable onPress={handleCopyToken} style={styles.tokenContainer}>
-                    <Text style={styles.tokenText} numberOfLines={1}>{wwApiToken}</Text>
-                    <IconContainer
-                      iconProps={{ name: 'content-copy', size: 20, color: Colors.brand.primary, type: IconType.MaterialIcons }}
-                    />
-                  </Pressable>
-                  <Text style={styles.tokenHint}>Tap to copy, then paste into Word Wolf account integrations</Text>
+              <View style={styles.integrationRow}>
+                <View style={styles.integrationInfo}>
+                  <Text style={styles.integrationSubtitle}>Word Wolf</Text>
+                  <Text style={styles.integrationDescription}>
+                    Generate an API token to connect your TOP Development account with Word Wolf. Copy the token and paste it into your Word Wolf account integrations.
+                  </Text>
                 </View>
-              ) : (
-                <PrimaryButton onPress={handleGenerateWwToken} style={styles.generateButton}>
-                  {isGenerating ? 'Generating...' : 'Generate Word Wolf Token'}
-                </PrimaryButton>
-              )}
+
+                {wwApiToken ? (
+                  <View style={styles.tokenSection}>
+                    <View style={styles.tokenContainer}>
+                      <Text style={styles.tokenText} numberOfLines={1}>
+                        {showToken ? wwApiToken : maskedToken}
+                      </Text>
+                      <Pressable onPress={() => setShowToken(!showToken)}>
+                        <IconContainer
+                          iconProps={{
+                            name: showToken ? 'visibility-off' : 'visibility',
+                            size: 20,
+                            color: Colors.text.secondary,
+                            type: IconType.MaterialIcons,
+                          }}
+                        />
+                      </Pressable>
+                      <Pressable onPress={handleCopyToken}>
+                        <IconContainer
+                          iconProps={{ name: 'content-copy', size: 20, color: Colors.brand.primary, type: IconType.MaterialIcons }}
+                        />
+                      </Pressable>
+                    </View>
+                  </View>
+                ) : (
+                  <PrimaryButton onPress={handleGenerateWwToken} style={styles.generateButton}>
+                    {isGenerating ? 'Generating...' : 'Generate Token'}
+                  </PrimaryButton>
+                )}
+              </View>
             </CardContent>
           </Card>
         </View>
@@ -110,7 +129,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     width: '100%',
-    maxWidth: 500,
+    maxWidth: 900,
     paddingHorizontal: Spacing.lg,
     alignSelf: 'center',
     gap: Spacing.xl,
@@ -130,6 +149,16 @@ const styles = StyleSheet.create({
     color: Colors.text.primary,
     fontWeight: '500',
     marginBottom: Spacing.sm,
+    textAlign: 'center',
+  },
+  integrationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.xl,
+  },
+  integrationInfo: {
+    flex: 1,
+    gap: Spacing.xs,
   },
   integrationSubtitle: {
     fontSize: Typography.lg,
@@ -138,15 +167,10 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   integrationDescription: {
-    fontSize: Typography.base,
-    fontFamily: FontFamily.secondary,
-    color: Colors.text.secondary,
-    lineHeight: 24,
-  },
-  infoLabel: {
     fontSize: Typography.sm,
     fontFamily: FontFamily.secondary,
     color: Colors.text.secondary,
+    lineHeight: 20,
   },
   tokenSection: {
     gap: Spacing.sm,
@@ -163,20 +187,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
   },
   tokenText: {
-    flex: 1,
-    fontSize: Typography.base,
+    fontSize: Typography.sm,
     fontFamily: 'monospace',
     color: Colors.text.primary,
+    minWidth: 200,
   },
-  tokenHint: {
-    fontSize: Typography.sm,
-    fontFamily: FontFamily.secondary,
-    color: Colors.text.secondary,
-    fontStyle: 'italic',
-  },
-  generateButton: {
-    width: '100%',
-  },
+  generateButton: {},
 });
 
 export default AccountDetails;
