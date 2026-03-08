@@ -27,6 +27,7 @@ export function Navigation() {
       ]
       : [
         { label: "Dashboard", value: "dashboard", route: "/dashboard" },
+        { label: "Account Details", value: "account_details", route: "/account_details" },
         { label: "Blog", value: "blog", route: "/blog" },
       ]),
       { label: "Contact", value: "contact", route: "/contact_us" },
