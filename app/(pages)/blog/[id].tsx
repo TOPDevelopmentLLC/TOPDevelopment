@@ -6,14 +6,21 @@ import IconContainer, { IconType } from 'components/utils/IconContainer';
 import { Typography } from 'constants/globalStyles';
 import { Colors, FontFamily, Spacing } from 'constants/theme';
 import { router, useLocalSearchParams } from 'expo-router';
+import { useAuth } from 'lib/context/AuthContext';
 import { BlogPostDetail } from 'lib/data/blog';
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { toast } from 'sonner';
 
 const BlogDetailPage = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { isAuthenticated, token } = useAuth();
   const [post, setPost] = useState<BlogPostDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -34,6 +41,52 @@ const BlogDetailPage = () => {
 
     fetchPost();
   }, [id]);
+
+  const handleEditToggle = () => {
+    if (!post) return;
+    if (isEditing) {
+      // Cancel — reset content
+      if (contentRef.current) {
+        contentRef.current.innerHTML = post.content;
+      }
+      setEditTitle(post.title);
+    } else {
+      setEditTitle(post.title);
+    }
+    setIsEditing(!isEditing);
+  };
+
+  const handleSave = async () => {
+    if (!post || !contentRef.current) return;
+    setIsSaving(true);
+    try {
+      const updatedContent = contentRef.current.innerHTML;
+      await axios.put(
+        `https://api.thatoneprogrammer.dev/api/v1/blogs/${id}`,
+        { title: editTitle, content: updatedContent },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          timeout: 10000,
+        }
+      );
+      setPost({ ...post, title: editTitle, content: updatedContent });
+      setIsEditing(false);
+      toast.success('Blog post updated successfully!');
+    } catch (error: any) {
+      let errorMessage = 'Failed to update blog post';
+      if (error.code === 'ECONNABORTED') {
+        errorMessage = 'Request Timeout - Please Try Again';
+      } else if (error.response) {
+        errorMessage = `Error: ${error.response.status}`;
+      }
+      toast.error(errorMessage);
+      console.error('Blog update error:', error);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -77,12 +130,47 @@ const BlogDetailPage = () => {
     <BasePage>
       <HeroSection
         badge="Blog"
-        title={post.title}
-        subtitle={`By ${post.authorEmail} · ${formattedDate}`}
+        title={isEditing ? '' : post.title}
+        subtitle={isEditing ? '' : `By ${post.authorEmail} · ${formattedDate}`}
       />
 
       <View style={styles.contentSection}>
         <View style={styles.contentContainer}>
+          {/* Edit controls for authenticated users */}
+          {isAuthenticated && (
+            <View style={styles.editBar}>
+              {!isEditing ? (
+                <Pressable onPress={handleEditToggle} style={styles.editButton}>
+                  <IconContainer
+                    iconProps={{ name: 'edit', size: 18, color: Colors.brand.primary, type: IconType.MaterialIcons }}
+                  />
+                  <Text style={styles.editButtonText}>Edit Post</Text>
+                </Pressable>
+              ) : (
+                <View style={styles.editActions}>
+                  <Pressable onPress={handleEditToggle} style={styles.cancelButton}>
+                    <Text style={styles.cancelButtonText}>Cancel</Text>
+                  </Pressable>
+                  <Pressable onPress={handleSave} style={styles.saveButton} disabled={isSaving}>
+                    <Text style={styles.saveButtonText}>{isSaving ? 'Saving...' : 'Save'}</Text>
+                  </Pressable>
+                </View>
+              )}
+            </View>
+          )}
+
+          {/* Editable title */}
+          {isEditing && (
+            <TextInput
+              style={styles.titleInput}
+              value={editTitle}
+              onChangeText={setEditTitle}
+              placeholder="Blog post title"
+              placeholderTextColor={Colors.text.secondary}
+              multiline
+            />
+          )}
+
           <View style={styles.metaRow}>
             <View style={styles.metaItem}>
               <IconContainer
@@ -98,9 +186,12 @@ const BlogDetailPage = () => {
             </View>
           </View>
 
-          <style dangerouslySetInnerHTML={{ __html: blogContentStyles }} />
+          <style dangerouslySetInnerHTML={{ __html: blogContentStyles + (isEditing ? editingStyles : '') }} />
           <div
-            className="blog-content"
+            ref={contentRef}
+            className={`blog-content${isEditing ? ' blog-content-editing' : ''}`}
+            contentEditable={isEditing}
+            suppressContentEditableWarning
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
@@ -242,6 +333,20 @@ const blogContentStyles = `
   }
 `;
 
+const editingStyles = `
+  .blog-content-editing {
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: ${Spacing.lg}px;
+    background-color: rgba(255, 255, 255, 0.03);
+    min-height: 300px;
+  }
+  .blog-content-editing:focus {
+    border-color: ${Colors.brand.primary};
+  }
+`;
+
 const styles = StyleSheet.create({
   contentSection: {
     paddingVertical: Spacing.xl * 2,
@@ -255,6 +360,71 @@ const styles = StyleSheet.create({
   centered: {
     alignItems: 'center',
     paddingVertical: Spacing.xl * 2,
+  },
+  editBar: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: Spacing.xl,
+  },
+  editButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.xs,
+    paddingVertical: Spacing.xs,
+    paddingHorizontal: Spacing.md,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Colors.brand.primary,
+  },
+  editButtonText: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.brand.primary,
+    fontWeight: '500',
+  },
+  editActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  cancelButton: {
+    paddingVertical: Spacing.xs,
+    paddingHorizontal: Spacing.md,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  cancelButtonText: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.secondary,
+    fontWeight: '500',
+  },
+  saveButton: {
+    paddingVertical: Spacing.xs,
+    paddingHorizontal: Spacing.md,
+    borderRadius: 8,
+    backgroundColor: Colors.brand.primary,
+  },
+  saveButtonText: {
+    fontSize: Typography.sm,
+    fontFamily: FontFamily.secondary,
+    color: Colors.text.primary,
+    fontWeight: '500',
+  },
+  titleInput: {
+    fontSize: Typography['2xl'] * 1.5,
+    fontFamily: FontFamily.primary,
+    color: Colors.text.primary,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+    marginBottom: Spacing.xl,
   },
   metaRow: {
     flexDirection: 'row',
