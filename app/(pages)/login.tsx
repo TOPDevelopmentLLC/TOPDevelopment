@@ -10,7 +10,7 @@ import { Colors, FontFamily, Spacing } from 'constants/theme';
 import { router } from 'expo-router';
 import { useAuth } from 'lib/context/AuthContext';
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { toast } from 'sonner';
 
 const Login = () => {
@@ -89,7 +89,7 @@ const Login = () => {
   return (
     <BasePage>
       <HeroSection
-        badge="Login"
+        badge={undefined}
         title="Welcome Back"
         subtitle="Sign in to your account to continue"
       />
@@ -129,14 +129,6 @@ const Login = () => {
                   {isSubmitting ? 'Signing In...' : 'Sign In'}
                 </PrimaryButton>
 
-                <View style={styles.linkContainer}>
-                  <Text style={styles.linkText}>
-                    If you don't have an account,{' '}
-                  </Text>
-                  <Pressable onPress={() => router.push('/sign_up' as any)}>
-                    <Text style={styles.link}>Sign Up instead</Text>
-                  </Pressable>
-                </View>
               </View>
             </CardContent>
           </Card>
@@ -190,23 +182,6 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     width: '100%',
-  },
-  linkContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  linkText: {
-    fontSize: Typography.sm,
-    fontFamily: FontFamily.secondary,
-    color: Colors.text.secondary,
-  },
-  link: {
-    fontSize: Typography.sm,
-    fontFamily: FontFamily.secondary,
-    color: Colors.brand.primary,
-    textDecorationLine: 'underline',
   },
 });
 
