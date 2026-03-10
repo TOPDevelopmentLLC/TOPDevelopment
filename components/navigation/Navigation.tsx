@@ -17,7 +17,6 @@ export function Navigation() {
   const menuItems = [
     ...(!isAuthenticated
       ? [
-        { label: "Login or Sign Up", value: "login", route: "/login" },
         { label: "Home", value: "home", route: "/home" },
         { label: "Services", value: "services", route: "/services" },
         { label: "Products", value: "products", route: "/products" },
@@ -28,6 +27,7 @@ export function Navigation() {
       : [
         { label: "Dashboard", value: "dashboard", route: "/dashboard" },
         { label: "Account Details", value: "account_details", route: "/account_details" },
+        { label: "Admin", value: "admin", route: "/admin" },
       ]),
       { label: "Blog", value: "blog", route: "/blog" },
       { label: "Contact", value: "contact", route: "/contact_us" },
