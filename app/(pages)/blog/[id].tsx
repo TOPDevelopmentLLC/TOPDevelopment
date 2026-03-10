@@ -195,11 +195,13 @@ const BlogDetailPage = () => {
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
-          <View style={styles.backButton}>
-            <PrimaryButton onPress={() => router.push('/blog' as any)}>
-              Back to Blog
-            </PrimaryButton>
-          </View>
+          {!isEditing && (
+            <View style={styles.backButton}>
+              <PrimaryButton onPress={() => router.push('/blog' as any)}>
+                Back to Blog
+              </PrimaryButton>
+            </View>
+          )}
         </View>
       </View>
     </BasePage>
