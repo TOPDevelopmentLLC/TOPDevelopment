@@ -17,7 +17,6 @@ export function Navigation() {
   const menuItems = [
     ...(!isAuthenticated
       ? [
-        { label: "Login or Sign Up", value: "login", route: "/login" },
         { label: "Home", value: "home", route: "/home" },
         { label: "Services", value: "services", route: "/services" },
         { label: "Products", value: "products", route: "/products" },

@@ -14,6 +14,7 @@ export function Footer() {
       about: '/about_us',
       faq: '/faq',
       contact: '/contact_us',
+      login: '/login',
     };
 
     const route = pageMap[page];
@@ -34,6 +35,9 @@ export function Footer() {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Company</Text>
             <View style={styles.linkList}>
+              <Pressable onPress={() => handleNavigate('login')}>
+                <Text style={styles.link}>Login</Text>
+              </Pressable>
               <Pressable onPress={() => handleNavigate('about')}>
                 <Text style={styles.link}>About Us</Text>
               </Pressable>
